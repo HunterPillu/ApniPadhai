@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "402810945313",
+    "firebase_url": "https://apnipadhai-cd554.firebaseio.com",
+    "project_id": "apnipadhai-cd554",
+    "storage_bucket": "apnipadhai-cd554.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:402810945313:android:a25c3c38f21a493b918860",
+        "android_client_info": {
+          "package_name": "com.edu.apnipadhai"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "402810945313-jqam4d44sfv30q3fsrvkkia2og246kvk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.edu.apnipadhai",
+            "certificate_hash": "5abda0ea0fdcc745e0ecfd90f2194c3579c8b98e"
+          }
+        },
+        {
+          "client_id": "402810945313-heejnvis2ukln0en36ooh2sm416j8mos.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQjye7b-6dF7lSkmsYnlSD_MprJOuMEaU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "402810945313-heejnvis2ukln0en36ooh2sm416j8mos.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
