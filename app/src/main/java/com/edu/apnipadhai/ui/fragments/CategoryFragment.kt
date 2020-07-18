@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.covidbeads.app.assesment.util.shortToast
-import com.edu.apnipadhai.MainActivity
+import com.edu.apnipadhai.ui.activity.MainActivity
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.callbacks.ListItemClickListener
 import com.edu.apnipadhai.model.Category

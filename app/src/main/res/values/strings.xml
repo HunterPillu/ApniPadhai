@@ -7,4 +7,14 @@
     <string name="sign_in_cancelled">Sign in cancelled</string>
     <string name="no_internet_connection">No internet connection</string>
     <string name="unknown_error">An unknown error occurred</string>
+
+    <string name="check_to_pass">I accept terms and conditions.</string>
+    <string name="error_message">Please accept terms and conditions first.</string>
+    <string name="launch_intro_activity">Launch intro activity</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="dob">Date of birth</string>
+    <string name="mobile">Mobile no</string>
+    <string name="update">Update</string>
+    <string name="signin">Log-In</string>
 </resources>

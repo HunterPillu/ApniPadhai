@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/user_photo"
+        android:layout_width="@dimen/size_profile_img"
+        android:layout_height="@dimen/size_profile_img"
+        android:layout_margin="@dimen/margin_quarter"
+        android:src="@android:drawable/ic_menu_gallery"
+        app:civ_border_color="@color/colorPrimary"
+        app:civ_border_width="2dp" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/user_name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_edittext"
+            android:hint="@string/name"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/user_id"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_edittext"
+            android:hint="@string/email" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/dob"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_edittext"
+        android:clickable="true"
+        android:focusable="false"
+        android:gravity="center_vertical"
+        android:hint="@string/dob" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/mobile"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_edittext"
+        android:gravity="center_vertical"
+        android:hint="@string/mobile" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/saveBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_half"
+        android:text="@string/signin"
+        android:textAllCaps="false" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

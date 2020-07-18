@@ -3,12 +3,12 @@ package com.edu.apnipadhai.ui.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatButton
 import com.edu.apnipadhai.BuildConfig
-import com.edu.apnipadhai.MainActivity
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.model.User
+import com.edu.apnipadhai.ui.fragments.UserFragment
 import com.edu.apnipadhai.utils.FirebaseData
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.ErrorCodes
@@ -26,7 +26,12 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_intro)
 
-        findViewById<Button>(R.id.btn_start).setOnClickListener {
+        supportFragmentManager.beginTransaction().replace(R.id.container, UserFragment())
+            .addToBackStack(null).commit()
+
+
+
+        findViewById<AppCompatButton>(R.id.btn_start).setOnClickListener {
             startActivityForResult(
                 AuthUI.getInstance()
                     .createSignInIntentBuilder()
@@ -54,7 +59,7 @@ class LoginActivity : AppCompatActivity() {
             // Successfully signed in
             if (resultCode == Activity.RESULT_OK) {
                 val user = User()
-                user.mobile = FirebaseAuth.getInstance().currentUser?.phoneNumber
+                user.mobile = FirebaseAuth.getInstance().currentUser?.phoneNumber!!
                 FirebaseData.updateUserData(user)
                 startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                 finish()
