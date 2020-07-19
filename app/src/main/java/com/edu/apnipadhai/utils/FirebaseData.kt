@@ -105,17 +105,17 @@ object FirebaseData {
         getCategoryRef().addValueEventListener(callback)
     }
 
-    fun getVideos(categoryId: Int, callback: ValueEventListener) {
-        if (categoryId == 1) {
-            getVideosRef().addValueEventListener(callback)
-        } else {
-            getCategoryVideos("$categoryId", callback)
-        }
+    fun getVideos(categoryId: Long, callback: ValueEventListener) {
+        //if (categoryId == 1) {
+        // getVideosRef().addValueEventListener(callback)
+        //} else {
+        getCategoryVideos(categoryId, callback)
+        //}
     }
 
-    fun getCategoryVideos(categoryId: String, callback: ValueEventListener) {
+    fun getCategoryVideos(categoryId: Long, callback: ValueEventListener) {
         //database.getReference().child(CALLS).orderByChild("").equalTo("$categoryId")
-        getVideosRef().orderByChild("categoryId").equalTo(categoryId)
+        getVideosRef().orderByChild("categoryId").equalTo("$categoryId")
             .addValueEventListener(callback)
     }
 }

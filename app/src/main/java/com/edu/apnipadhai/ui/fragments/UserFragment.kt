@@ -23,6 +23,7 @@ import com.edu.apnipadhai.BuildConfig
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.model.User
 import com.edu.apnipadhai.ui.activity.MainActivity
+import com.edu.apnipadhai.utils.Const.COURSE_SELECT
 import com.edu.apnipadhai.utils.Utils.hideKeyboard
 import com.edu.apnipadhai.utils.Utils.showToast
 import com.firebase.ui.auth.AuthUI
@@ -211,6 +212,7 @@ class UserFragment : BaseFragment() {
                     if (userPhotoUri == null) {
                         showToast(context, getString(R.string.user_created_updated))
                         val intent = Intent(activity, MainActivity::class.java)
+                        intent.putExtra(COURSE_SELECT,true)
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                         startActivity(intent)
                     } else {
@@ -224,14 +226,13 @@ class UserFragment : BaseFragment() {
                                     bitmap: Bitmap,
                                     transition: Transition<in Bitmap?>?
                                 ) {
-                                    val baos =
-                                        ByteArrayOutputStream()
+                                    val baos = ByteArrayOutputStream()
                                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
                                     val data = baos.toByteArray()
                                     FirebaseStorage.getInstance().reference
                                         .child("userPhoto/$uid").putBytes(data)
                                     showToast(
-                                        context ,
+                                        context,
                                         "Success to Save."
                                     )
                                 }
