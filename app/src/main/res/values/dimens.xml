@@ -6,6 +6,6 @@
     <dimen name="margin_full">16dp</dimen>
     <dimen name="margin_super">24dp</dimen>
     <dimen name="margin_duper">32dp</dimen>
-    <dimen name="size_profile_img">108dp</dimen>
-    <dimen name="height_edittext">40dp</dimen>
+    <dimen name="size_profile_img">124dp</dimen>
+    <dimen name="height_edittext">48dp</dimen>
 </resources>

@@ -17,4 +17,5 @@
     <string name="mobile">Mobile no</string>
     <string name="update">Update</string>
     <string name="signin">Log-In</string>
+    <string name="user_created_updated">User profile updated successfully</string>
 </resources>

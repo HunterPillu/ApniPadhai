@@ -14,7 +14,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
-import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -23,6 +22,7 @@ import com.bumptech.glide.request.transition.Transition
 import com.edu.apnipadhai.BuildConfig
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.model.User
+import com.edu.apnipadhai.ui.activity.MainActivity
 import com.edu.apnipadhai.utils.Utils.hideKeyboard
 import com.edu.apnipadhai.utils.Utils.showToast
 import com.firebase.ui.auth.AuthUI
@@ -39,7 +39,8 @@ import java.util.*
 class UserFragment : BaseFragment() {
     private val RC_SIGN_IN = 123
     private var userPhoto: CircleImageView? = null
-    private var userId: AppCompatEditText? = null
+
+    //private var userId: AppCompatEditText? = null
     private var userName: AppCompatEditText? = null
     private var userMsg: AppCompatTextView? = null
     private var mobile: AppCompatTextView? = null
@@ -51,8 +52,8 @@ class UserFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_user, container, false)
-        userId = view.findViewById(R.id.user_id)
-        userId?.setEnabled(false)
+        //userId = view.findViewById(R.id.user_id)
+        // userId?.setEnabled(false)
         userName = view.findViewById(R.id.user_name)
         userMsg = view.findViewById(R.id.dob)
         mobile = view.findViewById(R.id.mobile)
@@ -84,7 +85,7 @@ class UserFragment : BaseFragment() {
 
     val userInfoFromServer: Unit
         get() {
-            val user = FirebaseAuth.getInstance().currentUser ?: return; //return if not logged in
+            val user = FirebaseAuth.getInstance().currentUser ?: return //return if not logged in
 
             val uid = user.uid
             val docRef =
@@ -92,9 +93,9 @@ class UserFragment : BaseFragment() {
             docRef.get().addOnSuccessListener { documentSnapshot ->
                 userModel =
                     documentSnapshot.toObject(User::class.java)
-                userId?.setText(userModel!!.uid)
-                userName?.setText(userModel!!.name)
-                userMsg?.setText("${userModel!!.dob}")
+                //userId?.setText(userModel?.uid)
+                userName?.setText(userModel?.name)
+                userMsg?.setText(userModel?.dob)
                 if (userModel!!.photoUrl != null && "" != userModel!!.photoUrl) {
                     Glide.with(context!!)
                         .load(
@@ -117,6 +118,7 @@ class UserFragment : BaseFragment() {
 
     var dobClickListener =
         View.OnClickListener {
+            hideKeyboard(activity!!)
             val picker = DatePickerDialog(
                 requireContext(),
                 onDatePicked,
@@ -137,7 +139,7 @@ class UserFragment : BaseFragment() {
         }
 
     private fun updateLabel() {
-        val myFormat = "MM/dd/yy" //In which you need put here
+        val myFormat = "MM-dd-yyyy" //In which you need put here
         val sdf = SimpleDateFormat(myFormat, Locale.US)
         userMsg?.setText(sdf.format(myCalendar.time))
     }
@@ -194,8 +196,10 @@ class UserFragment : BaseFragment() {
     var saveBtnClickListener =
         View.OnClickListener {
             if (!validateForm()) return@OnClickListener
-            userModel!!.name = userName!!.text.toString()
-            userModel!!.dob = userMsg!!.text.toString().toLong()
+            if (null == userModel) userModel = User()
+            userModel?.name = userName!!.text.toString()
+            userModel?.dob = userMsg!!.text.toString()
+            userModel?.mobile = mobile!!.text.toString()
             val uid = FirebaseAuth.getInstance().currentUser!!.uid
             val db = FirebaseFirestore.getInstance()
             if (userPhotoUri != null) {
@@ -205,16 +209,16 @@ class UserFragment : BaseFragment() {
                 .set(userModel!!)
                 .addOnSuccessListener {
                     if (userPhotoUri == null) {
-                        showToast(
-                            context,
-                            "Success to Save."
-                        )
+                        showToast(context, getString(R.string.user_created_updated))
+                        val intent = Intent(activity, MainActivity::class.java)
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        startActivity(intent)
                     } else {
                         // small image
                         Glide.with(context!!)
                             .asBitmap()
                             .load(userPhotoUri)
-                            .apply(RequestOptions().override(150, 150))
+                            .apply(RequestOptions())//.override(150, 150))
                             .into(object : SimpleTarget<Bitmap?>() {
                                 override fun onResourceReady(
                                     bitmap: Bitmap,
@@ -253,7 +257,7 @@ class UserFragment : BaseFragment() {
             userMsg!!.error = null
         }
 
-        if (null == FirebaseAuth.getInstance().currentUser) {
+        if (null != FirebaseAuth.getInstance().currentUser) {
             mobile!!.error = null
         } else {
             mobile!!.error = "Required."

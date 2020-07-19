@@ -3,7 +3,7 @@ package com.edu.apnipadhai.model
 class User {
     var id = 0
     var name: String = ""
-    var dob: Long = 2000
+    var dob: String = ""
     var email: String? = ""
     var mobile: String = ""
     var uid: String = ""
