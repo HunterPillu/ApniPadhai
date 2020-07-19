@@ -9,6 +9,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Editable
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -174,8 +175,7 @@ class UserFragment : BaseFragment() {
             // Successfully signed in
             if (resultCode == Activity.RESULT_OK) {
                 val user = User()
-
-//                mobile?.text = FirebaseAuth.getInstance().currentUser?.phoneNumber
+                mobile?.setText(FirebaseAuth.getInstance().currentUser?.phoneNumber)
                 /* user.mobile = FirebaseAuth.getInstance().currentUser?.phoneNumber!!
                  FirebaseData.updateUserData(user)
 
