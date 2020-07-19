@@ -5,6 +5,8 @@
     <color name="colorPrimaryDark">#C2185B</color>
     <color name="colorAccent">#880E4F</color>
 
+    <color name="colorPrimaryAlpha">#12E91E63</color>
+
     <color name="card_color_category">#f4f4f4</color>
 
     <color name="first_slide_background">#E91E63</color>
@@ -25,6 +27,12 @@
 
 
     <color name="gray">#A9A9A9</color>
+
+    <color name="alpha_black">#ee000000</color>
+    <color name="alpha_black_light">#55000000</color>
+    <color name="black">#000</color>
+    <color name="text_primary">#484744</color>
+    <color name="text_secondary">#777777</color>
 
     <!--Splash Screen-->
     <item name="splash_background" type="color">@color/colorPrimary</item>

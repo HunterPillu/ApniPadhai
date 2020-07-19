@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/MatchWidth"
+    android:id="@+id/cvMain"
     android:layout_margin="@dimen/margin_half"
     app:cardBackgroundColor="@color/card_color_category">
 
@@ -10,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="72dp"
-        android:paddingHorizontal="16dp">
+        android:paddingHorizontal="@dimen/margin_half">
 
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -25,10 +26,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginHorizontal="8dp"
-
-                android:textColor="#000"
-                android:textSize="16sp"
+                android:layout_marginHorizontal="@dimen/margin_half"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/body_secondary"
                 tools:text="Text" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>

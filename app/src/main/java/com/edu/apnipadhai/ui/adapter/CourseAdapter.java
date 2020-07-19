@@ -1,54 +1,101 @@
 package com.edu.apnipadhai.ui.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.edu.apnipadhai.R;
 import com.edu.apnipadhai.callbacks.ListItemClickListener;
-import com.edu.apnipadhai.model.Category;
+import com.edu.apnipadhai.model.Course;
+import com.edu.apnipadhai.utils.Const;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.RecordViewHolder> {
+public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final String TAG = "SupplierAdapter";
-    private final ListItemClickListener<Category> listener;
-    private List<Category> list;
+    private final ListItemClickListener<Course> listener;
+    private List<Course> list;
+    private int selectedPosition = -1;
+    private int cardSelected, cardUnselected;
 
-    public CourseAdapter(ListItemClickListener<Category> listener) {
+    public CourseAdapter(Context context, ListItemClickListener<Course> listener) {
         this.list = new ArrayList<>();
         this.listener = listener;
+        cardSelected = context.getResources().getColor(R.color.colorPrimary);
+        cardUnselected = context.getResources().getColor(R.color.card_color_category);
     }
 
 
-    public void setList(List<Category> list) {
-        this.list = list;
+    public void setList(List<Course> list) {
+        this.list.addAll(list);
         notifyDataSetChanged();
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return list.get(position).getCourseType();
+
+    }
 
     @NonNull
     @Override
-    public RecordViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View listItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_category, parent, false);
-        return new RecordViewHolder(listItem);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (Const.INSTANCE.getCOURSE_HEADER() == viewType) {
+            View listItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_course_header, parent, false);
+            return new HeaderVH(listItem);
+        } else {
+            View listItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_category, parent, false);
+            return new ItemVH(listItem);
+        }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecordViewHolder holder, int position) {
-        Category vo = list.get(position);
-        holder.tvName.setText(vo.getName());
-        // holder.ivStatus.setImageResource(getStatusImg(vo.fetchStatus()));
-        holder.itemView.setOnClickListener(v -> {
-            listener.onItemClick(vo);
-        });
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        try {
+            Course vo = list.get(position);
+
+            if (vo.getCourseType() == Const.INSTANCE.getCOURSE_ITEM()) {
+                ItemVH vh = (ItemVH) holder;
+                vh.cvMain.setCardBackgroundColor(vo.getSelected() ? cardSelected : cardUnselected);
+                vh.tvName.setText(vo.getName());
+                // holder.ivStatus.setImageResource(getStatusImg(vo.fetchStatus()));
+                vh.itemView.setOnClickListener(v -> {
+                    updatePreviousItem(holder.getAdapterPosition());
+                });
+            } else {
+                HeaderVH vh = (HeaderVH) holder;
+                vh.tvName.setText(vo.getName());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updatePreviousItem(int pos) {
+        if (selectedPosition == -1) {
+            list.get(pos).setSelected(true);
+            selectedPosition = pos;
+            notifyItemChanged(selectedPosition);
+        } else if (pos == selectedPosition) {
+            selectedPosition = -1;
+            list.get(pos).setSelected(false);
+            notifyItemChanged(pos);
+        } else {
+            list.get(selectedPosition).setSelected(false);
+            notifyItemChanged(selectedPosition);
+            list.get(pos).setSelected(true);
+            selectedPosition = pos;
+            notifyItemChanged(selectedPosition);
+        }
     }
 
     @Override
@@ -56,16 +103,33 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.RecordView
         return list.size();
     }
 
+    public int selectedCourseId() {
+        return selectedPosition;
+    }
 
-    public static class RecordViewHolder extends RecyclerView.ViewHolder {
+
+    public static class ItemVH extends RecyclerView.ViewHolder {
         private AppCompatTextView tvName;
-        private AppCompatImageView ivStatus;
+        private CardView cvMain;
 
-        public RecordViewHolder(@NonNull View itemView) {
+        public ItemVH(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tvName);
-            // ivStatus = itemView.findViewById(R.id.ivStatus);
+            cvMain = itemView.findViewById(R.id.cvMain);
 
+        }
+    }
+
+    public static class HeaderVH extends RecyclerView.ViewHolder {
+        private AppCompatTextView tvName;
+
+        public HeaderVH(@NonNull View itemView) {
+            super(itemView);
+            //StaggeredGridLayoutManager.LayoutParams layoutParams = new StaggeredGridLayoutManager.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            //layoutParams.setFullSpan(true);
+            ((StaggeredGridLayoutManager.LayoutParams) itemView.getLayoutParams()).setFullSpan(true);
+            //itemView.setLayoutParams(layoutParams);
+            tvName = itemView.findViewById(R.id.tvName);
         }
     }
 }

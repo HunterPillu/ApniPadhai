@@ -8,24 +8,28 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.covidbeads.app.assesment.util.shortToast
+import com.e.CategoryFragment
 import com.e.VideoFragment
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.callbacks.ListItemClickListener
 import com.edu.apnipadhai.model.Category
+import com.edu.apnipadhai.model.Course
+import com.edu.apnipadhai.ui.activity.BaseActivity
 import com.edu.apnipadhai.ui.activity.MainActivity
 import com.edu.apnipadhai.ui.adapter.CourseAdapter
 import com.edu.apnipadhai.utils.Connectivity
+import com.edu.apnipadhai.utils.Const
 import com.edu.apnipadhai.utils.CustomLog
-import com.edu.apnipadhai.utils.FirebaseData
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
+import com.edu.apnipadhai.utils.Utils
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 
 
-class CourseFragment : BaseFragment(), ListItemClickListener<Category> {
-    private lateinit var item: Category
-    private var adapter: CourseAdapter? = null
+class CourseFragment : BaseFragment(), ListItemClickListener<Course> {
+    var map: HashMap<Int, Course> = HashMap<Int, Course>()
+
+    private lateinit var adapter: CourseAdapter
     private var swipeRefresh: SwipeRefreshLayout? = null
 
     override fun onCreateView(
@@ -41,7 +45,8 @@ class CourseFragment : BaseFragment(), ListItemClickListener<Category> {
         setUpToolbar()
         setRecyclerView()
         //saveCategories()
-        fetchData()
+        fetchData(0)
+        layoutView?.findViewById<View>(R.id.bNext)?.setOnClickListener { goNext() }
         return layoutView
     }
 
@@ -60,7 +65,7 @@ class CourseFragment : BaseFragment(), ListItemClickListener<Category> {
 
     private fun setRecyclerView() {
         val rvRecords: RecyclerView? = layoutView?.findViewById<RecyclerView>(R.id.rvList)
-        adapter = CourseAdapter(this)
+        adapter = CourseAdapter(context, this)
         rvRecords?.adapter = adapter
         swipeRefresh = layoutView?.findViewById<View>(R.id.swipeRefresh) as SwipeRefreshLayout
         //swipeRefresh?.setOnRefreshListener(this)
@@ -98,12 +103,26 @@ class CourseFragment : BaseFragment(), ListItemClickListener<Category> {
 
     }
 
-
-    override fun onRefresh() {
-        fetchData()
+    fun goNext() {
+        val courseId = adapter.selectedCourseId()
+        if (courseId == -1) {
+            Utils.showToast(context,getString(R.string.error_select_course))
+            return
+        }
+        updateSelectedCourse(courseId)
+        (activity as BaseActivity).openFragment(CategoryFragment.newInstance())
     }
 
-    private fun fetchData() {
+
+    fun updateSelectedCourse(courseId: Int) {
+        val map: MutableMap<String, Any> = HashMap()
+        map["courseId"] = courseId
+        FirebaseFirestore.getInstance().collection("users")
+            .document(FirebaseAuth.getInstance().currentUser!!.uid).set(map, SetOptions.merge())
+
+    }
+
+    private fun fetchData(parentID: Int?) {
         CustomLog.e(TAG, "fetchData")
 
         if (!Connectivity.isConnected(context)) {
@@ -116,50 +135,40 @@ class CourseFragment : BaseFragment(), ListItemClickListener<Category> {
         swipeRefresh?.setRefreshing(true)
 
 
-        FirebaseFirestore.getInstance().collection("cities")
-            //.whereEqualTo("id", 0)
+        FirebaseFirestore.getInstance().collection("category")
+            .whereEqualTo("parentId", parentID)
             .get()
             .addOnSuccessListener { documents ->
+
+                val isParentHeader = (parentID == 0)
                 swipeRefresh?.setRefreshing(false)
                 swipeRefresh?.isEnabled = false
 
-                val list: ArrayList<Category?> = ArrayList()
-//                for (postSnapshot in documents) {
-//                    val user: Category? = postSnapshot.getValue(Category::class.java)
-//                    list.add(user)
-//                }
-                adapter!!.setList(list)
+                val list: ArrayList<Course> = ArrayList()
 
-                for (document in documents) {
-                    CustomLog.d(TAG, "${document.id} => ${document.data}")
+                if (!isParentHeader) {
+                    list.add(map[parentID]!!)
                 }
+                for (postSnapshot in documents) {
+                    val course: Course = postSnapshot.toObject(Course::class.java)
+
+                    if (isParentHeader) {
+                        course.courseType = Const.COURSE_HEADER
+                        map[course.id] = course
+                        fetchData(course.id)
+                    } else {
+                        list.add(course)
+                    }
+                }
+                if (!isParentHeader)
+                    adapter.setList(list)
+
             }
             .addOnFailureListener { exception ->
                 swipeRefresh?.setRefreshing(false)
                 swipeRefresh?.isEnabled = false
                 CustomLog.w(TAG, "Error getting documents: ${exception.localizedMessage}")
             }
-
-
-
-        FirebaseData.getCategories(object : ValueEventListener {
-            override fun onCancelled(error: DatabaseError) {
-                CustomLog.e("Upload error:", error.message)
-
-
-            }
-
-            override fun onDataChange(snapshot: DataSnapshot) {
-                swipeRefresh?.setRefreshing(false)
-                swipeRefresh?.isEnabled = false
-                val list: ArrayList<Category?> = ArrayList()
-                for (postSnapshot in snapshot.getChildren()) {
-                    val user: Category? = postSnapshot.getValue(Category::class.java)
-                    list.add(user)
-                }
-                adapter!!.setList(list)
-            }
-        })
     }
 
 
@@ -176,7 +185,7 @@ class CourseFragment : BaseFragment(), ListItemClickListener<Category> {
         }
     }
 
-    override fun onItemClick(item: Category) {
+    override fun onItemClick(item: Course) {
         (activity!! as MainActivity).openFragment(
             VideoFragment.newInstance(item)
         )

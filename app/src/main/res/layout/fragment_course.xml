@@ -25,6 +25,8 @@
             android:id="@+id/rvList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clipChildren="false"
+            android:padding="@dimen/margin_half"
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             app:spanCount="2"
             tools:listitem="@layout/item_category" />
@@ -36,6 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/next"
+        android:id="@+id/bNext"
         android:textAllCaps="false" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>
