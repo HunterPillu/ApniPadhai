@@ -124,10 +124,10 @@ class CourseFragment : BaseFragment(), ListItemClickListener<Category> {
                 swipeRefresh?.isEnabled = false
 
                 val list: ArrayList<Category?> = ArrayList()
-                for (postSnapshot in documents) {
-                    val user: Category? = postSnapshot.getValue(Category::class.java)
-                    list.add(user)
-                }
+//                for (postSnapshot in documents) {
+//                    val user: Category? = postSnapshot.getValue(Category::class.java)
+//                    list.add(user)
+//                }
                 adapter!!.setList(list)
 
                 for (document in documents) {

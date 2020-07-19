@@ -3,6 +3,7 @@ package com.edu.apnipadhai.ui.fragments
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
@@ -12,6 +13,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
@@ -22,6 +24,7 @@ import com.bumptech.glide.request.transition.Transition
 import com.edu.apnipadhai.BuildConfig
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.model.User
+import com.edu.apnipadhai.ui.activity.LoginActivity
 import com.edu.apnipadhai.ui.activity.MainActivity
 import com.edu.apnipadhai.utils.Const.COURSE_SELECT
 import com.edu.apnipadhai.utils.Utils.hideKeyboard
@@ -33,6 +36,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.android.synthetic.main.activity_intro.*
+import kotlinx.android.synthetic.main.custom_toolbar.*
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
@@ -42,11 +47,18 @@ class UserFragment : BaseFragment() {
     private var userPhoto: CircleImageView? = null
 
     //private var userId: AppCompatEditText? = null
-    private var userName: AppCompatEditText? = null
-    private var userMsg: AppCompatTextView? = null
-    private var mobile: AppCompatTextView? = null
+    private var userName: EditText? = null
+    private var userMsg: EditText? = null
+    private var mobile: EditText? = null
     private var userModel: User? = null
     private var userPhotoUri: Uri? = null
+    private lateinit var activity:LoginActivity
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        activity = context as LoginActivity
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -55,6 +67,7 @@ class UserFragment : BaseFragment() {
         val view = inflater.inflate(R.layout.fragment_user, container, false)
         //userId = view.findViewById(R.id.user_id)
         // userId?.setEnabled(false)
+        activity.tvTitle.setText("Profile")
         userName = view.findViewById(R.id.user_name)
         userMsg = view.findViewById(R.id.dob)
         mobile = view.findViewById(R.id.mobile)
@@ -162,7 +175,7 @@ class UserFragment : BaseFragment() {
             if (resultCode == Activity.RESULT_OK) {
                 val user = User()
 
-                mobile?.text = FirebaseAuth.getInstance().currentUser?.phoneNumber
+//                mobile?.text = FirebaseAuth.getInstance().currentUser?.phoneNumber
                 /* user.mobile = FirebaseAuth.getInstance().currentUser?.phoneNumber!!
                  FirebaseData.updateUserData(user)
 

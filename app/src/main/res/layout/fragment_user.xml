@@ -5,63 +5,131 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/user_photo"
+    <RelativeLayout
         android:layout_width="@dimen/size_profile_img"
         android:layout_height="@dimen/size_profile_img"
-        android:layout_margin="@dimen/margin_quarter"
-        android:src="@android:drawable/ic_menu_gallery"
-        app:civ_border_color="@color/colorPrimary"
-        app:civ_border_width="2dp" />
+        android:layout_marginBottom="@dimen/dp30">
 
-
-    <com.google.android.material.textfield.TextInputLayout
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/user_photo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:src="@drawable/user"
+        app:civ_border_color="@color/colorPrimary"
+        app:civ_border_width="2dp"
+        android:tint="@color/gray"/>
 
-        <androidx.appcompat.widget.AppCompatEditText
+        <ImageView
+            android:id="@+id/iv_image_edit"
+            android:layout_width="@dimen/margin_super"
+            android:layout_height="@dimen/margin_super"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="2dp"
+            android:src="@drawable/camera" />
+
+    </RelativeLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginTop="@dimen/dp30"
+    android:layout_marginLeft="@dimen/margin_medium"
+    android:layout_marginRight="@dimen/margin_medium">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/row_button_height"
+        android:background="@drawable/rounded_edittext"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/margin_half"
+        android:paddingRight="@dimen/margin_half">
+
+        <ImageView
+            android:id="@+id/img1"
+            android:layout_width="@dimen/dp30"
+            android:layout_height="@dimen/dp30"
+            android:src="@drawable/user"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"/>
+
+        <EditText
             android:id="@+id/user_name"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/height_edittext"
-            android:hint="@string/name"
-            android:inputType="text" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="@dimen/row_button_height"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/img1"
+            android:background="@null"
+            android:hint="@string/name" />
 
+    </RelativeLayout>
 
-    <!-- <com.google.android.material.textfield.TextInputLayout
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content">
-
-         <androidx.appcompat.widget.AppCompatEditText
-             android:id="@+id/user_id"
-             android:layout_width="match_parent"
-             android:layout_height="@dimen/height_edittext"
-             android:hint="@string/email" />
-     </com.google.android.material.textfield.TextInputLayout>-->
-
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/dob"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height_edittext"
-        android:clickable="true"
-        android:focusable="false"
+        android:layout_height="@dimen/row_button_height"
+        android:background="@drawable/rounded_edittext"
         android:gravity="center_vertical"
-        android:hint="@string/dob" />
+        android:layout_marginTop="@dimen/margin_full"
+        android:paddingLeft="@dimen/margin_half"
+        android:paddingRight="@dimen/margin_half">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/mobile"
+        <ImageView
+            android:id="@+id/img2"
+            android:layout_width="@dimen/dp30"
+            android:layout_height="@dimen/dp30"
+            android:src="@drawable/calendar"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"/>
+
+        <EditText
+            android:id="@+id/dob"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_button_height"
+            android:layout_toRightOf="@id/img2"
+            android:layout_marginLeft="10dp"
+            android:background="@null"
+            android:hint="@string/dob"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height_edittext"
+        android:layout_height="@dimen/row_button_height"
+        android:background="@drawable/rounded_edittext"
         android:gravity="center_vertical"
-        android:hint="@string/mobile" />
+        android:layout_marginTop="@dimen/margin_full"
+        android:paddingLeft="@dimen/margin_half"
+        android:paddingRight="@dimen/margin_half">
+
+        <ImageView
+            android:id="@+id/img3"
+            android:layout_width="@dimen/dp30"
+            android:layout_height="@dimen/dp30"
+            android:src="@drawable/phone_call"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"/>
+
+        <EditText
+            android:id="@+id/mobile"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_button_height"
+            android:layout_toRightOf="@id/img3"
+            android:layout_marginLeft="10dp"
+            android:background="@null"
+            android:inputType="number"
+            android:hint="@string/mobile"/>
+
+    </RelativeLayout>
+
+</LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/saveBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_half"
+        android:layout_width="@dimen/btn_width"
+        android:layout_height="@dimen/row_button_height"
+        android:layout_marginTop="@dimen/dp40"
         android:text="@string/signin"
-        android:textAllCaps="false" />
+        android:textAllCaps="false"
+        android:visibility="visible" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

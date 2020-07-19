@@ -10,4 +10,11 @@
     <dimen name="height_edittext">48dp</dimen>
     <dimen name="title">20sp</dimen>
     <dimen name="size_toolbar_icon">48dp</dimen>
+    <dimen name="row_button_height">48dp</dimen>
+    <dimen name="btn_width">180dp</dimen>
+
+
+    <dimen name="dp30">20dp</dimen>
+    <dimen name="dp40">40dp</dimen>
+    <dimen name="dp5">5dp</dimen>
 </resources>

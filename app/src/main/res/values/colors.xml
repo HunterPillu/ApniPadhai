@@ -23,6 +23,9 @@
     <color name="custom_slide_buttons">#1A237E</color>
     <color name="white">#ffffff</color>
 
+
+    <color name="gray">#A9A9A9</color>
+
     <!--Splash Screen-->
     <item name="splash_background" type="color">@color/colorPrimary</item>
 </resources>
