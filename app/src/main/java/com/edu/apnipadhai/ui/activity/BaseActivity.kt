@@ -3,7 +3,6 @@ package com.edu.apnipadhai.ui.activity
 import androidx.appcompat.app.AppCompatActivity
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.ui.fragments.BaseFragment
-import com.edu.apnipadhai.ui.fragments.SettingsFrag
 import com.edu.apnipadhai.utils.CustomLog
 import com.google.android.material.snackbar.Snackbar
 

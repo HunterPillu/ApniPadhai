@@ -33,6 +33,7 @@
     <color name="alpha_black_light">#55000000</color>
     <color name="text_primary">#484744</color>
     <color name="text_secondary">#777777</color>
+    <color name="colorLightGray">#d3cdcd</color>
 
     <!--Splash Screen-->
     <item name="splash_background" type="color">@color/colorPrimary</item>

@@ -1,9 +1,11 @@
 package com.edu.apnipadhai.ui.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -31,6 +33,7 @@ class CourseFragment : BaseFragment(), ListItemClickListener<Course> {
 
     private lateinit var adapter: CourseAdapter
     private var swipeRefresh: SwipeRefreshLayout? = null
+    private lateinit var mainActivity : MainActivity
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,9 +54,19 @@ class CourseFragment : BaseFragment(), ListItemClickListener<Course> {
     }
 
     private fun setUpToolbar() {
-        layoutView?.findViewById<AppCompatTextView>(R.id.tvTitle)?.text =
-            getString(R.string.title_select_course)
-        layoutView?.findViewById<View>(R.id.ivBack)?.setOnClickListener { onBackPressed() }
+
+        mainActivity.tvTitle.text = getString(R.string.title_select_course)
+        mainActivity.ivBack.setOnClickListener{ onBackPressed()}
+
+//        layoutView?.findViewById<AppCompatTextView>(R.id.tvTitle)?.text =
+//            getString(R.string.title_select_course)
+//        layoutView?.findViewById<View>(R.id.ivBack)?.setOnClickListener { onBackPressed() }
+    }
+
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mainActivity = context as MainActivity
     }
 
     /* override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -28,9 +28,13 @@
     <string name="title_select_course">Select Course</string>
     <string name="text_course_1">Please select a course so that we can provide most related content for you.</string>
     <string name="next">Next</string>
+    <string name="home">Home</string>
+    <string name="news">News</string>
+    <string name="current_affairs">Current Affairs</string>
+    <string name="profile">Profile</string>
+    <string name="setting">Settings</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="profile">Profile</string>
     <string name="error_select_course">Please select a course</string>
 
 
