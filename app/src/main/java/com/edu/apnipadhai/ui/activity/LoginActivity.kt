@@ -5,6 +5,7 @@ import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatTextView
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.ui.fragments.SettingsFrag
+import com.edu.apnipadhai.ui.fragments.UserFragment
 
 
 class LoginActivity : BaseActivity() {
@@ -22,7 +23,7 @@ class LoginActivity : BaseActivity() {
         ivBack = findViewById(R.id.ivBack)
         tvTitle = findViewById(R.id.tvTitle)
 
-        openFragment(SettingsFrag())
+        openFragment(UserFragment())
     }
 
 }
