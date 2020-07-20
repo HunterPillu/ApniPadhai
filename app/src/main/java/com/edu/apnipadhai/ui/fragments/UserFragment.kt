@@ -3,18 +3,15 @@ package com.edu.apnipadhai.ui.fragments
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
-import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.text.Editable
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
@@ -25,7 +22,6 @@ import com.bumptech.glide.request.transition.Transition
 import com.edu.apnipadhai.BuildConfig
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.model.User
-import com.edu.apnipadhai.ui.activity.LoginActivity
 import com.edu.apnipadhai.ui.activity.MainActivity
 import com.edu.apnipadhai.utils.Const.COURSE_SELECT
 import com.edu.apnipadhai.utils.Utils.hideKeyboard
@@ -37,8 +33,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.activity_intro.*
-import kotlinx.android.synthetic.main.custom_toolbar.*
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
@@ -46,37 +40,29 @@ import java.util.*
 class UserFragment : BaseFragment() {
     private val RC_SIGN_IN = 123
     private var userPhoto: CircleImageView? = null
-
-    //private var userId: AppCompatEditText? = null
-    private var userName: EditText? = null
-    private var userMsg: EditText? = null
-    private var mobile: EditText? = null
+    private var userName: AppCompatEditText? = null
+    private var tvDob: AppCompatTextView? = null
+    private var mobile: AppCompatTextView? = null
     private var userModel: User? = null
     private var userPhotoUri: Uri? = null
-    private lateinit var activity:LoginActivity
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        activity = context as LoginActivity
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_user, container, false)
-        //userId = view.findViewById(R.id.user_id)
-        // userId?.setEnabled(false)
-        activity.tvTitle.setText("Profile")
-        userName = view.findViewById(R.id.user_name)
-        userMsg = view.findViewById(R.id.dob)
-        mobile = view.findViewById(R.id.mobile)
-        userPhoto = view.findViewById(R.id.user_photo)
+        layoutView = inflater.inflate(R.layout.fragment_user, container, false)
+        userName = layoutView?.findViewById(R.id.user_name)
+        tvDob = layoutView?.findViewById(R.id.dob)
+        mobile = layoutView?.findViewById(R.id.mobile)
+        userPhoto = layoutView?.findViewById(R.id.user_photo)
         userPhoto?.setOnClickListener(userPhotoIVClickListener)
-        val saveBtn = view.findViewById<AppCompatButton>(R.id.saveBtn)
-        saveBtn.setOnClickListener(saveBtnClickListener)
-        userMsg?.setOnClickListener(dobClickListener)
+
+        layoutView?.findViewById<AppCompatButton>(R.id.saveBtn)
+            ?.setOnClickListener(saveBtnClickListener)
+        tvDob?.setOnClickListener(dobClickListener)
+        layoutView?.findViewById<View>(R.id.ivBack)?.setOnClickListener { onBackPressed() }
         userInfoFromServer
 
         mobile?.setOnClickListener {
@@ -95,13 +81,23 @@ class UserFragment : BaseFragment() {
                 RC_SIGN_IN
             )
         }
-        return view
+        return layoutView
+    }
+
+    private fun setToolbarTitle(title: String) {
+        layoutView?.findViewById<AppCompatTextView>(R.id.tvTitle)?.text = title
+
     }
 
     val userInfoFromServer: Unit
         get() {
-            val user = FirebaseAuth.getInstance().currentUser ?: return //return if not logged in
-
+            val user = FirebaseAuth.getInstance().currentUser
+            if (user == null) {
+                //return if not logged in
+                setToolbarTitle(getString(R.string.signin))
+                return
+            }
+            setToolbarTitle(getString(R.string.profile))
             val uid = user.uid
             val docRef =
                 FirebaseFirestore.getInstance().collection("users").document(uid)
@@ -110,7 +106,7 @@ class UserFragment : BaseFragment() {
                     documentSnapshot.toObject(User::class.java)
                 //userId?.setText(userModel?.uid)
                 userName?.setText(userModel?.name)
-                userMsg?.setText(userModel?.dob)
+                tvDob?.setText(userModel?.dob)
                 if (userModel!!.photoUrl != null && "" != userModel!!.photoUrl) {
                     Glide.with(context!!)
                         .load(
@@ -156,7 +152,7 @@ class UserFragment : BaseFragment() {
     private fun updateLabel() {
         val myFormat = "MM-dd-yyyy" //In which you need put here
         val sdf = SimpleDateFormat(myFormat, Locale.US)
-        userMsg?.setText(sdf.format(myCalendar.time))
+        tvDob?.setText(sdf.format(myCalendar.time))
     }
 
     override fun onActivityResult(
@@ -212,7 +208,7 @@ class UserFragment : BaseFragment() {
             if (!validateForm()) return@OnClickListener
             if (null == userModel) userModel = User()
             userModel?.name = userName!!.text.toString()
-            userModel?.dob = userMsg!!.text.toString()
+            userModel?.dob = tvDob!!.text.toString()
             userModel?.mobile = mobile!!.text.toString()
             val uid = FirebaseAuth.getInstance().currentUser!!.uid
             val db = FirebaseFirestore.getInstance()
@@ -225,7 +221,7 @@ class UserFragment : BaseFragment() {
                     if (userPhotoUri == null) {
                         showToast(context, getString(R.string.user_created_updated))
                         val intent = Intent(activity, MainActivity::class.java)
-                        intent.putExtra(COURSE_SELECT,true)
+                        intent.putExtra(COURSE_SELECT, true)
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                         startActivity(intent)
                     } else {
@@ -263,12 +259,12 @@ class UserFragment : BaseFragment() {
         } else {
             userName!!.error = null
         }
-        val msgStr = userMsg!!.text.toString()
+        val msgStr = tvDob!!.text.toString()
         if (TextUtils.isEmpty(msgStr)) {
-            userMsg!!.error = "Required."
+            tvDob!!.error = "Required."
             valid = false
         } else {
-            userMsg!!.error = null
+            tvDob!!.error = null
         }
 
         if (null != FirebaseAuth.getInstance().currentUser) {

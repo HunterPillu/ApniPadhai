@@ -16,19 +16,22 @@
     <string name="dob">Date of birth</string>
     <string name="mobile">Mobile no</string>
     <string name="update">Update</string>
-    <string name="signin">Update/SignIn</string>
+    <string name="signinn">Update/SignIn</string>
     <string name="bookmrk">Bookmark</string>
     <string name="notification">Notification</string>
     <string name="shareapp">Share App</string>
     <string name="contact">Contact us</string>
     <string name="Subscribe">Subscribe Now</string>
     <string name="TC">Terms and condition</string>
+    <string name="signin">Sign In</string>
     <string name="user_created_updated">User profile updated successfully</string>
     <string name="title_select_course">Select Course</string>
     <string name="text_course_1">Please select a course so that we can provide most related content for you.</string>
     <string name="next">Next</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="profile">Profile</string>
+    <string name="error_select_course">Please select a course</string>
 
 
 </resources>
