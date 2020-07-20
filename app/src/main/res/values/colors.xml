@@ -25,6 +25,7 @@
 
 
     <color name="gray">#A9A9A9</color>
+    <color name="black">#000000</color>
 
     <!--Splash Screen-->
     <item name="splash_background" type="color">@color/colorPrimary</item>

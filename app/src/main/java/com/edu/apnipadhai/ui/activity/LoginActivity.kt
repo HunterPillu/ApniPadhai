@@ -1,14 +1,10 @@
 package com.edu.apnipadhai.ui.activity
 
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageView
-import android.widget.Toolbar
-import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatTextView
 import com.edu.apnipadhai.R
-import com.edu.apnipadhai.ui.fragments.UserFragment
+import com.edu.apnipadhai.ui.fragments.SettingsFrag
 
 
 class LoginActivity : BaseActivity() {
@@ -26,7 +22,7 @@ class LoginActivity : BaseActivity() {
         ivBack = findViewById(R.id.ivBack)
         tvTitle = findViewById(R.id.tvTitle)
 
-        openFragment(UserFragment())
+        openFragment(SettingsFrag())
     }
 
 }

@@ -3,6 +3,7 @@ package com.edu.apnipadhai.ui.activity
 import androidx.appcompat.app.AppCompatActivity
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.ui.fragments.BaseFragment
+import com.edu.apnipadhai.ui.fragments.SettingsFrag
 import com.edu.apnipadhai.utils.CustomLog
 import com.google.android.material.snackbar.Snackbar
 
@@ -27,7 +28,7 @@ open class BaseActivity : AppCompatActivity() {
         return supportFragmentManager.backStackEntryCount
     }
 
-    fun openFragment(fragment: BaseFragment?) {
+    fun openFragment(fragment: BaseFragment) {
         //this.fragment = fragment
         supportFragmentManager.beginTransaction()
             .replace(R.id.container, fragment!!, Integer.toString(getFragmentCount()))

@@ -89,6 +89,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:17.4.3'
     implementation 'com.google.firebase:firebase-firestore:21.4.3'
     implementation 'com.github.bumptech.glide:glide:4.7.1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
 
     // Firestore FirebaseUI Library

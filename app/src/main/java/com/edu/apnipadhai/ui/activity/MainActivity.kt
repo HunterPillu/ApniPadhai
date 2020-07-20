@@ -1,8 +1,6 @@
 package com.edu.apnipadhai.ui.activity
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import com.e.CategoryFragment
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.ui.fragments.BaseFragment
 import com.edu.apnipadhai.ui.fragments.CourseFragment
