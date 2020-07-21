@@ -81,7 +81,7 @@ class MainActivity : BaseActivity() {
                 }
             }
 
-            false
+            true
         }
     }
 
