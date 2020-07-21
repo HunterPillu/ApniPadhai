@@ -91,12 +91,8 @@ class CategoryFragment : BaseFragment(), ListItemClickListener<Category> {
         })
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
-
     companion object {
-        const val TAG = "SupplierFragment"
+        val TAG = CategoryFragment.javaClass.name
         /* fun newInstance(item: Category): CategoryFragment {
              val fragment = CategoryFragment()
              fragment.item = item

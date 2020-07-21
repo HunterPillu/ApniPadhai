@@ -19,9 +19,4 @@ class SettingsFrag : BaseFragment() {
 
         return layoutView
     }
-
-    override fun onResume() {
-        super.onResume()
-        updateToolbarTitle(getString(R.string.setting))
-    }
 }

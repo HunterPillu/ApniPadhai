@@ -42,7 +42,6 @@ class MainActivity : BaseActivity() {
         super.onBackPressed()
     }
 
-
     private lateinit var fragment1: BaseFragment
     private lateinit var fragment2: BaseFragment
     private lateinit var fragment3: BaseFragment
@@ -66,6 +65,7 @@ class MainActivity : BaseActivity() {
         navView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
+                    updateToolbarTitle(getString(R.string.home))
                     supportFragmentManager.beginTransaction().hide(active).show(fragment1).commit();
                     active = fragment1;
                 }
@@ -76,11 +76,11 @@ class MainActivity : BaseActivity() {
                     Toast.makeText(this, "More selected", Toast.LENGTH_SHORT).show()
                 }
                 R.id.setting -> {
+                    updateToolbarTitle(getString(R.string.setting))
                     supportFragmentManager.beginTransaction().hide(active).show(fragment4).commit();
                     active = fragment4
                 }
             }
-
             true
         }
     }
