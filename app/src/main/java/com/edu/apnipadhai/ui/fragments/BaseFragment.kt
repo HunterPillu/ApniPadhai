@@ -1,19 +1,25 @@
 package com.edu.apnipadhai.ui.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import java.util.*
+import com.edu.apnipadhai.callbacks.FragmentEventListener
 
 open class BaseFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     private var TAG = "BaseFragment"
     var layoutView: View? = null
+    private lateinit var listener: FragmentEventListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        listener = context as FragmentEventListener
+    }
 
     fun onBackPressed() {
         //Log.d(TAG, "total entry = " + activity!!.supportFragmentManager.backStackEntryCount)
@@ -27,5 +33,13 @@ open class BaseFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
     override fun onRefresh() {
         //to be implemented on child childFragment : Supplier, Chat fragment
+    }
+
+    fun openFragment(fragment: BaseFragment) {
+        listener.openFragment(fragment)
+    }
+
+    fun updateToolbarTitle(title: String) {
+        listener.updateToolbarTitle(title)
     }
 }

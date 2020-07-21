@@ -220,10 +220,7 @@ class UserFragment : BaseFragment() {
                 .addOnSuccessListener {
                     if (userPhotoUri == null) {
                         showToast(context, getString(R.string.user_created_updated))
-                        val intent = Intent(activity, MainActivity::class.java)
-                        intent.putExtra(COURSE_SELECT, true)
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                        startActivity(intent)
+                        moveNext()
                     } else {
                         // small image
                         Glide.with(context!!)
@@ -249,6 +246,12 @@ class UserFragment : BaseFragment() {
                     }
                 }
         }
+
+    private fun moveNext() {
+
+        openFragment(CourseFragment.newInstance())
+
+    }
 
     private fun validateForm(): Boolean {
         var valid = true

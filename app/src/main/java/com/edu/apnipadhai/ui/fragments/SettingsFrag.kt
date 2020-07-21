@@ -1,6 +1,5 @@
 package com.edu.apnipadhai.ui.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -29,16 +28,15 @@ class SettingsFrag : BaseFragment() {
         if (null != layoutView) {
             return layoutView
         }
-        setUpToolbar()
         layoutView = inflater.inflate(R.layout.fragment_settings, container, false)
         setRecyclerView()
         return layoutView
     }
 
-    private fun setUpToolbar() {
-        mainActivity.tvTitle.text = getString(R.string.setting)
-        mainActivity.ivBack.setOnClickListener { onBackPressed() }
-    }
+//    private fun setUpToolbar() {
+//        mainActivity.tvTitle.text = getString(R.string.setting)
+//        mainActivity.ivBack.setOnClickListener { onBackPressed() }
+//    }
 
     private fun setRecyclerView() {
         val list = ArrayList<Setting>()
@@ -54,9 +52,5 @@ class SettingsFrag : BaseFragment() {
         rvRecords?.adapter = adapter
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        mainActivity = context as MainActivity
-    }
 
 }

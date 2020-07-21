@@ -2,11 +2,12 @@ package com.edu.apnipadhai.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import com.edu.apnipadhai.R
+import com.edu.apnipadhai.callbacks.FragmentEventListener
 import com.edu.apnipadhai.ui.fragments.BaseFragment
 import com.edu.apnipadhai.utils.CustomLog
 import com.google.android.material.snackbar.Snackbar
 
-open class BaseActivity : AppCompatActivity() {
+open class BaseActivity : AppCompatActivity(), FragmentEventListener {
     private val TAG = "BaseActivity"
 
     override fun onBackPressed() {
@@ -27,10 +28,10 @@ open class BaseActivity : AppCompatActivity() {
         return supportFragmentManager.backStackEntryCount
     }
 
-    fun openFragment(fragment: BaseFragment) {
+    override fun openFragment(fragment: BaseFragment) {
         //this.fragment = fragment
         supportFragmentManager.beginTransaction()
-            .replace(R.id.container, fragment!!, Integer.toString(getFragmentCount()))
+            .replace(R.id.container, fragment, Integer.toString(getFragmentCount()))
             .addToBackStack(null).commit()
     }
 
@@ -44,5 +45,9 @@ open class BaseActivity : AppCompatActivity() {
 
     fun getCurrentFragment(): BaseFragment? {
         return getFragmentAt(getFragmentCount() - 1)
+    }
+
+    override fun updateToolbarTitle(title: String) {
+        //handle this on child class
     }
 }

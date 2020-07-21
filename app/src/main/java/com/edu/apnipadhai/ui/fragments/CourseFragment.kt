@@ -1,22 +1,19 @@
 package com.edu.apnipadhai.ui.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatImageView
-import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.covidbeads.app.assesment.util.shortToast
-import com.e.CategoryFragment
 import com.e.VideoFragment
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.callbacks.ListItemClickListener
 import com.edu.apnipadhai.model.Category
 import com.edu.apnipadhai.model.Course
-import com.edu.apnipadhai.ui.activity.BaseActivity
 import com.edu.apnipadhai.ui.activity.MainActivity
 import com.edu.apnipadhai.ui.adapter.CourseAdapter
 import com.edu.apnipadhai.utils.Connectivity
@@ -33,7 +30,7 @@ class CourseFragment : BaseFragment(), ListItemClickListener<Course> {
 
     private lateinit var adapter: CourseAdapter
     private var swipeRefresh: SwipeRefreshLayout? = null
-    private lateinit var mainActivity : MainActivity
+    private lateinit var mainActivity: MainActivity
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,7 +42,6 @@ class CourseFragment : BaseFragment(), ListItemClickListener<Course> {
         }
 
         layoutView = inflater.inflate(R.layout.fragment_course, container, false)
-        setUpToolbar()
         setRecyclerView()
         //saveCategories()
         fetchData(0)
@@ -53,14 +49,9 @@ class CourseFragment : BaseFragment(), ListItemClickListener<Course> {
         return layoutView
     }
 
-    private fun setUpToolbar() {
-
-        mainActivity.tvTitle.text = getString(R.string.title_select_course)
-        mainActivity.ivBack.setOnClickListener{ onBackPressed()}
-
-//        layoutView?.findViewById<AppCompatTextView>(R.id.tvTitle)?.text =
-//            getString(R.string.title_select_course)
-//        layoutView?.findViewById<View>(R.id.ivBack)?.setOnClickListener { onBackPressed() }
+    override fun onResume() {
+        super.onResume()
+        updateToolbarTitle(getString(R.string.title_select_course))
     }
 
 
@@ -119,11 +110,16 @@ class CourseFragment : BaseFragment(), ListItemClickListener<Course> {
     fun goNext() {
         val courseId = adapter.selectedCourseId()
         if (courseId == -1) {
-            Utils.showToast(context,getString(R.string.error_select_course))
+            Utils.showToast(context, getString(R.string.error_select_course))
             return
         }
         updateSelectedCourse(courseId)
-        (activity as BaseActivity).openFragment(CategoryFragment.newInstance())
+
+
+        val intent = Intent(activity, MainActivity::class.java)
+        intent.putExtra(Const.COURSE_SELECT, true)
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        startActivity(intent)
     }
 
 
