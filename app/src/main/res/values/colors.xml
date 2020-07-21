@@ -34,6 +34,7 @@
     <color name="text_primary">#484744</color>
     <color name="text_secondary">#777777</color>
     <color name="colorLightGray">#d3cdcd</color>
+    <color name="lightGray">#ededed</color>
 
     <!--Splash Screen-->
     <item name="splash_background" type="color">@color/colorPrimary</item>

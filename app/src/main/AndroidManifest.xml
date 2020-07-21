@@ -20,11 +20,11 @@
             android:name=".ui.activity.LoginActivity"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".ui.activity.MainActivity"
+            android:name=".ui.activity.SplashActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activity.SplashActivity"
-            android:theme="@style/SplashScreen">
+            android:name=".ui.activity.MainActivity">
+<!--            android:theme="@style/SplashScreen">-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

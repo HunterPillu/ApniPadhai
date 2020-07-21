@@ -1,247 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.SettingsFrag">
+    tools:context=".ui.fragments.SettingsFrag"
+    android:background="@color/lightGray"
+    android:orientation="vertical">
 
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:scrollbars="vertical">
-
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:orientation="vertical"
-           android:layout_marginTop="30dp"
-           android:layout_marginLeft="@dimen/margin_super"
-           android:layout_marginRight="@dimen/margin_super">
-
-           <RelativeLayout
-               android:layout_width="match_parent"
-               android:layout_height="@dimen/row_button_height"
-               android:background="@drawable/rounded_edittext"
-               android:gravity="center_vertical"
-               android:paddingLeft="@dimen/margin_half"
-               android:paddingRight="@dimen/margin_half">
-
-               <ImageView
-                   android:id="@+id/img1"
-                   android:layout_width="@dimen/dp22"
-                   android:layout_height="@dimen/dp22"
-                   android:src="@drawable/bookmark"
-                   android:layout_alignParentLeft="true"
-                   android:layout_centerVertical="true"
-                   android:layout_marginLeft="@dimen/margin_full"/>
-
-               <TextView
-                   android:id="@+id/user_name"
-                   android:layout_width="match_parent"
-                   android:layout_height="@dimen/row_button_height"
-                   android:layout_marginLeft="@dimen/margin_super"
-                   android:layout_toRightOf="@id/img1"
-                   android:textColor="@color/black"
-                   android:textSize="18sp"
-                   android:text="@string/bookmrk"
-                   android:gravity="center_vertical"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvSetting"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:padding="@dimen/margin_half"
+        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+        app:spanCount="2"
+        tools:listitem="@layout/item_setting"
+        android:background="@color/lightGray"
+        android:layout_weight="1"/>
 
 
-           </RelativeLayout>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-           <RelativeLayout
-               android:layout_width="match_parent"
-               android:layout_height="@dimen/row_button_height"
-               android:layout_marginTop="@dimen/dp30"
-               android:background="@drawable/rounded_edittext"
-               android:gravity="center_vertical"
-               android:paddingLeft="@dimen/margin_half"
-               android:paddingRight="@dimen/margin_half">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_button_height"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/margin_half"
+            android:paddingRight="@dimen/margin_half">
 
-               <ImageView
-                   android:id="@+id/img2"
-                   android:layout_width="@dimen/dp22"
-                   android:layout_height="@dimen/dp22"
-                   android:src="@drawable/bell"
-                   android:layout_alignParentLeft="true"
-                   android:layout_centerVertical="true"
-                   android:layout_marginLeft="@dimen/margin_full"/>
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img1"
+                android:layout_width="@dimen/dp30"
+                android:layout_height="@dimen/dp30"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/document" />
 
-               <TextView
-                   android:layout_width="match_parent"
-                   android:layout_height="@dimen/row_button_height"
-                   android:layout_marginLeft="@dimen/margin_super"
-                   android:layout_toRightOf="@id/img2"
-                   android:textColor="@color/black"
-                   android:textSize="18sp"
-                   android:text="@string/notification"
-                   android:gravity="center_vertical"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/row_button_height"
+                android:layout_marginStart="@dimen/margin_full"
+                android:layout_toEndOf="@id/img1"
+                android:background="@null"
+                android:text="@string/TC"
+                android:textColor="@color/black"
+                android:textSize="@dimen/body_primary"
+                android:gravity="center_vertical"/>
 
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorLightGray"/>
 
-           </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_button_height"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/margin_half"
+            android:paddingRight="@dimen/margin_half">
 
-           <RelativeLayout
-               android:layout_width="match_parent"
-               android:layout_height="@dimen/row_button_height"
-               android:layout_marginTop="@dimen/dp30"
-               android:background="@drawable/rounded_edittext"
-               android:gravity="center_vertical"
-               android:paddingLeft="@dimen/margin_half"
-               android:paddingRight="@dimen/margin_half">
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img2"
+                android:layout_width="@dimen/dp30"
+                android:layout_height="@dimen/dp30"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/exit" />
 
-               <ImageView
-                   android:id="@+id/img3"
-                   android:layout_width="@dimen/dp22"
-                   android:layout_height="@dimen/dp22"
-                   android:src="@drawable/share"
-                   android:layout_alignParentLeft="true"
-                   android:layout_centerVertical="true"
-                   android:layout_marginLeft="@dimen/margin_full"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/row_button_height"
+                android:layout_marginStart="@dimen/margin_full"
+                android:layout_toEndOf="@id/img2"
+                android:background="@null"
+                android:text="@string/signout"
+                android:textColor="@color/black"
+                android:textSize="@dimen/body_primary"
+                android:gravity="center_vertical"/>
 
-               <TextView
-                   android:layout_width="match_parent"
-                   android:layout_height="@dimen/row_button_height"
-                   android:layout_marginLeft="@dimen/margin_super"
-                   android:layout_toRightOf="@id/img3"
-                   android:textColor="@color/black"
-                   android:textSize="18sp"
-                   android:text="@string/shareapp"
-                   android:gravity="center_vertical"/>
-
-
-           </RelativeLayout>
-
-           <RelativeLayout
-               android:layout_width="match_parent"
-               android:layout_height="@dimen/row_button_height"
-               android:layout_marginTop="@dimen/dp30"
-               android:background="@drawable/rounded_edittext"
-               android:gravity="center_vertical"
-               android:paddingLeft="@dimen/margin_half"
-               android:paddingRight="@dimen/margin_half">
-
-               <ImageView
-                   android:id="@+id/img4"
-                   android:layout_width="@dimen/dp22"
-                   android:layout_height="@dimen/dp22"
-                   android:layout_alignParentLeft="true"
-                   android:layout_marginLeft="@dimen/margin_full"
-                   android:src="@drawable/phone"
-                   android:layout_centerVertical="true"/>
-
-               <TextView
-                   android:layout_width="match_parent"
-                   android:layout_height="@dimen/row_button_height"
-                   android:layout_marginLeft="@dimen/margin_super"
-                   android:layout_toRightOf="@id/img4"
-                   android:textColor="@color/black"
-                   android:textSize="18sp"
-                   android:text="@string/contact"
-                   android:gravity="center_vertical"/>
+        </RelativeLayout>
 
 
-           </RelativeLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
-           <RelativeLayout
-               android:layout_width="match_parent"
-               android:layout_height="@dimen/row_button_height"
-               android:layout_marginTop="@dimen/dp30"
-               android:background="@drawable/rounded_edittext"
-               android:gravity="center_vertical"
-               android:paddingLeft="@dimen/margin_half"
-               android:paddingRight="@dimen/margin_half">
-
-               <ImageView
-                   android:id="@+id/img5"
-                   android:layout_width="@dimen/dp22"
-                   android:layout_height="@dimen/dp22"
-                   android:src="@drawable/touch"
-                   android:layout_alignParentLeft="true"
-                   android:layout_centerVertical="true"
-                   android:layout_marginLeft="@dimen/margin_full"/>
-
-               <TextView
-                   android:layout_width="match_parent"
-                   android:layout_height="@dimen/row_button_height"
-                   android:layout_marginLeft="@dimen/margin_super"
-                   android:layout_toRightOf="@id/img5"
-                   android:textColor="@color/black"
-                   android:textSize="18sp"
-                   android:text="@string/Subscribe"
-                   android:gravity="center_vertical"/>
-
-
-           </RelativeLayout>
-
-           <RelativeLayout
-               android:layout_width="match_parent"
-               android:layout_height="@dimen/row_button_height"
-               android:layout_marginTop="@dimen/dp30"
-               android:background="@drawable/rounded_edittext"
-               android:gravity="center_vertical"
-               android:paddingLeft="@dimen/margin_half"
-               android:paddingRight="@dimen/margin_half">
-
-               <ImageView
-                   android:id="@+id/img6"
-                   android:layout_width="@dimen/dp22"
-                   android:layout_height="@dimen/dp22"
-                   android:src="@drawable/document"
-                   android:layout_alignParentLeft="true"
-                   android:layout_centerVertical="true"
-                   android:layout_marginLeft="@dimen/margin_full"/>
-
-               <TextView
-                   android:layout_width="match_parent"
-                   android:layout_height="@dimen/row_button_height"
-                   android:layout_marginLeft="@dimen/margin_super"
-                   android:layout_toRightOf="@id/img6"
-                   android:textColor="@color/black"
-                   android:textSize="18sp"
-                   android:text="@string/TC"
-                   android:gravity="center_vertical"/>
-
-
-           </RelativeLayout>
-
-
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:weightSum="4"
-               android:layout_marginTop="@dimen/dp30">
-
-               <ImageView
-                   android:layout_width="0dp"
-                   android:layout_height="50dp"
-                   android:layout_weight="1"
-                   android:src="@drawable/facebook" />
-
-               <ImageView
-                   android:layout_width="0dp"
-                   android:layout_height="50dp"
-                   android:layout_weight="1"
-                   android:src="@drawable/instaa" />
-
-               <ImageView
-                   android:layout_width="0dp"
-                   android:layout_height="50dp"
-                   android:layout_weight="1"
-                   android:src="@drawable/twitter" />
-
-               <ImageView
-                   android:layout_width="0dp"
-                   android:layout_height="50dp"
-                   android:layout_weight="1"
-                   android:src="@drawable/whatsup" />
-
-           </LinearLayout>
-
-       </LinearLayout>
-
-</ScrollView>
-
-
-
-</RelativeLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

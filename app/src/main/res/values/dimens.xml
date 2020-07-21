@@ -22,7 +22,7 @@
     <dimen name="caption">12sp</dimen>
     <dimen name="caption_mini">10sp</dimen>
 
-
+    <dimen name="dp10">10dp</dimen>
     <dimen name="dp30">20dp</dimen>
     <dimen name="dp22">22dp</dimen>
     <dimen name="dp40">40dp</dimen>
