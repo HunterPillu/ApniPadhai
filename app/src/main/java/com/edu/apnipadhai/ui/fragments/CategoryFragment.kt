@@ -5,12 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.covidbeads.app.assesment.util.shortToast
-import com.edu.apnipadhai.ui.activity.MainActivity
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.callbacks.ListItemClickListener
 import com.edu.apnipadhai.model.Category
+import com.edu.apnipadhai.ui.activity.MainActivity
 import com.edu.apnipadhai.ui.adapter.CategoryAdapter
 import com.edu.apnipadhai.ui.fragments.BaseFragment
 import com.edu.apnipadhai.utils.Connectivity
@@ -24,7 +23,7 @@ import com.google.firebase.database.ValueEventListener
 class CategoryFragment : BaseFragment(), ListItemClickListener<Category> {
     private lateinit var item: Category
     private var adapter: CategoryAdapter? = null
-    private var swipeRefresh: SwipeRefreshLayout? = null
+    // private var swipeRefresh: SwipeRefreshLayout? = null
 
 
     override fun onCreateView(
@@ -53,8 +52,8 @@ class CategoryFragment : BaseFragment(), ListItemClickListener<Category> {
         val rvRecords: RecyclerView? = layoutView?.findViewById<RecyclerView>(R.id.rvSuppliers)
         adapter = CategoryAdapter(this)
         rvRecords?.adapter = adapter
-        swipeRefresh = layoutView?.findViewById<View>(R.id.swipeRefresh) as SwipeRefreshLayout
-        swipeRefresh?.setOnRefreshListener(this)
+        //swipeRefresh = layoutView?.findViewById<View>(R.id.swipeRefresh) as SwipeRefreshLayout
+        //swipeRefresh?.setOnRefreshListener(this)
     }
 
 
@@ -66,21 +65,21 @@ class CategoryFragment : BaseFragment(), ListItemClickListener<Category> {
         CustomLog.e(TAG, "fetchSuppliers")
 
         if (!Connectivity.isConnected(context)) {
-            swipeRefresh!!.isRefreshing = false
+            //swipeRefresh!!.isRefreshing = false
             shortToast(getString(R.string.no_internet_connection))
             return
         }
-        swipeRefresh?.setRefreshing(true)
+        //swipeRefresh?.setRefreshing(true)
 
         FirebaseData.getCategories(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
                 CustomLog.e("Upload error:", error.message)
 
-                swipeRefresh?.setRefreshing(false)
+                // swipeRefresh?.setRefreshing(false)
             }
 
             override fun onDataChange(snapshot: DataSnapshot) {
-                swipeRefresh?.setRefreshing(false)
+                //swipeRefresh?.setRefreshing(false)
                 val list: ArrayList<Category?> = ArrayList()
                 for (postSnapshot in snapshot.getChildren()) {
                     val user: Category? = postSnapshot.getValue(Category::class.java)
@@ -92,7 +91,7 @@ class CategoryFragment : BaseFragment(), ListItemClickListener<Category> {
     }
 
     companion object {
-        val TAG = CategoryFragment.javaClass.name
+        val TAG = "CategoryFragment"
         /* fun newInstance(item: Category): CategoryFragment {
              val fragment = CategoryFragment()
              fragment.item = item

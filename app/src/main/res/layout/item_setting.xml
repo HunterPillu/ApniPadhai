@@ -10,31 +10,30 @@
     android:divider="@android:color/transparent"
     android:dividerHeight="0.0px"
     app:cardBackgroundColor="@color/white"
-    app:cardCornerRadius="@dimen/dp10"
-    app:cardElevation="5dp"
+    app:cardCornerRadius="@dimen/margin_quarter"
+    app:cardElevation="@dimen/setting_item_elevation"
     app:cardPreventCornerOverlap="false">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:minHeight="72dp"
-        android:padding="15dp">
+        android:minHeight="@dimen/setting_item_height"
+        android:padding="@dimen/margin_full">
 
-        <ImageView
-            android:id="@+id/img_icon"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:contentDescription="TODO"
-            android:src="@drawable/news" />
-
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivIcon"
+            android:layout_width="@dimen/setting_item_icon_size"
+            android:layout_height="@dimen/setting_item_icon_size"
+            app:tint="@color/colorPrimaryDark"
+            tools:src="@drawable/news" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/img_icon"
+            android:layout_below="@+id/ivIcon"
             android:layout_centerVertical="true"
-            android:layout_marginTop="@dimen/dp5"
+            android:layout_marginTop="@dimen/margin_quarter"
             android:gravity="center_vertical"
             android:orientation="vertical">
 

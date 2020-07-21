@@ -61,6 +61,8 @@ class MainActivity : BaseActivity() {
             .hide(fragment2).commit();
         supportFragmentManager.beginTransaction().add(R.id.container, fragment1, "1").commit();
 
+        updateToolbarTitle(getString(R.string.home))
+
         navView = findViewById(R.id.nav_view)
         navView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {

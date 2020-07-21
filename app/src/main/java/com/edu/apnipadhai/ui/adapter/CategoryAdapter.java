@@ -37,7 +37,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Record
     @NonNull
     @Override
     public RecordViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View listItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_category, parent, false);
+        View listItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_course, parent, false);
         return new RecordViewHolder(listItem);
     }
 

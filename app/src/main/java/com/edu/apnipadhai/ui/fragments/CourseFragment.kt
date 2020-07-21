@@ -1,6 +1,5 @@
 package com.edu.apnipadhai.ui.fragments
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -30,7 +29,6 @@ class CourseFragment : BaseFragment(), ListItemClickListener<Course> {
 
     private lateinit var adapter: CourseAdapter
     private var swipeRefresh: SwipeRefreshLayout? = null
-    private lateinit var mainActivity: MainActivity
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,12 +50,6 @@ class CourseFragment : BaseFragment(), ListItemClickListener<Course> {
     override fun onResume() {
         super.onResume()
         updateToolbarTitle(getString(R.string.title_select_course))
-    }
-
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        mainActivity = context as MainActivity
     }
 
     /* override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

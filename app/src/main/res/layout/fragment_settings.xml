@@ -4,89 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.SettingsFrag"
     android:background="@color/lightGray"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".ui.fragments.SettingsFrag">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvSetting"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/lightGray"
         android:clipChildren="false"
         android:padding="@dimen/margin_half"
         app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
         app:spanCount="2"
-        tools:listitem="@layout/item_setting"
-        android:background="@color/lightGray"
-        android:layout_weight="1"/>
-
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/row_button_height"
-            android:gravity="center_vertical"
-            android:paddingLeft="@dimen/margin_half"
-            android:paddingRight="@dimen/margin_half">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/img1"
-                android:layout_width="@dimen/dp30"
-                android:layout_height="@dimen/dp30"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/document" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/row_button_height"
-                android:layout_marginStart="@dimen/margin_full"
-                android:layout_toEndOf="@id/img1"
-                android:background="@null"
-                android:text="@string/TC"
-                android:textColor="@color/black"
-                android:textSize="@dimen/body_primary"
-                android:gravity="center_vertical"/>
-
-        </RelativeLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorLightGray"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/row_button_height"
-            android:gravity="center_vertical"
-            android:paddingLeft="@dimen/margin_half"
-            android:paddingRight="@dimen/margin_half">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/img2"
-                android:layout_width="@dimen/dp30"
-                android:layout_height="@dimen/dp30"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/exit" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/row_button_height"
-                android:layout_marginStart="@dimen/margin_full"
-                android:layout_toEndOf="@id/img2"
-                android:background="@null"
-                android:text="@string/signout"
-                android:textColor="@color/black"
-                android:textSize="@dimen/body_primary"
-                android:gravity="center_vertical"/>
-
-        </RelativeLayout>
-
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        tools:listitem="@layout/item_setting" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

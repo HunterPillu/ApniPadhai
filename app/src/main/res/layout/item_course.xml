@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cvMain"
     style="@style/MatchWidth"
-    android:layout_margin="@dimen/margin_half"
-    app:cardBackgroundColor="@color/card_color_category">
+    android:layout_margin="@dimen/margin_quarter"
+    app:cardBackgroundColor="@color/card_color_category"
+    app:cardElevation="@dimen/home_item_elevation">
 
     <RelativeLayout
         android:layout_width="match_parent"
