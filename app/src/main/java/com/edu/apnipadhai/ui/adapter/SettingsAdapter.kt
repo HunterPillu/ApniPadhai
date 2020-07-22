@@ -8,12 +8,13 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.edu.apnipadhai.R
+import com.edu.apnipadhai.callbacks.ListItemClickListener
 import com.edu.apnipadhai.model.Setting
 import com.edu.apnipadhai.ui.adapter.SettingsAdapter.ChildHolder
 import com.edu.apnipadhai.utils.Const.COURSE_ITEM
 import java.util.*
 
-class SettingsAdapter(private val list: ArrayList<Setting>) : RecyclerView.Adapter<ChildHolder>() {
+class SettingsAdapter(private val list: ArrayList<Setting>, private val listener : ListItemClickListener<Setting>) : RecyclerView.Adapter<ChildHolder>() {
     override fun getItemViewType(position: Int): Int {
         return list[position].type
     }
@@ -34,6 +35,11 @@ class SettingsAdapter(private val list: ArrayList<Setting>) : RecyclerView.Adapt
         val setting = list[position]
         holder.tvName.text = setting.name
         holder.ivIcon.setImageResource(setting.id)
+
+        // holder.ivStatus.setImageResource(getStatusImg(vo.fetchStatus()));
+        holder.itemView.setOnClickListener { v: View? ->
+            listener.onItemClick(setting)
+        }
     }
 
     override fun getItemCount(): Int {
