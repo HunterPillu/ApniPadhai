@@ -35,7 +35,6 @@ class SettingsFrag : BaseFragment() {
     private fun setRecyclerView() {
         val list = ArrayList<Setting>()
 
-
         list.add(Setting(R.drawable.bookmark, getString(R.string.bookmrk), Const.COURSE_ITEM))
         list.add(
             Setting(
