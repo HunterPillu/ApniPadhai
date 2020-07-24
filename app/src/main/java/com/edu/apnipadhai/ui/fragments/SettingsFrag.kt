@@ -1,17 +1,19 @@
 package com.edu.apnipadhai.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.edu.apnipadhai.R
+import com.edu.apnipadhai.callbacks.ListItemClickListener
 import com.edu.apnipadhai.model.Setting
 import com.edu.apnipadhai.ui.adapter.SettingsAdapter
 import com.edu.apnipadhai.utils.Const
 
 
-class SettingsFrag : BaseFragment() {
+class SettingsFrag : BaseFragment(), ListItemClickListener<Setting> {
 
     private lateinit var adapter: SettingsAdapter
 
@@ -35,7 +37,6 @@ class SettingsFrag : BaseFragment() {
     private fun setRecyclerView() {
         val list = ArrayList<Setting>()
 
-
         list.add(Setting(R.drawable.bookmark, getString(R.string.bookmrk), Const.COURSE_ITEM))
         list.add(
             Setting(
@@ -51,7 +52,11 @@ class SettingsFrag : BaseFragment() {
         list.add(Setting(R.drawable.document, getString(R.string.TC), Const.COURSE_HEADER))
         list.add(Setting(R.drawable.exit, getString(R.string.signout), Const.COURSE_HEADER))
         val rvRecords = layoutView?.findViewById<RecyclerView>(R.id.rvSetting)
-        adapter = SettingsAdapter(list)
+        adapter = SettingsAdapter(list,this)
         rvRecords?.adapter = adapter
+    }
+
+    override fun onItemClick(item: Setting?) {
+       Log.e("afsdfafd","asfdsfdf")
     }
 }

@@ -20,9 +20,8 @@
             android:name=".ui.activity.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activity.SplashActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/SplashScreen">
+            android:name=".ui.activity.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,7 +29,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.activity.MainActivity">
+        <activity android:name=".ui.activity.SplashActivity">
 
         </activity>
         <activity

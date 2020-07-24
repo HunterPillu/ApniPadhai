@@ -1,10 +1,14 @@
 package com.e
 
+import android.R.attr.button
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.covidbeads.app.assesment.util.shortToast
@@ -21,6 +25,7 @@ import com.edu.apnipadhai.utils.FirebaseData
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+
 
 class VideoFragment : BaseFragment(), ListItemClickListener<Video> {
     private lateinit var item: Category
@@ -43,19 +48,29 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Video> {
         return layoutView
     }
 
-    /* override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
-         setupToolbar()
-         setRecyclerView()
-         fetchSuppliers()
-     }*/
-
     private fun setRecyclerView() {
         val rvRecords: RecyclerView? = layoutView?.findViewById<RecyclerView>(R.id.rvSuppliers)
-        adapter = VideoAdapter(this)
+        adapter = VideoAdapter(this, VideoAdapter.OnChildItemClickListener { video, view ->
+            popupMenus(view)
+        })
         rvRecords?.adapter = adapter
         swipeRefresh = layoutView?.findViewById<View>(R.id.swipeRefresh) as SwipeRefreshLayout
         swipeRefresh?.setOnRefreshListener(this)
+    }
+
+    private fun popupMenus(view: View) {
+        val popup = PopupMenu(context, view)
+        popup.getMenuInflater().inflate(R.menu.video_menu, popup.getMenu())
+        popup.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener {
+            override fun onMenuItemClick(item: MenuItem): Boolean {
+                Toast.makeText(
+                    context, item.getTitle(),
+                    Toast.LENGTH_SHORT
+                ).show()
+                return true
+            }
+        })
+        popup.show()
     }
 
 

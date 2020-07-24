@@ -23,13 +23,18 @@
     <dimen name="caption">12sp</dimen>
     <dimen name="caption_mini">10sp</dimen>
 
+    <dimen name="dp2">2dp</dimen>
     <dimen name="dp10">10dp</dimen>
+    <dimen name="dp15">15dp</dimen>
+    <dimen name="dp18">18dp</dimen>
     <dimen name="dp30">20dp</dimen>
     <dimen name="dp22">22dp</dimen>
+    <dimen name="dp31">30dp</dimen>
     <dimen name="dp40">40dp</dimen>
     <dimen name="dp5">5dp</dimen>
     <dimen name="layout_stroke_default">1dp</dimen>
     <dimen name="layout_corner_radius">@dimen/margin_quarter</dimen>
+    <dimen name="layout_corner_radius2dp">2dp</dimen>
     <dimen name="height_min_item">56dp</dimen>
     <dimen name="height_min_item_2">@dimen/height_min_item</dimen>
     <dimen name="home_header_elevation">0dp</dimen>

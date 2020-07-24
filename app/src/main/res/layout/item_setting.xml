@@ -25,7 +25,6 @@
             android:id="@+id/ivIcon"
             android:layout_width="@dimen/setting_item_icon_size"
             android:layout_height="@dimen/setting_item_icon_size"
-            app:tint="@color/colorPrimaryDark"
             tools:src="@drawable/news" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
