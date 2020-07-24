@@ -4,49 +4,100 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="8dp"
     android:background="#f4f4f4"
-    android:gravity="center_vertical"
-    android:minHeight="72dp"
-    android:paddingHorizontal="16dp">
+    android:gravity="center_vertical">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ivThumbnail"
-        android:layout_width="120dp"
-        android:layout_height="80dp"
-        app:srcCompat="@drawable/logo" />
 
-    <View
-        android:layout_width="120dp"
-        android:layout_height="80dp"
-        android:background="#aa000000" />
+    <RelativeLayout
+        android:id="@+id/rlVideo"
+        android:layout_width="match_parent"
+        android:layout_height="140dp">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivThumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/logo" />
 
-        android:layout_centerVertical="true"
-        android:layout_marginStart="48dp"
-        app:srcCompat="@drawable/play" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtDuration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="@dimen/dp5"
+            android:layout_marginBottom="@dimen/dp5"
+            android:background="@drawable/rounded_black"
+            android:gravity="center"
+            android:paddingLeft="@dimen/margin_quarter"
+            android:paddingRight="@dimen/margin_quarter"
+            android:text="00:00"
+            android:textColor="@color/white"
+            android:textSize="12dp" />
+
+
+    </RelativeLayout>
+
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toEndOf="@+id/ivThumbnail"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
+        android:layout_below="@+id/rlVideo"
+        android:layout_marginStart="@dimen/dp10"
+        android:layout_marginTop="@dimen/dp15"
+        android:layout_marginEnd="@dimen/dp10"
+        android:layout_marginBottom="@dimen/dp30"
+        android:orientation="horizontal">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvName"
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/user_photo"
+            android:layout_width="@dimen/dp31"
+            android:layout_height="@dimen/dp31"
+            android:layout_gravity="start"
+            android:src="@drawable/logo"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="1dp" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginHorizontal="8dp"
+            android:layout_marginLeft="@dimen/dp5"
+            android:layout_marginRight="@dimen/dp5"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-            android:textColor="#000"
-            android:textSize="16sp"
-            tools:text="Text" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/txtOther"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/caption" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgMore"
+            android:layout_width="@dimen/dp31"
+            android:layout_height="@dimen/dp18"
+            android:layout_gravity="end"
+            android:tint="@color/text_secondary"
+            android:src="@drawable/more" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

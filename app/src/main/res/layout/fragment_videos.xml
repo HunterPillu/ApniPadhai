@@ -13,6 +13,7 @@
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:spanCount="2"
+        android:layout_marginTop="@dimen/dp2"
         tools:listitem="@layout/item_video" />
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

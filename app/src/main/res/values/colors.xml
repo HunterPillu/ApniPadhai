@@ -28,6 +28,7 @@
 
     <color name="gray">#A9A9A9</color>
     <color name="black">#000000</color>
+    <color name="black_trans">#CC000000</color>
 
     <color name="alpha_black">#ee000000</color>
     <color name="alpha_black_light">#55000000</color>
