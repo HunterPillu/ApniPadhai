@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.edu.apnipadhai.R;
 import com.edu.apnipadhai.callbacks.ListItemClickListener;
+import com.edu.apnipadhai.callbacks.MenuClickListener;
 import com.edu.apnipadhai.model.Category;
 import com.edu.apnipadhai.model.Video;
 import com.google.firebase.database.snapshot.Index;
@@ -22,9 +23,9 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.RecordViewHo
 
     private final ListItemClickListener<Video> listener;
     private List<Video> list;
-    private OnChildItemClickListener menuListener;
+    private MenuClickListener<Video,View> menuListener;
 
-    public VideoAdapter(ListItemClickListener<Video> listener, OnChildItemClickListener menuListener) {
+    public VideoAdapter(ListItemClickListener<Video> listener, MenuClickListener<Video,View> menuListener) {
         this.list = new ArrayList<>();
         this.listener = listener;
         this.menuListener = menuListener;
@@ -47,21 +48,18 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.RecordViewHo
     @Override
     public void onBindViewHolder(@NonNull RecordViewHolder holder, int position) {
         Video vo = list.get(position);
-        holder.txtTitle.setText(vo.getVideoId());
+        holder.tvTitle.setText(vo.getVideoId());
         StringBuilder builder = new StringBuilder();
         builder.append(vo.getChannel()).append(" ").append(vo.getViews()).append(" ").append(vo.getUploaded()).append(" ").append("months ago");
-        holder.txtOther.setText(builder);
-        holder.txtDuration.setText(vo.getDuration());
+        holder.tvOther.setText(builder);
+        holder.tvDuration.setText(vo.getDuration());
         // holder.ivStatus.setImageResource(getStatusImg(vo.fetchStatus()));
         holder.itemView.setOnClickListener(v -> {
             listener.onItemClick(vo);
         });
 
-        holder.imgMore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                menuListener.onChildItemClick(vo, holder.imgMore);
-            }
+        holder.ivMore.setOnClickListener(v -> {
+            menuListener.itemClick(vo, v);
         });
     }
 
@@ -72,19 +70,15 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.RecordViewHo
 
 
     public static class RecordViewHolder extends RecyclerView.ViewHolder {
-        private AppCompatTextView txtTitle, txtOther,txtDuration;
-        private AppCompatImageView imgMore;
+        private AppCompatTextView tvTitle, tvOther, tvDuration;
+        private AppCompatImageView ivMore;
 
         public RecordViewHolder(@NonNull View itemView) {
             super(itemView);
-            txtTitle = itemView.findViewById(R.id.txtTitle);
-            txtOther = itemView.findViewById(R.id.txtOther);
-            txtDuration = itemView.findViewById(R.id.txtDuration);
-            imgMore = itemView.findViewById(R.id.imgMore);
+            tvTitle = itemView.findViewById(R.id.tvTitle);
+            tvOther = itemView.findViewById(R.id.tvOther);
+            tvDuration = itemView.findViewById(R.id.tvDuration);
+            ivMore = itemView.findViewById(R.id.ivMore);
         }
-    }
-
-    public interface OnChildItemClickListener {
-        void onChildItemClick(Video video, AppCompatImageView view);
     }
 }
