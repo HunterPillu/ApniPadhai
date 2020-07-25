@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <dimen name="min_border_width">1dp</dimen>
+
     <dimen name="margin_quarter">4dp</dimen>
     <dimen name="margin_half">8dp</dimen>
     <dimen name="margin_medium">12dp</dimen>
@@ -9,6 +12,7 @@
 
     <dimen name="size_profile_img">124dp</dimen>
     <dimen name="height_edittext">48dp</dimen>
+    <dimen name="layout_height">140dp</dimen>
 
     <dimen name="size_toolbar_icon">48dp</dimen>
     <dimen name="row_button_height">48dp</dimen>
