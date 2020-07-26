@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchWidth"
+    android:layout_marginHorizontal="@dimen/margin_half"
+    android:layout_marginVertical="@dimen/margin_quarter">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_min_item_2"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="@dimen/margin_half">
+
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/user_photo"
+            android:layout_width="@dimen/margin_duper"
+            android:layout_height="@dimen/margin_duper"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/logo"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="@dimen/min_border_width" />
+
+        <TextView
+            android:id="@+id/tvUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_toRightOf="@+id/user_photo"
+            android:text="vicky Longadge"
+            android:layout_marginLeft="@dimen/margin_quarter"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/see_profile"
+            android:textSize="@dimen/caption"
+            android:layout_toRightOf="@+id/user_photo"
+            android:layout_below="@+id/tvUserName"
+            android:layout_marginLeft="@dimen/margin_quarter"/>
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
+

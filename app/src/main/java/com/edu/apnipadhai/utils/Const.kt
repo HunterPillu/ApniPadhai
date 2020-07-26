@@ -6,4 +6,6 @@ object Const {
     val COURSE_SELECT = "course_selected"
     var INTRO_ENABLE = true
     var SHOW_INTRO_ALWAYS = true && INTRO_ENABLE
+    var YOUTUBE_URL = "http://www.youtube.com/user/Meri%d20padhai"
+    var YOUTUBE_PACKAGE = "com.google.android.youtube"
 }

@@ -46,6 +46,8 @@ class SettingsAdapter(private val list: ArrayList<Setting>, private val listener
         return list.size
     }
 
+
+
     open class ChildHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
         var tvName: AppCompatTextView

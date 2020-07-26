@@ -25,16 +25,16 @@ class SplashActivity : AppCompatActivity() {
         Handler().postDelayed({
             // This method will be executed once the timer is over
             if (!isFinished) {
-
                 val intent: Intent
                 if (FirebaseAuth.getInstance().currentUser != null) {
                     intent = Intent(this@SplashActivity, MainActivity::class.java)
-                } else if (SHOW_INTRO_ALWAYS) {
+                }
+                else if (SHOW_INTRO_ALWAYS) {
                     intent = Intent(this@SplashActivity, IntroActivity::class.java)
-                } else {
+                }
+                else {
                     intent = Intent(this@SplashActivity, LoginActivity::class.java)
                 }
-
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
             }
