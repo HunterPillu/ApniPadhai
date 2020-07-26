@@ -1,7 +1,6 @@
 package com.edu.apnipadhai.utils;
 
-import android.graphics.Bitmap;
-
+import com.edu.apnipadhai.model.VideoModel;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.services.youtube.YouTube;
@@ -19,8 +18,8 @@ public class YouTubeDataEndpoint {
     private static final String APP_NAME = "YouTubePlayer_SampleApp";
     private static final String YOUTUBE_DATA_API_KEY = "AIzaSyAVeTsyAjfpfBBbUQq4E7jooWwtV2D_tjE";
 
-    public static Single<VideoInfo> getVideoInfoFromYouTubeDataAPIs(String videoId) {
-        SingleOnSubscribe<VideoInfo> onSubscribe = emitter -> {
+    public static Single<VideoModel> getVideoInfoFromYouTubeDataAPIs(String videoId) {
+        SingleOnSubscribe<VideoModel> onSubscribe = emitter -> {
             try {
 
                 YouTube youTubeDataAPIEndpoint = buildYouTubeEndpoint();
@@ -28,18 +27,19 @@ public class YouTubeDataEndpoint {
                 YouTube.Videos.List query = buildVideosListQuery(youTubeDataAPIEndpoint, videoId);
                 VideoListResponse videoListResponse = query.execute();
 
-                if(videoListResponse.getItems().size() != 1)
+                if (videoListResponse.getItems().size() != 1)
                     throw new RuntimeException("There should be exactly one video with the specified id");
 
                 Video video = videoListResponse.getItems().get(0);
 
                 String videoTitle = video.getSnippet().getTitle();
-                Bitmap bitmap = NetworkUtils.getBitmapFromURL(video.getSnippet().getThumbnails().getMedium().getUrl());
+                String url = video.getSnippet().getThumbnails().getMedium().getUrl();
+                // Bitmap bitmap = NetworkUtils.getBitmapFromURL(url);
 
                 ChannelListResponse channel = buildChannelsListQuery(youTubeDataAPIEndpoint, video.getSnippet().getChannelId()).execute();
                 String channelTitle = channel.getItems().get(0).getSnippet().getTitle();
 
-                emitter.onSuccess(new VideoInfo(videoTitle, channelTitle, bitmap));
+                emitter.onSuccess(new VideoModel(videoTitle, channelTitle, videoId, url));
 
             } catch (IOException e) {
                 emitter.onError(e);

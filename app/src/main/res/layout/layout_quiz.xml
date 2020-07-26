@@ -1,35 +1,39 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><!--<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/margin_half"
-    app:cardElevation="@dimen/home_header_elevation">
+    app:cardBackgroundColor="@color/card_color_category"
+    app:cardElevation="@dimen/home_header_elevation">-->
+
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchWidth"
+    android:layout_margin="@dimen/margin_half"
+    android:background="@color/card_color_category"
+    android:orientation="vertical"
+    android:padding="@dimen/margin_half">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        style="@style/home_list_header"
+        android:text="@string/header_quiz" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/margin_half">
+        android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            style="@style/home_list_header"
-            android:text="@string/header_quiz" />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvDTS"
+            style="@style/MatchWidth"
+            android:layout_marginHorizontal="@dimen/margin_half"
+            android:layout_marginVertical="@dimen/margin_half"
+            android:layout_weight="1"
+            app:cardElevation="@dimen/home_item_elevation">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cvDTS"
-                style="@style/MatchWidth"
-                android:layout_marginHorizontal="@dimen/margin_half"
-                android:layout_marginVertical="@dimen/margin_half"
-                android:layout_weight="1"
-                app:cardBackgroundColor="@color/card_color_category"
-                app:cardElevation="@dimen/home_item_elevation">
+            <RelativeLayout style="@style/MatchWidth">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/ll3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -50,18 +54,27 @@
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-            </androidx.cardview.widget.CardView>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_item_bottom_divider"
+                    android:layout_below="@+id/ll3"
+                    android:background="@color/bottom_divider_4" />
+            </RelativeLayout>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cvWL"
-                style="@style/MatchWidth"
-                android:layout_marginVertical="@dimen/margin_half"
-                android:layout_marginEnd="@dimen/margin_half"
-                android:layout_weight="1"
-                app:cardBackgroundColor="@color/card_color_category"
-                app:cardElevation="@dimen/home_item_elevation">
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvWL"
+            style="@style/MatchWidth"
+            android:layout_marginVertical="@dimen/margin_half"
+            android:layout_marginEnd="@dimen/margin_half"
+            android:layout_weight="1"
+            app:cardElevation="@dimen/home_item_elevation">
+
+            <RelativeLayout style="@style/MatchWidth">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/ll4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -82,23 +95,33 @@
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-            </androidx.cardview.widget.CardView>
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_item_bottom_divider"
+                    android:layout_below="@+id/ll4"
+                    android:background="@color/bottom_divider_4" />
+            </RelativeLayout>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        </androidx.cardview.widget.CardView>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cvMTS"
-                style="@style/MatchWidth"
-                android:layout_marginHorizontal="@dimen/margin_half"
-                android:layout_marginBottom="@dimen/margin_quarter"
-                android:layout_weight="1"
-                app:cardBackgroundColor="@color/card_color_category"
-                app:cardElevation="@dimen/home_item_elevation">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvMTS"
+            style="@style/MatchWidth"
+            android:layout_marginHorizontal="@dimen/margin_half"
+            android:layout_marginBottom="@dimen/margin_quarter"
+            android:layout_weight="1"
+            app:cardElevation="@dimen/home_item_elevation">
+
+            <RelativeLayout style="@style/MatchWidth">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/ll2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -119,16 +142,27 @@
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-            </androidx.cardview.widget.CardView>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_item_bottom_divider"
+                    android:layout_below="@+id/ll2"
+                    android:background="@color/bottom_divider_4" />
+            </RelativeLayout>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cvPQ"
-                style="@style/MatchWidth"
-                android:layout_marginEnd="@dimen/margin_half"
-                android:layout_weight="1"
-                app:cardBackgroundColor="@color/card_color_category">
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvPQ"
+            style="@style/MatchWidth"
+            android:layout_marginEnd="@dimen/margin_half"
+            android:layout_weight="1">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/ll1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -150,11 +184,17 @@
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-            </androidx.cardview.widget.CardView>
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_item_bottom_divider"
+                    android:layout_below="@+id/ll1"
+                    android:background="@color/bottom_divider_4" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-</androidx.cardview.widget.CardView>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
+
+    <!--</androidx.cardview.widget.CardView>-->

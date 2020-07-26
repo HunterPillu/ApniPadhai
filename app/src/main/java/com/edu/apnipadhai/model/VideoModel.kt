@@ -1,7 +1,7 @@
 package com.edu.apnipadhai.model
 
-class Video {
-    var id: String = ""
+class VideoModel {
+    var id = 0
     var name = ""
     var channel = "Channel Name"
     var views = "views"
@@ -9,6 +9,7 @@ class Video {
     var duration = "00:00"
     var categoryId: String = "1"
     var videoId: String? = null
+    var thumbnailUrl: String? = null
     var active: Boolean = true
 
 
@@ -17,14 +18,12 @@ class Video {
     constructor(
         name: String,
         channel: String,
-        duration: String,
-        categoryId: String,
-        videoId: String?
+        videoId: String,
+        thumbnailUrl: String?
     ) {
         this.name = name
         this.channel = channel
-        this.duration = duration
-        this.categoryId = categoryId
         this.videoId = videoId
+        this.thumbnailUrl = thumbnailUrl
     }
 }

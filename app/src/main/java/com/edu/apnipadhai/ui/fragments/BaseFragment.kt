@@ -16,15 +16,16 @@ import com.google.firebase.auth.FirebaseAuth
 open class BaseFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     private var TAG = "BaseFragment"
     var layoutView: View? = null
-    private lateinit var listener: FragmentEventListener
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private var listener: FragmentEventListener?=null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         listener = context as FragmentEventListener
+    }
+
+    override fun onDetach() {
+        listener = null
+        super.onDetach()
     }
 
     fun onBackPressed() {
@@ -42,11 +43,11 @@ open class BaseFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     }
 
     fun openFragment(fragment: BaseFragment) {
-        listener.openFragment(fragment)
+        listener?.openFragment(fragment)
     }
 
     fun updateToolbarTitle(title: String) {
-        listener.updateToolbarTitle(title)
+        listener?.updateToolbarTitle(title)
     }
 
     fun signoutDialog() {

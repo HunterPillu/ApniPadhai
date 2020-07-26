@@ -1,20 +1,23 @@
 package com.edu.apnipadhai.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatTextView
-import com.e.CategoryFragment
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.ui.fragments.BaseFragment
+import com.edu.apnipadhai.ui.fragments.CategoryFragment
 import com.edu.apnipadhai.ui.fragments.SettingsFrag
 import com.edu.apnipadhai.ui.fragments.UserFragment
 import com.edu.apnipadhai.utils.FirebaseData
+import com.edu.apnipadhai.utils.Utils
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.custom_toolbar.*
 
 
 class MainActivity : BaseActivity() {
-    private val TAG = "MainActivity"
+    private val TAG = MainActivity::class.java.simpleName
     private lateinit var navView: BottomNavigationView
     private lateinit var tvTitle: AppCompatTextView
 
@@ -29,7 +32,14 @@ class MainActivity : BaseActivity() {
 
     private fun init() {
         tvTitle = findViewById(R.id.tvTitle)
-        findViewById<View>(R.id.ivBack).setOnClickListener { onBackPressed() }
+        ivBack.setOnClickListener { onBackPressed() }
+        ivOption.visibility = View.VISIBLE
+        ivOption.setOnClickListener { openAdminScreen() }
+    }
+
+    private fun openAdminScreen() {
+        val intent = Intent(this, AdminActivity::class.java)
+        startActivity(intent)
     }
 
 
@@ -44,20 +54,21 @@ class MainActivity : BaseActivity() {
 
     private lateinit var fragment1: BaseFragment
     private lateinit var fragment2: BaseFragment
+
+    //private lateinit var fragment3: BaseFragment
     private lateinit var fragment3: BaseFragment
-    private lateinit var fragment4: BaseFragment
     private lateinit var active: BaseFragment
 
     private fun setupNavigation() {
         fragment1 = CategoryFragment.newInstance()
         fragment2 = UserFragment()
-        fragment3 = fragment2
-        fragment4 = SettingsFrag()
+        //fragment3 = fragment2
+        fragment3 = SettingsFrag()
         active = fragment1
 
-        supportFragmentManager.beginTransaction().add(R.id.container, fragment4, "4")
-            .hide(fragment4).commit();
-        supportFragmentManager.beginTransaction().add(R.id.container, fragment2, "3")
+        supportFragmentManager.beginTransaction().add(R.id.container, fragment3, "3")
+            .hide(fragment3).commit();
+        supportFragmentManager.beginTransaction().add(R.id.container, fragment2, "2")
             .hide(fragment2).commit();
         supportFragmentManager.beginTransaction().add(R.id.container, fragment1, "1").commit();
 
@@ -69,18 +80,18 @@ class MainActivity : BaseActivity() {
                 R.id.home -> {
                     updateToolbarTitle(getString(R.string.home))
                     supportFragmentManager.beginTransaction().hide(active).show(fragment1).commit();
-                    active = fragment1;
+                    active = fragment1
                 }
-                R.id.news -> {
+               /* R.id.news -> {
                     Toast.makeText(this, "Photos selected", Toast.LENGTH_SHORT).show()
-                }
+                }*/
                 R.id.current -> {
-                    Toast.makeText(this, "More selected", Toast.LENGTH_SHORT).show()
+                    Utils.showToast(this, getString(R.string.work_in_progress))
                 }
                 R.id.setting -> {
                     updateToolbarTitle(getString(R.string.setting))
-                    supportFragmentManager.beginTransaction().hide(active).show(fragment4).commit();
-                    active = fragment4
+                    supportFragmentManager.beginTransaction().hide(active).show(fragment3).commit();
+                    active = fragment3
                 }
             }
             true

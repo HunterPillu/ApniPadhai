@@ -5,21 +5,18 @@
     android:id="@+id/cvMain"
     style="@style/MatchWidth"
     android:layout_margin="@dimen/margin_quarter"
-    app:cardBackgroundColor="@color/card_color_category"
     app:cardElevation="@dimen/home_item_elevation">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="72dp"
-        android:paddingHorizontal="@dimen/margin_half">
-
+    <RelativeLayout style="@style/MatchWidth">
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/llItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginHorizontal="@dimen/margin_half"
             android:gravity="center_vertical"
+            android:minHeight="72dp"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -27,12 +24,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginHorizontal="@dimen/margin_half"
                 android:textColor="@color/text_primary"
                 android:textSize="@dimen/body_secondary"
                 tools:text="Text" />
 
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvCount"
+                style="@style/Textview_body3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_quarter"
+                android:drawablePadding="2dp"
+                android:gravity="center_vertical"
+                app:drawableStartCompat="@drawable/ic_video_10"
+                app:drawableTint="@color/colorPrimary"
+                tools:text="10" />
+
         </androidx.appcompat.widget.LinearLayoutCompat>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_item_bottom_divider"
+            android:layout_below="@+id/llItem"
+            android:background="@color/colorPrimary" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

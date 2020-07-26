@@ -1,7 +1,6 @@
 package com.edu.apnipadhai.ui.activity;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
@@ -14,8 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.edu.apnipadhai.R;
+import com.edu.apnipadhai.model.VideoModel;
 import com.edu.apnipadhai.utils.FullScreenHelper;
-import com.edu.apnipadhai.utils.VideoInfo;
 import com.edu.apnipadhai.utils.YouTubeDataEndpoint;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
@@ -173,13 +172,13 @@ public class YouTubeActivity extends AppCompatActivity {
     @SuppressLint("CheckResult")
     private void setVideoTitle(PlayerUiController playerUiController, String videoId) {
 
-        Single<VideoInfo> observable = YouTubeDataEndpoint.getVideoInfoFromYouTubeDataAPIs(videoId);
+        Single<VideoModel> observable = YouTubeDataEndpoint.getVideoInfoFromYouTubeDataAPIs(videoId);
 
         observable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        videoInfo -> playerUiController.setVideoTitle(videoInfo.getVideoTitle()),
+                        videoInfo -> playerUiController.setVideoTitle(videoInfo.getName()),
                         error -> {
                             Log.e(getClass().getSimpleName(), "Can't retrieve video title, are you connected to the internet?");
                         }
