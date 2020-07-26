@@ -14,6 +14,7 @@ import com.edu.apnipadhai.callbacks.ListItemClickListener;
 import com.edu.apnipadhai.callbacks.MenuClickListener;
 import com.edu.apnipadhai.model.Category;
 import com.edu.apnipadhai.model.Video;
+import com.edu.apnipadhai.model.VideoModel;
 import com.google.firebase.database.snapshot.Index;
 
 import java.util.ArrayList;
@@ -21,18 +22,18 @@ import java.util.List;
 
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.RecordViewHolder> {
 
-    private final ListItemClickListener<Video> listener;
-    private List<Video> list;
-    private MenuClickListener<Video,View> menuListener;
+    private final ListItemClickListener<VideoModel> listener;
+    private List<VideoModel> list;
+    private MenuClickListener<VideoModel,View> menuListener;
 
-    public VideoAdapter(ListItemClickListener<Video> listener, MenuClickListener<Video,View> menuListener) {
+    public VideoAdapter(ListItemClickListener<VideoModel> listener, MenuClickListener<VideoModel,View> menuListener) {
         this.list = new ArrayList<>();
         this.listener = listener;
         this.menuListener = menuListener;
     }
 
 
-    public void setList(List<Video> list) {
+    public void setList(List<VideoModel> list) {
         this.list = list;
         notifyDataSetChanged();
     }
@@ -47,12 +48,12 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.RecordViewHo
 
     @Override
     public void onBindViewHolder(@NonNull RecordViewHolder holder, int position) {
-        Video vo = list.get(position);
+        VideoModel vo = list.get(position);
         holder.tvTitle.setText(vo.getVideoId());
         StringBuilder builder = new StringBuilder();
         builder.append(vo.getChannel()).append(" ").append(vo.getViews()).append(" ").append(vo.getUploaded()).append(" ").append("months ago");
         holder.tvOther.setText(builder);
-        holder.tvDuration.setText(vo.getDuration());
+        //holder.tvDuration.setText(vo.getDuration());
         // holder.ivStatus.setImageResource(getStatusImg(vo.fetchStatus()));
         holder.itemView.setOnClickListener(v -> {
             listener.onItemClick(vo);
@@ -70,14 +71,14 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.RecordViewHo
 
 
     public static class RecordViewHolder extends RecyclerView.ViewHolder {
-        private AppCompatTextView tvTitle, tvOther, tvDuration;
+        private AppCompatTextView tvTitle, tvOther;//, tvDuration;
         private AppCompatImageView ivMore;
 
         public RecordViewHolder(@NonNull View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvOther = itemView.findViewById(R.id.tvOther);
-            tvDuration = itemView.findViewById(R.id.tvDuration);
+           // tvDuration = itemView.findViewById(R.id.tvDuration);
             ivMore = itemView.findViewById(R.id.ivMore);
         }
     }

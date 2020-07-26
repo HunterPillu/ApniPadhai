@@ -64,5 +64,10 @@
 
     </style>
 
+    <style name="Textview_body3" parent="WrapContent">
+        <item name="android:textSize">@dimen/caption_mini</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
 
 </resources>

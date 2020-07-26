@@ -1,33 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><!--<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cvCourseTopic"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/margin_half"
-    app:cardElevation="@dimen/home_header_elevation">
+    android:visibility="gone"
+    app:cardBackgroundColor="@color/card_color_category"
+    app:cardElevation="@dimen/home_header_elevation"
+    tools:visibility="visible">-->
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llCourseTopic"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_half"
+    android:background="@color/card_color_category"
+    android:orientation="vertical"
+    android:padding="@dimen/margin_half"
+    android:visibility="gone"
+    tools:visibility="visible">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        style="@style/home_list_header"
+        android:text="@string/header_course_topic" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvSuppliers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/margin_half">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            style="@style/home_list_header"
-            android:text="@string/header_course_topic" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvSuppliers"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipChildren="false"
-            android:padding="@dimen/margin_quarter"
-            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-            app:spanCount="3"
-            tools:listitem="@layout/item_course" />
+        android:clipChildren="false"
+        android:nestedScrollingEnabled="false"
+        android:padding="@dimen/margin_quarter"
+        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+        app:spanCount="3"
+        tools:listitem="@layout/item_course" />
 
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.appcompat.widget.LinearLayoutCompat>
 
-</androidx.cardview.widget.CardView>
+    <!--
+    </androidx.cardview.widget.CardView>-->

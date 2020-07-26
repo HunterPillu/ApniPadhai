@@ -44,6 +44,15 @@
     <string name="header_course_topic">Course Topic</string>
     <string name="header_paid_quiz">Paid Quiz</string>
     <string name="mera_doubt">Mera Doubt</string>
+    <string name="text_add_video">Select category then add video link from YouTube to upload the video.</string>
+    <string name="title_add_video">Add Videos</string>
+    <string name="video_link">Video Link</string>
+    <string name="admin_no_subcategory">No sub category found. please create one first from \'Add Category Screen\'</string>
+    <string name="load_preview">Load Preview</string>
+    <string name="submit">Submit</string>
+    <string name="invalid_video">Can\'t retrieve video title, are you connected to the internet?</string>
+    <string name="video_uploaded">VIdeo successfully uploaded</string>
+    <string name="work_in_progress">Work in progress</string>
 
 
 </resources>

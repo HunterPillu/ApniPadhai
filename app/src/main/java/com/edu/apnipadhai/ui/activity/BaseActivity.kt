@@ -1,6 +1,7 @@
 package com.edu.apnipadhai.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatImageView
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.callbacks.FragmentEventListener
 import com.edu.apnipadhai.ui.fragments.BaseFragment
@@ -18,6 +19,10 @@ open class BaseActivity : AppCompatActivity(), FragmentEventListener {
         } else {
             finish()
         }
+    }
+
+    fun handleNavigation(ivBack: AppCompatImageView) {
+        ivBack.setOnClickListener { onBackPressed() }
     }
 
     fun showSnackbar(stringRes: Int) {

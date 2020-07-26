@@ -94,7 +94,7 @@ object FirebaseData {
         val ref = getVideosRef()
         for (i in 1..50) {
             val video = Video()
-            video.id = i
+            video.id = "$i"
             video.categoryId = "${Random.nextInt(1, 8)}"
             video.videoId = s[Random.nextInt(0, 3)]
             ref.push().setValue(video)
@@ -102,12 +102,12 @@ object FirebaseData {
     }
 
     fun getCategories(callback: ValueEventListener) {
-        getCategoryRef().addValueEventListener(callback)
+        getCategoryRef().addListenerForSingleValueEvent(callback)
     }
 
     fun getVideos(categoryId: Int, callback: ValueEventListener) {
         if (categoryId == 1) {
-            getVideosRef().addValueEventListener(callback)
+            getVideosRef().addListenerForSingleValueEvent(callback)
         } else {
             getCategoryVideos(categoryId, callback)
         }
@@ -116,6 +116,6 @@ object FirebaseData {
     fun getCategoryVideos(categoryId: Int, callback: ValueEventListener) {
         //database.getReference().child(CALLS).orderByChild("").equalTo("$categoryId")
         getVideosRef().orderByChild("categoryId").equalTo("$categoryId")
-            .addValueEventListener(callback)
+            .addListenerForSingleValueEvent(callback)
     }
 }

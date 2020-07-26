@@ -8,9 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.covidbeads.app.assesment.util.shortToast
-import com.e.VideoFragment
 import com.edu.apnipadhai.R
-import com.edu.apnipadhai.callbacks.ListItemClickListener
 import com.edu.apnipadhai.model.Category
 import com.edu.apnipadhai.model.Course
 import com.edu.apnipadhai.ui.activity.MainActivity
@@ -24,7 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 
 
-class CourseFragment : BaseFragment(), ListItemClickListener<Course> {
+class CourseFragment : BaseFragment() {
     var map: HashMap<Int, Course> = HashMap<Int, Course>()
 
     private lateinit var adapter: CourseAdapter
@@ -52,51 +50,11 @@ class CourseFragment : BaseFragment(), ListItemClickListener<Course> {
         updateToolbarTitle(getString(R.string.title_select_course))
     }
 
-    /* override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
-         setupToolbar()
-         setRecyclerView()
-         fetchSuppliers()
-     }*/
-
     private fun setRecyclerView() {
         val rvRecords: RecyclerView? = layoutView?.findViewById<RecyclerView>(R.id.rvList)
-        adapter = CourseAdapter(context, this)
+        adapter = CourseAdapter(context, null)
         rvRecords?.adapter = adapter
         swipeRefresh = layoutView?.findViewById<View>(R.id.swipeRefresh) as SwipeRefreshLayout
-        //swipeRefresh?.setOnRefreshListener(this)
-    }
-
-    fun saveCategories() {
-        val mFirestore = FirebaseFirestore.getInstance();
-
-        // Get a reference to the restaurants collection
-
-        // Get a reference to the restaurants collection
-        val catList = mFirestore.collection("category")
-
-        // Add a new document to the restaurants collection
-        catList.add(Category(1, "Grades", 0).toMap())
-        catList.add(Category(2, "Exam Preparation", 0).toMap())
-        catList.add(Category(3, "6th", 1).toMap())
-        catList.add(Category(4, "7th", 1).toMap())
-        catList.add(Category(5, "8th", 1).toMap())
-        catList.add(Category(6, "9th", 1).toMap())
-        catList.add(Category(7, "10th", 1).toMap())
-        catList.add(Category(8, "11th Science", 1).toMap())
-        catList.add(Category(9, "12th Science", 1).toMap())
-        catList.add(Category(10, "11th Commerce", 1).toMap())
-        catList.add(Category(11, "12th Commerce", 1).toMap())
-        catList.add(Category(12, "UPSC", 2).toMap())
-        catList.add(Category(13, "SSC", 2).toMap())
-        catList.add(Category(14, "State Level", 2).toMap())
-        catList.add(Category(15, "Physics", 8).toMap())
-        catList.add(Category(16, "Chemistry", 8).toMap())
-        catList.add(Category(17, "Biology", 8).toMap())
-        catList.add(Category(18, "English", 8).toMap())
-        catList.add(Category(19, "Maths", 8).toMap())
-        catList.add(Category(20, "English", 8).toMap())
-
     }
 
     fun goNext() {
@@ -184,11 +142,5 @@ class CourseFragment : BaseFragment(), ListItemClickListener<Course> {
         fun newInstance(): CourseFragment {
             return CourseFragment()
         }
-    }
-
-    override fun onItemClick(item: Course) {
-        (activity!! as MainActivity).openFragment(
-            VideoFragment.newInstance(item)
-        )
     }
 }

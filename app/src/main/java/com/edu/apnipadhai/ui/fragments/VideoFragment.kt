@@ -1,6 +1,5 @@
-package com.e
+package com.edu.apnipadhai.ui.fragments
 
-import android.R.attr.button
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +7,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.covidbeads.app.assesment.util.shortToast
@@ -16,10 +14,9 @@ import com.edu.apnipadhai.R
 import com.edu.apnipadhai.callbacks.ListItemClickListener
 import com.edu.apnipadhai.callbacks.MenuClickListener
 import com.edu.apnipadhai.model.Category
-import com.edu.apnipadhai.model.Video
+import com.edu.apnipadhai.model.VideoModel
 import com.edu.apnipadhai.ui.activity.YouTubeActivity
 import com.edu.apnipadhai.ui.adapter.VideoAdapter
-import com.edu.apnipadhai.ui.fragments.BaseFragment
 import com.edu.apnipadhai.utils.Connectivity
 import com.edu.apnipadhai.utils.CustomLog
 import com.edu.apnipadhai.utils.FirebaseData
@@ -28,7 +25,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 
 
-class VideoFragment : BaseFragment(), ListItemClickListener<Video>, MenuClickListener<Video,View> {
+class VideoFragment : BaseFragment(), ListItemClickListener<VideoModel>,
+    MenuClickListener<VideoModel, View> {
     private lateinit var item: Category
     private var adapter: VideoAdapter? = null
     private var swipeRefresh: SwipeRefreshLayout? = null
@@ -58,6 +56,7 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Video>, MenuClickLis
     }
 
     private fun popupMenus(view: View) {
+
         val popup = PopupMenu(context, view)
         popup.getMenuInflater().inflate(R.menu.video_menu, popup.getMenu())
         popup.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener {
@@ -68,7 +67,7 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Video>, MenuClickLis
         popup.show()
     }
 
-    override fun onItemClick(item: Video) {
+    override fun onItemClick(item: VideoModel) {
         val intent = Intent(context, YouTubeActivity::class.java)
         intent.putExtra("videoId", item.videoId)
         startActivity(intent)
@@ -81,7 +80,7 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Video>, MenuClickLis
          )*/
     }
 
-    override fun itemClick(item: Video, obj: View) {
+    override fun itemClick(item: VideoModel, obj: View) {
         popupMenus(obj)
     }
 
@@ -108,10 +107,10 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Video>, MenuClickLis
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 swipeRefresh?.setRefreshing(false)
-                val list: ArrayList<Video?> = ArrayList()
+                val list: ArrayList<VideoModel?> = ArrayList()
                 for (postSnapshot in snapshot.getChildren()) {
-                    val user: Video? = postSnapshot.getValue(Video::class.java)
-                    list.add(user)
+                    val model: VideoModel? = postSnapshot.getValue(VideoModel::class.java)
+                    list.add(model)
                 }
                 adapter!!.setList(list)
             }
@@ -120,6 +119,7 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Video>, MenuClickLis
 
     override fun onResume() {
         super.onResume()
+        updateToolbarTitle(item.name)
     }
 
     companion object {

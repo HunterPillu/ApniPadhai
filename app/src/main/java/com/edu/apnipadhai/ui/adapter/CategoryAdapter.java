@@ -5,7 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,7 +17,7 @@ import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.RecordViewHolder> {
 
-    private static final String TAG = "SupplierAdapter";
+    private static final String TAG = CategoryAdapter.class.getSimpleName();
     private final ListItemClickListener<Category> listener;
     private List<Category> list;
 
@@ -45,6 +44,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Record
     public void onBindViewHolder(@NonNull RecordViewHolder holder, int position) {
         Category vo = list.get(position);
         holder.tvName.setText(vo.getName());
+        holder.tvCount.setText("" + vo.getVideoCount());
         // holder.ivStatus.setImageResource(getStatusImg(vo.fetchStatus()));
         holder.itemView.setOnClickListener(v -> {
             listener.onItemClick(vo);
@@ -59,12 +59,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Record
 
     public static class RecordViewHolder extends RecyclerView.ViewHolder {
         private AppCompatTextView tvName;
-        private AppCompatImageView ivStatus;
+        private AppCompatTextView tvCount;
 
         public RecordViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tvName);
-            // ivStatus = itemView.findViewById(R.id.ivStatus);
+            tvCount = itemView.findViewById(R.id.tvCount);
 
         }
     }

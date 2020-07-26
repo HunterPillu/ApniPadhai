@@ -22,8 +22,6 @@ import com.bumptech.glide.request.transition.Transition
 import com.edu.apnipadhai.BuildConfig
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.model.User
-import com.edu.apnipadhai.ui.activity.MainActivity
-import com.edu.apnipadhai.utils.Const.COURSE_SELECT
 import com.edu.apnipadhai.utils.Utils.hideKeyboard
 import com.edu.apnipadhai.utils.Utils.showToast
 import com.firebase.ui.auth.AuthUI
@@ -36,6 +34,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.log
 
 class UserFragment : BaseFragment() {
     private val RC_SIGN_IN = 123
@@ -60,7 +59,7 @@ class UserFragment : BaseFragment() {
         userPhoto?.setOnClickListener(userPhotoIVClickListener)
 
         layoutView?.findViewById<AppCompatButton>(R.id.saveBtn)
-            ?.setOnClickListener(saveBtnClickListener)
+            ?.setOnClickListener{ login()}
         tvDob?.setOnClickListener(dobClickListener)
         layoutView?.findViewById<View>(R.id.ivBack)?.setOnClickListener { onBackPressed() }
         userInfoFromServer
@@ -84,20 +83,16 @@ class UserFragment : BaseFragment() {
         return layoutView
     }
 
-    private fun setToolbarTitle(title: String) {
-        layoutView?.findViewById<AppCompatTextView>(R.id.tvTitle)?.text = title
-
-    }
 
     val userInfoFromServer: Unit
         get() {
             val user = FirebaseAuth.getInstance().currentUser
             if (user == null) {
                 //return if not logged in
-                setToolbarTitle(getString(R.string.signin))
+                updateToolbarTitle(getString(R.string.signin))
                 return
             }
-            setToolbarTitle(getString(R.string.profile))
+            updateToolbarTitle(getString(R.string.profile))
             val uid = user.uid
             val docRef =
                 FirebaseFirestore.getInstance().collection("users").document(uid)
@@ -172,6 +167,8 @@ class UserFragment : BaseFragment() {
             if (resultCode == Activity.RESULT_OK) {
                 val user = User()
                 mobile?.setText(FirebaseAuth.getInstance().currentUser?.phoneNumber)
+
+                login()
                 /* user.mobile = FirebaseAuth.getInstance().currentUser?.phoneNumber!!
                  FirebaseData.updateUserData(user)
 
@@ -203,49 +200,48 @@ class UserFragment : BaseFragment() {
         }
     }
 
-    var saveBtnClickListener =
-        View.OnClickListener {
-            if (!validateForm()) return@OnClickListener
-            if (null == userModel) userModel = User()
-            userModel?.name = userName!!.text.toString()
-            userModel?.dob = tvDob!!.text.toString()
-            userModel?.mobile = mobile!!.text.toString()
-            val uid = FirebaseAuth.getInstance().currentUser!!.uid
-            val db = FirebaseFirestore.getInstance()
-            if (userPhotoUri != null) {
-                userModel!!.photoUrl = uid
-            }
-            db.collection("users").document(uid)
-                .set(userModel!!)
-                .addOnSuccessListener {
-                    if (userPhotoUri == null) {
-                        showToast(context, getString(R.string.user_created_updated))
-                        moveNext()
-                    } else {
-                        // small image
-                        Glide.with(context!!)
-                            .asBitmap()
-                            .load(userPhotoUri)
-                            .apply(RequestOptions())//.override(150, 150))
-                            .into(object : SimpleTarget<Bitmap?>() {
-                                override fun onResourceReady(
-                                    bitmap: Bitmap,
-                                    transition: Transition<in Bitmap?>?
-                                ) {
-                                    val baos = ByteArrayOutputStream()
-                                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-                                    val data = baos.toByteArray()
-                                    FirebaseStorage.getInstance().reference
-                                        .child("userPhoto/$uid").putBytes(data)
-                                    showToast(
-                                        context,
-                                        "Success to Save."
-                                    )
-                                }
-                            })
-                    }
-                }
+    fun login(){
+        if (!validateForm()) return
+        if (null == userModel) userModel = User()
+        userModel?.name = userName!!.text.toString()
+        userModel?.dob = tvDob!!.text.toString()
+        userModel?.mobile = mobile!!.text.toString()
+        val uid = FirebaseAuth.getInstance().currentUser!!.uid
+        val db = FirebaseFirestore.getInstance()
+        if (userPhotoUri != null) {
+            userModel!!.photoUrl = uid
         }
+        db.collection("users").document(uid)
+            .set(userModel!!)
+            .addOnSuccessListener {
+                if (userPhotoUri == null) {
+                    showToast(context, getString(R.string.user_created_updated))
+                    moveNext()
+                } else {
+                    // small image
+                    Glide.with(context!!)
+                        .asBitmap()
+                        .load(userPhotoUri)
+                        .apply(RequestOptions())//.override(150, 150))
+                        .into(object : SimpleTarget<Bitmap?>() {
+                            override fun onResourceReady(
+                                bitmap: Bitmap,
+                                transition: Transition<in Bitmap?>?
+                            ) {
+                                val baos = ByteArrayOutputStream()
+                                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+                                val data = baos.toByteArray()
+                                FirebaseStorage.getInstance().reference
+                                    .child("userPhoto/$uid").putBytes(data)
+                                showToast(
+                                    context,
+                                    "Success to Save."
+                                )
+                            }
+                        })
+                }
+            }
+    }
 
     private fun moveNext() {
 
