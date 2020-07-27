@@ -10,35 +10,47 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.callbacks.ListItemClickListener
 import com.edu.apnipadhai.model.Setting
-import com.edu.apnipadhai.ui.adapter.SettingsAdapter.ChildHolder
+import com.edu.apnipadhai.utils.Const.COURSE_HEADER
 import com.edu.apnipadhai.utils.Const.COURSE_ITEM
+import com.edu.apnipadhai.utils.Const.SETTING_USER
+import de.hdodenhof.circleimageview.CircleImageView
 import java.util.*
 
-class SettingsAdapter(private val list: ArrayList<Setting>, private val listener : ListItemClickListener<Setting>) : RecyclerView.Adapter<ChildHolder>() {
-    override fun getItemViewType(position: Int): Int {
-        return list[position].type
-    }
+class SettingsAdapter(
+    private val list: ArrayList<Setting>,
+    private val listener: ListItemClickListener<Setting>
+) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChildHolder {
-        return if (viewType == COURSE_ITEM) {
-            val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_setting, parent, false)
-            ChildHolder(view)
-        } else {
-            val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_setting_2, parent, false)
-            HeaderHolder(view)
+    override fun getItemViewType(position: Int): Int {
+        return when (position) {
+            0 -> SETTING_USER
+            1, 2, 3, 4, 5 -> COURSE_ITEM
+            6, 7 -> COURSE_HEADER
+            else -> throw IllegalArgumentException()
         }
     }
 
-    override fun onBindViewHolder(holder: ChildHolder, position: Int) {
-        val setting = list[position]
-        holder.tvName.text = setting.name
-        holder.ivIcon.setImageResource(setting.id)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            SETTING_USER ->
+                SettingHeaderProfile(
+                    LayoutInflater.from(parent.context)
+                        .inflate(R.layout.item_setting_3, parent, false)
+                )
 
-        // holder.ivStatus.setImageResource(getStatusImg(vo.fetchStatus()));
-        holder.itemView.setOnClickListener { v: View? ->
-            listener.onItemClick(setting)
+            COURSE_ITEM ->
+                SettingItems(
+                    LayoutInflater.from(parent.context)
+                        .inflate(R.layout.item_setting, parent, false)
+                )
+
+            COURSE_HEADER ->
+                SettingBottom(
+                    LayoutInflater.from(parent.context)
+                        .inflate(R.layout.item_setting, parent, false)
+                )
+            else -> throw IllegalArgumentException()
         }
     }
 
@@ -46,23 +58,67 @@ class SettingsAdapter(private val list: ArrayList<Setting>, private val listener
         return list.size
     }
 
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
-
-    open class ChildHolder(itemView: View) :
-        RecyclerView.ViewHolder(itemView) {
-        var tvName: AppCompatTextView
-        var ivIcon: AppCompatImageView
-
-        init {
-            tvName = itemView.findViewById(R.id.tvName)
-            ivIcon = itemView.findViewById(R.id.ivIcon)
+        when (holder.itemViewType) {
+            SETTING_USER ->
+                onBindHeaderProfile(holder, position)
+            COURSE_ITEM ->
+                onBindHeaderItems(holder, position)
+            COURSE_HEADER ->
+                onBindBottom(holder, position)
+            else -> throw IllegalArgumentException()
         }
+        holder.itemView.setOnClickListener { v: View? ->
+            listener.onItemClick(list[position])
+        }
+
     }
 
-    open class HeaderHolder(itemView: View) : ChildHolder(itemView) {
+    private fun onBindHeaderProfile(holder: RecyclerView.ViewHolder, position: Int) {
+        val headerRow = holder as SettingHeaderProfile
+        headerRow.tvUserName.text = list[position].name
+    }
+
+    fun setUserName(name: String) {
+        list[0].name = name
+        notifyItemChanged(0)
+    }
+
+    private fun onBindHeaderItems(holder: RecyclerView.ViewHolder, position: Int) {
+        val headerRow = holder as SettingItems
+        headerRow.tvName.text = list[position].name
+        holder.ivIcon.setImageResource(list[position].id)
+    }
+
+    private fun onBindBottom(holder: RecyclerView.ViewHolder, position: Int) {
+        val headerRow = holder as SettingBottom
+        headerRow.tvName.text = list[position].name
+        holder.ivIcon.setImageResource(list[position].id)
+    }
+
+    class SettingHeaderProfile(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val tvUserName: AppCompatTextView = itemView.findViewById(R.id.tvUserName)
+        val civProfile: CircleImageView = itemView.findViewById(R.id.civProfile)
+
         init {
             (itemView.layoutParams as StaggeredGridLayoutManager.LayoutParams).isFullSpan = true
         }
     }
+
+    class SettingItems(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val tvName: AppCompatTextView = itemView.findViewById(R.id.tvName)
+        val ivIcon: AppCompatImageView = itemView.findViewById(R.id.ivIcon)
+    }
+
+    class SettingBottom(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val tvName: AppCompatTextView = itemView.findViewById(R.id.tvName)
+        val ivIcon: AppCompatImageView = itemView.findViewById(R.id.ivIcon)
+
+        init {
+            (itemView.layoutParams as StaggeredGridLayoutManager.LayoutParams).isFullSpan = true
+        }
+    }
+
 
 }

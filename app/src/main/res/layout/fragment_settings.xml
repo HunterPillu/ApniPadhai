@@ -8,42 +8,6 @@
     android:orientation="vertical"
     tools:context=".ui.fragments.SettingsFrag">
 
-    <RelativeLayout
-        android:id="@+id/rlUserProfile"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_min_item_2"
-        android:gravity="center_vertical"
-        android:paddingHorizontal="@dimen/margin_half">
-
-        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/civProfile"
-            android:layout_width="@dimen/margin_duper"
-            android:layout_height="@dimen/margin_duper"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/logo"
-            app:civ_border_color="@color/white"
-            app:civ_border_width="@dimen/min_border_width" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvUserName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="@dimen/body_primary"
-            android:layout_toEndOf="@+id/civProfile"
-            android:layout_marginStart="@dimen/margin_quarter"/>
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/see_profile"
-            android:textSize="@dimen/body_secondary"
-            android:layout_toEndOf="@+id/civProfile"
-            android:layout_below="@+id/tvUserName"
-            android:layout_marginStart="@dimen/margin_quarter"/>
-
-    </RelativeLayout>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvSetting"
         android:layout_width="match_parent"

@@ -5,10 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RelativeLayout
-import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.callbacks.ListItemClickListener
 import com.edu.apnipadhai.model.Setting
@@ -18,16 +15,12 @@ import com.edu.apnipadhai.ui.adapter.SettingsAdapter
 import com.edu.apnipadhai.utils.Const
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.storage.FirebaseStorage
-import de.hdodenhof.circleimageview.CircleImageView
 
 
 class SettingsFrag : BaseFragment(), ListItemClickListener<Setting> {
 
     private lateinit var adapter: SettingsAdapter
-    private lateinit var rlUserProfile: RelativeLayout
-    private lateinit var tvUserName: AppCompatTextView
-    private lateinit var civProfile: CircleImageView
+    private var userName: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,25 +30,15 @@ class SettingsFrag : BaseFragment(), ListItemClickListener<Setting> {
             return layoutView
         }
         layoutView = inflater.inflate(R.layout.fragment_settings, container, false)
-        init()
         setRecyclerView()
         return layoutView
     }
 
-    private fun init() {
-        rlUserProfile = layoutView!!.findViewById(R.id.rlUserProfile)
-        tvUserName = layoutView!!.findViewById(R.id.tvUserName)
-        civProfile = layoutView!!.findViewById(R.id.civProfile)
-        userInfoFromServer
-        rlUserProfile.setOnClickListener {
-            val intent = Intent(context, LoginActivity::class.java)
-            activity!!.startActivity(intent)
-        }
-    }
-
     private fun setRecyclerView() {
+        userInfoFromServer
         val list = ArrayList<Setting>()
 
+        list.add(Setting(R.drawable.bookmark, userName.toString(), Const.SETTING_USER))
         list.add(Setting(R.drawable.bookmark, getString(R.string.bookmrk), Const.COURSE_ITEM))
         list.add(
             Setting(
@@ -82,7 +65,15 @@ class SettingsFrag : BaseFragment(), ListItemClickListener<Setting> {
 
             getString(R.string.Subscribe) ->
                 activity!!.startActivity(getYouTubeIntent())
+
+            userName ->
+                profileUpdate()
         }
+    }
+
+    private fun profileUpdate() {
+        val intent = Intent(context, LoginActivity::class.java)
+        activity!!.startActivity(intent)
     }
 
     val userInfoFromServer: Unit
@@ -95,17 +86,18 @@ class SettingsFrag : BaseFragment(), ListItemClickListener<Setting> {
             val docRef =
                 FirebaseFirestore.getInstance().collection("users").document(uid)
             docRef.get().addOnSuccessListener { documentSnapshot ->
-              val userModel =
+                val userModel =
                     documentSnapshot.toObject(User::class.java)
-                tvUserName.setText(userModel?.name)
-                if (userModel!!.photoUrl != null && "" != userModel.photoUrl) {
-                    Glide.with(context!!)
-                        .load(
-                            FirebaseStorage.getInstance()
-                                .getReference("userPhoto/" + userModel.photoUrl)
-                        )
-                        .into(civProfile)
-                }
+                userName = userModel?.name
+                adapter.setUserName(userName.toString())
+//                if (userModel!!.photoUrl != null && "" != userModel.photoUrl) {
+//                    Glide.with(context!!)
+//                        .load(
+//                            FirebaseStorage.getInstance()
+//                                .getReference("userPhoto/" + userModel.photoUrl)
+//                        )
+//                        .into(civProfile)
+//                }
             }
         }
 }
