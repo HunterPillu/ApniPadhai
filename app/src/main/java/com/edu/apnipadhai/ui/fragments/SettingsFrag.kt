@@ -21,6 +21,7 @@ class SettingsFrag : BaseFragment(), ListItemClickListener<Setting> {
 
     private lateinit var adapter: SettingsAdapter
     private var userName: String? = null
+    private var url: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +39,7 @@ class SettingsFrag : BaseFragment(), ListItemClickListener<Setting> {
         userInfoFromServer
         val list = ArrayList<Setting>()
 
-        list.add(Setting(R.drawable.bookmark, userName.toString(), Const.SETTING_USER))
+        list.add(Setting(0, userName.toString(), Const.SETTING_USER))
         list.add(Setting(R.drawable.bookmark, getString(R.string.bookmrk), Const.COURSE_ITEM))
         list.add(
             Setting(
@@ -89,15 +90,10 @@ class SettingsFrag : BaseFragment(), ListItemClickListener<Setting> {
                 val userModel =
                     documentSnapshot.toObject(User::class.java)
                 userName = userModel?.name
-                adapter.setUserName(userName.toString())
-//                if (userModel!!.photoUrl != null && "" != userModel.photoUrl) {
-//                    Glide.with(context!!)
-//                        .load(
-//                            FirebaseStorage.getInstance()
-//                                .getReference("userPhoto/" + userModel.photoUrl)
-//                        )
-//                        .into(civProfile)
-//                }
+                if (userModel!!.photoUrl != null && "" != userModel.photoUrl) {
+                  url = userModel.photoUrl
+                }
+                adapter.setUser(userName.toString(),url.toString())
             }
         }
 }

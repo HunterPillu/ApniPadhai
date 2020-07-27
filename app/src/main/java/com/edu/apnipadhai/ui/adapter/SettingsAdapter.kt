@@ -7,12 +7,14 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.bumptech.glide.Glide
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.callbacks.ListItemClickListener
 import com.edu.apnipadhai.model.Setting
 import com.edu.apnipadhai.utils.Const.COURSE_HEADER
 import com.edu.apnipadhai.utils.Const.COURSE_ITEM
 import com.edu.apnipadhai.utils.Const.SETTING_USER
+import com.google.firebase.storage.FirebaseStorage
 import de.hdodenhof.circleimageview.CircleImageView
 import java.util.*
 
@@ -54,7 +56,6 @@ class SettingsAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
         when (holder.itemViewType) {
             SETTING_USER ->
                 onBindHeaderProfile(holder, position)
@@ -73,10 +74,17 @@ class SettingsAdapter(
     private fun onBindHeaderProfile(holder: RecyclerView.ViewHolder, position: Int) {
         val headerRow = holder as SettingHeaderProfile
         headerRow.tvUserName.text = list[position].name
+                            Glide.with(headerRow.civProfile.context)
+                        .load(
+                            FirebaseStorage.getInstance()
+                                .getReference("userPhoto/" + list[position].url)
+                        )
+                        .into(headerRow.civProfile)
     }
 
-    fun setUserName(name: String) {
+    fun setUser(name: String,url : String) {
         list[0].name = name
+        list[0].url = url
         notifyItemChanged(0)
     }
 
