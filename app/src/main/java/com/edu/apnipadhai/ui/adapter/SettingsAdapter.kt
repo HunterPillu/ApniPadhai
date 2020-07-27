@@ -23,12 +23,7 @@ class SettingsAdapter(
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
-        return when (position) {
-            0 -> SETTING_USER
-            1, 2, 3, 4, 5 -> COURSE_ITEM
-            6, 7 -> COURSE_HEADER
-            else -> throw IllegalArgumentException()
-        }
+        return list[position].type
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
