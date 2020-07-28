@@ -12,12 +12,13 @@
     <dimen name="margin_duper">32dp</dimen>
 
     <dimen name="size_profile_img">124dp</dimen>
+    <dimen name="size_profile_img_2">48dp</dimen>
     <dimen name="height_edittext">48dp</dimen>
     <dimen name="height_video_item">140dp</dimen>
 
     <dimen name="size_toolbar_icon">48dp</dimen>
     <dimen name="row_button_height">48dp</dimen>
-    <dimen name="btn_width">180dp</dimen>
+    <dimen name="button_width_default">180dp</dimen>
 
     <dimen name="header">24sp</dimen>
     <dimen name="sub_header">22sp</dimen>

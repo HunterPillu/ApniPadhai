@@ -22,6 +22,9 @@ import com.bumptech.glide.request.transition.Transition
 import com.edu.apnipadhai.BuildConfig
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.model.User
+import com.edu.apnipadhai.ui.activity.CommonActivity
+import com.edu.apnipadhai.utils.Const
+import com.edu.apnipadhai.utils.GlideApp
 import com.edu.apnipadhai.utils.Utils.hideKeyboard
 import com.edu.apnipadhai.utils.Utils.showToast
 import com.firebase.ui.auth.AuthUI
@@ -34,13 +37,14 @@ import de.hdodenhof.circleimageview.CircleImageView
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.math.log
 
 class UserFragment : BaseFragment() {
+    private var isUpdating: Boolean = false
     private val RC_SIGN_IN = 123
     private var userPhoto: CircleImageView? = null
     private var userName: AppCompatEditText? = null
     private var tvDob: AppCompatTextView? = null
+
     private var mobile: AppCompatTextView? = null
     private var userModel: User? = null
     private var userPhotoUri: Uri? = null
@@ -59,28 +63,29 @@ class UserFragment : BaseFragment() {
         userPhoto?.setOnClickListener(userPhotoIVClickListener)
 
         layoutView?.findViewById<AppCompatButton>(R.id.saveBtn)
-            ?.setOnClickListener{ login()}
+            ?.setOnClickListener { login() }
         tvDob?.setOnClickListener(dobClickListener)
         layoutView?.findViewById<View>(R.id.ivBack)?.setOnClickListener { onBackPressed() }
         userInfoFromServer
 
-        mobile?.setOnClickListener {
-            startActivityForResult(
-                AuthUI.getInstance()
-                    .createSignInIntentBuilder()
-                    .setLogo(R.drawable.logo)
-                    .setIsSmartLockEnabled(!BuildConfig.DEBUG /* credentials */, true /* hints */)
-                    .setAvailableProviders(
-                        Arrays.asList(
-                            AuthUI.IdpConfig.PhoneBuilder().build()
-                            // ,AuthUI.IdpConfig.EmailBuilder().build()
-                            //, AuthUI.IdpConfig.GoogleBuilder().build()
-                        )
-                    ).build(),
-                RC_SIGN_IN
-            )
-        }
         return layoutView
+    }
+
+    val mobileClick = View.OnClickListener {
+        startActivityForResult(
+            AuthUI.getInstance()
+                .createSignInIntentBuilder()
+                .setLogo(R.drawable.logo)
+                .setIsSmartLockEnabled(!BuildConfig.DEBUG /* credentials */, true /* hints */)
+                .setAvailableProviders(
+                    Arrays.asList(
+                        AuthUI.IdpConfig.PhoneBuilder().build()
+                        // ,AuthUI.IdpConfig.EmailBuilder().build()
+                        //, AuthUI.IdpConfig.GoogleBuilder().build()
+                    )
+                ).build(),
+            RC_SIGN_IN
+        )
     }
 
 
@@ -89,25 +94,31 @@ class UserFragment : BaseFragment() {
             val user = FirebaseAuth.getInstance().currentUser
             if (user == null) {
                 //return if not logged in
+                isUpdating = false
                 updateToolbarTitle(getString(R.string.signin))
+                mobile?.setOnClickListener(mobileClick)
                 return
             }
+            isUpdating = true
             updateToolbarTitle(getString(R.string.profile))
             val uid = user.uid
             val docRef =
-                FirebaseFirestore.getInstance().collection("users").document(uid)
+                FirebaseFirestore.getInstance().collection(Const.TABLE_USERS).document(uid)
             docRef.get().addOnSuccessListener { documentSnapshot ->
                 userModel =
                     documentSnapshot.toObject(User::class.java)
                 //userId?.setText(userModel?.uid)
                 userName?.setText(userModel?.name)
                 tvDob?.setText(userModel?.dob)
+                mobile?.setText(userModel?.mobile)
                 if (userModel!!.photoUrl != null && "" != userModel!!.photoUrl) {
-                    Glide.with(context!!)
+                    GlideApp.with(context!!)
                         .load(
                             FirebaseStorage.getInstance()
                                 .getReference("userPhoto/" + userModel!!.photoUrl)
                         )
+                        .placeholder(R.drawable.user)
+                        .error(R.drawable.user)
                         .into(userPhoto!!)
                 }
             }
@@ -200,7 +211,7 @@ class UserFragment : BaseFragment() {
         }
     }
 
-    fun login(){
+    fun login() {
         if (!validateForm()) return
         if (null == userModel) userModel = User()
         userModel?.name = userName!!.text.toString()
@@ -214,12 +225,12 @@ class UserFragment : BaseFragment() {
         db.collection("users").document(uid)
             .set(userModel!!)
             .addOnSuccessListener {
+                showToast(context, getString(R.string.user_created_updated))
                 if (userPhotoUri == null) {
-                    showToast(context, getString(R.string.user_created_updated))
                     moveNext()
                 } else {
                     // small image
-                    Glide.with(context!!)
+                    GlideApp.with(context!!)
                         .asBitmap()
                         .load(userPhotoUri)
                         .apply(RequestOptions())//.override(150, 150))
@@ -233,10 +244,7 @@ class UserFragment : BaseFragment() {
                                 val data = baos.toByteArray()
                                 FirebaseStorage.getInstance().reference
                                     .child("userPhoto/$uid").putBytes(data)
-                                showToast(
-                                    context,
-                                    "Success to Save."
-                                )
+                                moveNext()
                             }
                         })
                 }
@@ -245,7 +253,15 @@ class UserFragment : BaseFragment() {
 
     private fun moveNext() {
 
-        openFragment(CourseFragment.newInstance())
+        if (isUpdating) {
+            onBackPressed()
+        } else {
+            startActivity(Intent(activity, CommonActivity::class.java).apply {
+                putExtra(Const.EXTRA_TYPE, Const.SCREEN_COURSE)
+                setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            })
+        }
+
 
     }
 

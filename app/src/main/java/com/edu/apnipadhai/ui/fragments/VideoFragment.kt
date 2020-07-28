@@ -18,18 +18,15 @@ import com.edu.apnipadhai.model.VideoModel
 import com.edu.apnipadhai.ui.activity.YouTubeActivity
 import com.edu.apnipadhai.ui.adapter.VideoAdapter
 import com.edu.apnipadhai.utils.Connectivity
+import com.edu.apnipadhai.utils.Const
 import com.edu.apnipadhai.utils.CustomLog
-import com.edu.apnipadhai.utils.FirebaseData
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.firestore.FirebaseFirestore
 
-
-class VideoFragment : BaseFragment(), ListItemClickListener<VideoModel>,
+class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
     MenuClickListener<VideoModel, View> {
     private lateinit var item: Category
-    private var adapter: VideoAdapter? = null
-    private var swipeRefresh: SwipeRefreshLayout? = null
+    private lateinit var adapter: VideoAdapter
+    private lateinit var swipeRefresh: SwipeRefreshLayout
 
 
     override fun onCreateView(
@@ -49,7 +46,7 @@ class VideoFragment : BaseFragment(), ListItemClickListener<VideoModel>,
 
     private fun setRecyclerView() {
         val rvRecords: RecyclerView? = layoutView?.findViewById<RecyclerView>(R.id.rvSuppliers)
-        adapter = VideoAdapter(this, this)
+        adapter = VideoAdapter(context!!,this, this)
         rvRecords?.adapter = adapter
         swipeRefresh = layoutView?.findViewById<View>(R.id.swipeRefresh) as SwipeRefreshLayout
         swipeRefresh?.setOnRefreshListener(this)
@@ -67,7 +64,7 @@ class VideoFragment : BaseFragment(), ListItemClickListener<VideoModel>,
         popup.show()
     }
 
-    override fun onItemClick(item: VideoModel) {
+    override fun onItemClick(type: Int, item: VideoModel) {
         val intent = Intent(context, YouTubeActivity::class.java)
         intent.putExtra("videoId", item.videoId)
         startActivity(intent)
@@ -89,33 +86,75 @@ class VideoFragment : BaseFragment(), ListItemClickListener<VideoModel>,
     }
 
     private fun fetchData() {
-        CustomLog.d(TAG, "fetchData")
+        //val parentID = PrefUtil.getCourseId(context!!)
 
         if (!Connectivity.isConnected(context)) {
-            swipeRefresh!!.isRefreshing = false
+            swipeRefresh.isRefreshing = false
             shortToast(getString(R.string.no_internet_connection))
             return
         }
-        swipeRefresh?.setRefreshing(true)
+        swipeRefresh.setRefreshing(true)
 
-        FirebaseData.getVideos(item.id, object : ValueEventListener {
-            override fun onCancelled(error: DatabaseError) {
-                CustomLog.e(TAG, "database errot : ${error.message}")
+        val itemId = "${item.id}"
+        CustomLog.d(TAG, "crse : itemId = $itemId")
+        FirebaseFirestore.getInstance().collection(Const.TABLE_VIDEOS)
+            .whereEqualTo("categoryId", itemId)//"${item.id}")
+            .get()
+            .addOnSuccessListener { documents ->
+                swipeRefresh.setRefreshing(false)
+                val list1 = ArrayList<VideoModel>()
+                /* val course = Course().apply {
+                     id = -1
+                     name = ""
+                     courseType = Const.COURSE_HEADER
+                     parentId = parentID
+                 }
+                 list1.add(course)*/
+                for (postSnapshot in documents) {
 
-                swipeRefresh?.setRefreshing(false)
-            }
-
-            override fun onDataChange(snapshot: DataSnapshot) {
-                swipeRefresh?.setRefreshing(false)
-                val list: ArrayList<VideoModel?> = ArrayList()
-                for (postSnapshot in snapshot.getChildren()) {
-                    val model: VideoModel? = postSnapshot.getValue(VideoModel::class.java)
-                    list.add(model)
+                    val model: VideoModel = postSnapshot.toObject(VideoModel::class.java)
+                    //course.fKey = postSnapshot.id
+                    list1.add(model)
                 }
-                adapter!!.setList(list)
+
+                adapter.setList(list1)
             }
-        })
+            .addOnFailureListener { exception ->
+                CustomLog.e(
+                    TAG,
+                    "Error getting documents: ${exception.localizedMessage}"
+                )
+            }
     }
+
+    /* private fun fetchData2() {
+         CustomLog.d(TAG, "fetchData")
+
+         if (!Connectivity.isConnected(context)) {
+             swipeRefresh.isRefreshing = false
+             shortToast(getString(R.string.no_internet_connection))
+             return
+         }
+         swipeRefresh?.setRefreshing(true)
+
+         FirebaseData.getVideos(item.id, object : ValueEventListener {
+             override fun onCancelled(error: DatabaseError) {
+                 CustomLog.e(TAG, "database errot : ${error.message}")
+
+                 swipeRefresh?.setRefreshing(false)
+             }
+
+             override fun onDataChange(snapshot: DataSnapshot) {
+                 swipeRefresh?.setRefreshing(false)
+                 val list: ArrayList<VideoModel?> = ArrayList()
+                 for (postSnapshot in snapshot.getChildren()) {
+                     val model: VideoModel? = postSnapshot.getValue(VideoModel::class.java)
+                     list.add(model)
+                 }
+                 adapter!!.setList(list)
+             }
+         })
+     }*/
 
     override fun onResume() {
         super.onResume()

@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.covidbeads.app.assesment.util.PrefUtil
 import com.covidbeads.app.assesment.util.shortToast
 import com.edu.apnipadhai.R
-import com.edu.apnipadhai.model.Category
 import com.edu.apnipadhai.model.Course
 import com.edu.apnipadhai.ui.activity.MainActivity
 import com.edu.apnipadhai.ui.adapter.CourseAdapter
@@ -23,6 +23,7 @@ import com.google.firebase.firestore.SetOptions
 
 
 class CourseFragment : BaseFragment() {
+    private var isUpdate: Boolean = false
     var map: HashMap<Int, Course> = HashMap<Int, Course>()
 
     private lateinit var adapter: CourseAdapter
@@ -52,7 +53,7 @@ class CourseFragment : BaseFragment() {
 
     private fun setRecyclerView() {
         val rvRecords: RecyclerView? = layoutView?.findViewById<RecyclerView>(R.id.rvList)
-        adapter = CourseAdapter(context, null)
+        adapter = CourseAdapter(context)
         rvRecords?.adapter = adapter
         swipeRefresh = layoutView?.findViewById<View>(R.id.swipeRefresh) as SwipeRefreshLayout
     }
@@ -65,15 +66,21 @@ class CourseFragment : BaseFragment() {
         }
         updateSelectedCourse(courseId)
 
-
-        val intent = Intent(activity, MainActivity::class.java)
-        intent.putExtra(Const.COURSE_SELECT, true)
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        startActivity(intent)
+        if (isUpdate) {
+            onBackPressed()
+        } else {
+            val intent = Intent(activity, MainActivity::class.java).apply {
+                setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            }
+            startActivity(intent)
+        }
     }
 
 
     fun updateSelectedCourse(courseId: Int) {
+
+        PrefUtil.saveCourseId(context!!, courseId)
+
         val map: MutableMap<String, Any> = HashMap()
         map["courseId"] = courseId
         FirebaseFirestore.getInstance().collection("users")
@@ -139,8 +146,10 @@ class CourseFragment : BaseFragment() {
              return fragment
          }*/
 
-        fun newInstance(): CourseFragment {
-            return CourseFragment()
+        fun newInstance(isUpdate: Boolean): CourseFragment {
+            return CourseFragment().apply {
+                this.isUpdate = isUpdate
+            }
         }
     }
 }

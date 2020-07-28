@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?><!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">-->
+
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appbar"
+        android:padding="@dimen/margin_full"
+        android:text="@string/text_admin_1"
+        android:textColor="@color/text_secondary" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bAddCategory"
+        style="@style/button_default"
+        android:layout_marginTop="@dimen/margin_full"
+        android:text="@string/add_Category"
+
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bAddVideos"
+        style="@style/button_default"
+        android:layout_marginTop="@dimen/margin_full"
+        android:text="@string/title_add_video" />
+
+</androidx.appcompat.widget.LinearLayoutCompat><!--
+</ScrollView>-->

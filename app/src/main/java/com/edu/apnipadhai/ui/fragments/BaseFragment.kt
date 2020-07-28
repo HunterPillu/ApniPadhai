@@ -28,7 +28,7 @@ open class BaseFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         super.onDetach()
     }
 
-    fun onBackPressed() {
+    open fun onBackPressed() {
         //Log.d(TAG, "total entry = " + activity!!.supportFragmentManager.backStackEntryCount)
         activity?.onBackPressed();
         /*if (activity!!.supportFragmentManager.backStackEntryCount > 1) {
