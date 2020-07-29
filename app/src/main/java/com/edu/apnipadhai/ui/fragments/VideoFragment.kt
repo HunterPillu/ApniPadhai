@@ -46,10 +46,10 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
 
     private fun setRecyclerView() {
         val rvRecords: RecyclerView? = layoutView?.findViewById<RecyclerView>(R.id.rvSuppliers)
-        adapter = VideoAdapter(context!!,this, this)
+        adapter = VideoAdapter(context!!,this)
         rvRecords?.adapter = adapter
         swipeRefresh = layoutView?.findViewById<View>(R.id.swipeRefresh) as SwipeRefreshLayout
-        swipeRefresh?.setOnRefreshListener(this)
+        swipeRefresh.setOnRefreshListener(this)
     }
 
     private fun popupMenus(view: View) {
@@ -117,7 +117,7 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
                     list1.add(model)
                 }
 
-                adapter.setList(list1)
+                adapter.updateList(list1)
             }
             .addOnFailureListener { exception ->
                 CustomLog.e(

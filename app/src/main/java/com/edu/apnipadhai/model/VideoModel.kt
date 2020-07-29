@@ -1,6 +1,6 @@
 package com.edu.apnipadhai.model
 
-class VideoModel {
+class VideoModel : Model {
     var id = 0
     var name = ""
     var channel = "Channel Name"

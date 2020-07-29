@@ -8,6 +8,7 @@ object Const {
     const val YOUTUBE_URL = "http://www.youtube.com/user/Meri%d20padhai"
     const val YOUTUBE_PACKAGE = "com.google.android.youtube"
 
+    const val VT_EMPTY: Int = 3
     const val SETTING_USER: Int = 2
     const val COURSE_HEADER: Int = 1
     const val COURSE_ITEM: Int = 0
