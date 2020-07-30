@@ -37,10 +37,39 @@ class CategoryFragment : BaseFragment(), ListItemClickListener<Int, Category> {
         return layoutView
     }
 
+    override fun onStart() {
+        super.onStart()
+        CustomLog.d("test_tag", "onStart")
+    }
+
     override fun onResume() {
         super.onResume()
+        CustomLog.d("test_tag", "onResume")
         fetchData()
     }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        CustomLog.d("test_tag", "1111111111111111111111111")
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        CustomLog.d("test_tag", "2222222222222222222222222")
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        CustomLog.d("test_tag", "33333333333333333333333333333")
+    }
+
+
+    /* override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+         super.onViewCreated(view, savedInstanceState)
+         setupToolbar()
+         setRecyclerView()
+         fetchSuppliers()
+     }*/
 
     private fun setRecyclerView() {
         val rvRecords: RecyclerView? = layoutView?.findViewById<RecyclerView>(R.id.rvSuppliers)
