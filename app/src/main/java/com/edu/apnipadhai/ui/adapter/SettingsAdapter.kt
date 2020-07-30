@@ -80,6 +80,7 @@ class SettingsAdapter(
                                 .getReference("userPhoto/" + list[position].url)
                         )
                         .into(headerRow.civProfile)
+
     }
 
     fun setUser(name: String,url : String) {
