@@ -10,14 +10,14 @@ import com.edu.apnipadhai.R
 import com.edu.apnipadhai.callbacks.ListItemClickListener
 import com.edu.apnipadhai.model.Setting
 import com.edu.apnipadhai.model.User
-import com.edu.apnipadhai.ui.activity.LoginActivity
+import com.edu.apnipadhai.ui.activity.CommonActivity
 import com.edu.apnipadhai.ui.adapter.SettingsAdapter
 import com.edu.apnipadhai.utils.Const
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 
-class SettingsFrag : BaseFragment(), ListItemClickListener<Setting> {
+class SettingsFrag : BaseFragment(), ListItemClickListener<Int, Setting> {
 
     private lateinit var adapter: SettingsAdapter
     private var userName: String? = null
@@ -49,32 +49,34 @@ class SettingsFrag : BaseFragment(), ListItemClickListener<Setting> {
             )
         )
 
-        list.add(Setting(R.drawable.share, getString(R.string.shareapp), Const.COURSE_ITEM))
-        list.add(Setting(R.drawable.touch, getString(R.string.Subscribe), Const.COURSE_ITEM))
-        list.add(Setting(R.drawable.phone, getString(R.string.contact), Const.COURSE_ITEM))
-        list.add(Setting(R.drawable.document, getString(R.string.TC), Const.COURSE_HEADER))
-        list.add(Setting(R.drawable.exit, getString(R.string.signout), Const.COURSE_HEADER))
+        list.add(Setting(R.drawable.ic_share_24, getString(R.string.shareapp), Const.COURSE_ITEM))
+        list.add(
+            Setting(
+                R.drawable.ic_course_24,
+                getString(R.string.title_select_course),
+                Const.COURSE_ITEM
+            )
+        )
+        list.add(Setting(R.drawable.ic_subscription_24, getString(R.string.Subscribe), Const.COURSE_ITEM))
+        list.add(Setting(R.drawable.ic_contacts_24, getString(R.string.contact), Const.COURSE_ITEM))
+        list.add(Setting(R.drawable.ic_file_24, getString(R.string.TC), Const.COURSE_HEADER))
+        list.add(Setting(R.drawable.ic_exit_24, getString(R.string.signout), Const.COURSE_HEADER))
         val rvRecords = layoutView?.findViewById<RecyclerView>(R.id.rvSetting)
         adapter = SettingsAdapter(list, this)
         rvRecords?.adapter = adapter
     }
 
-    override fun onItemClick(item: Setting?) {
-        when (item?.name) {
-            getString(R.string.signout) ->
+    override fun onItemClick(type: Int, item: Setting) {
+        when (item.id) {
+            R.drawable.ic_exit_24 ->
                 signoutDialog()
-
-            getString(R.string.Subscribe) ->
-                activity!!.startActivity(getYouTubeIntent())
-
-            userName ->
-                profileUpdate()
+            R.drawable.touch ->
+                startActivity(getYouTubeIntent())
+            R.drawable.ic_course_24 ->
+                openCourse()
+            0 ->
+                openScreen(Const.SCREEN_USER)
         }
-    }
-
-    private fun profileUpdate() {
-        val intent = Intent(context, LoginActivity::class.java)
-        activity!!.startActivity(intent)
     }
 
     val userInfoFromServer: Unit
@@ -91,9 +93,23 @@ class SettingsFrag : BaseFragment(), ListItemClickListener<Setting> {
                     documentSnapshot.toObject(User::class.java)
                 userName = userModel?.name
                 if (userModel!!.photoUrl != null && "" != userModel.photoUrl) {
-                  url = userModel.photoUrl
+                    url = userModel.photoUrl
                 }
-                adapter.setUser(userName.toString(),url.toString())
+                adapter.setUser(userName.toString(), url)
             }
         }
+
+
+    fun openScreen(type: Int) {
+        startActivity(Intent(activity, CommonActivity::class.java).apply {
+            putExtra(Const.EXTRA_TYPE, type)
+        })
+    }
+
+    fun openCourse() {
+        startActivity(Intent(activity, CommonActivity::class.java).apply {
+            putExtra(Const.EXTRA_TYPE, Const.SCREEN_COURSE)
+            putExtra("is_update", true)
+        })
+    }
 }

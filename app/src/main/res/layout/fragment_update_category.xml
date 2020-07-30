@@ -1,35 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical">
 
-
-    <RelativeLayout
-        android:layout_width="@dimen/size_profile_img"
-        android:layout_height="@dimen/size_profile_img"
-        android:layout_marginBottom="@dimen/margin_full">
-
-        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/user_photo"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/user"
-            app:civ_border_color="@color/colorPrimary"
-            app:civ_border_width="@dimen/margin_quarter" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_image_edit"
-            android:layout_width="@dimen/margin_super"
-            android:layout_height="@dimen/margin_super"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:src="@drawable/camera"
-            app:tint="@color/colorPrimary" />
-
-    </RelativeLayout>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -49,15 +26,15 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/img1"
-                android:layout_width="@dimen/dp30"
-                android:layout_height="@dimen/dp30"
+                android:layout_width="@dimen/normal_drawable_size"
+                android:layout_height="@dimen/normal_drawable_size"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/user"
+                android:src="@drawable/ic_text_24"
                 app:tint="@color/colorPrimary" />
 
             <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/user_name"
+                android:id="@+id/etName"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/row_button_height"
                 android:layout_marginStart="@dimen/margin_medium"
@@ -79,23 +56,33 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/img2"
-                android:layout_width="@dimen/dp30"
-                android:layout_height="@dimen/dp30"
+                android:layout_width="@dimen/normal_drawable_size"
+                android:layout_height="@dimen/normal_drawable_size"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/calendar"
+
+                android:src="@drawable/ic_switch_24"
                 app:tint="@color/colorPrimary" />
+
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/dob"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/row_button_height"
-
                 android:layout_marginStart="@dimen/margin_medium"
-                android:layout_toEndOf="@id/img2"
+                android:layout_toStartOf="@+id/scActive"
+                android:layout_toEndOf="@+id/img2"
                 android:gravity="center_vertical"
-                android:hint="@string/dob"
+                android:hint="@string/active"
                 android:textSize="@dimen/sub_title" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/scActive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                tools:checked="true" />
 
         </RelativeLayout>
 
@@ -106,19 +93,21 @@
             android:background="@drawable/rounded_edittext"
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/margin_half"
-            android:paddingRight="@dimen/margin_half">
+            android:paddingRight="@dimen/margin_half"
+            android:visibility="gone"
+            tools:visibility="visible">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/img3"
-                android:layout_width="@dimen/dp30"
-                android:layout_height="@dimen/dp30"
+                android:layout_width="@dimen/normal_drawable_size"
+                android:layout_height="@dimen/normal_drawable_size"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/phone_call"
+                android:src="@drawable/ic_details_24"
                 app:tint="@color/colorPrimary" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/mobile"
+                android:id="@+id/tvDetail"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/row_button_height"
                 android:layout_marginStart="@dimen/margin_medium"
@@ -132,12 +121,12 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/saveBtn"
+        android:id="@+id/bUpdate"
         android:layout_width="@dimen/button_width_default"
         android:layout_height="@dimen/row_button_height"
         android:layout_marginTop="@dimen/margin_duper"
         android:background="@color/colorPrimary"
-        android:text="@string/signin"
+        android:text="@string/update"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:visibility="visible" />

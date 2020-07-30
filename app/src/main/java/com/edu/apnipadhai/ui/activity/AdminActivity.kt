@@ -2,7 +2,7 @@ package com.edu.apnipadhai.ui.activity
 
 import android.os.Bundle
 import com.edu.apnipadhai.R
-import com.edu.apnipadhai.ui.fragments.AddVideoFragment
+import com.edu.apnipadhai.ui.fragments.AdminFragment
 import kotlinx.android.synthetic.main.custom_toolbar.*
 import kotlinx.android.synthetic.main.item_video.tvTitle
 
@@ -22,7 +22,7 @@ class AdminActivity : BaseActivity() {
          ivBack = findViewById(R.id.ivBack)
          tvTitle = findViewById(R.id.tvTitle)*/
         ivBack.setOnClickListener { onBackPressed() }
-        openFragment(AddVideoFragment.newInstance())
+        openFragment(AdminFragment.newInstance())
     }
 
     override fun updateToolbarTitle(title: String) {

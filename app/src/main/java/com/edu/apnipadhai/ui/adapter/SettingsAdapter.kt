@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.callbacks.ListItemClickListener
 import com.edu.apnipadhai.model.Setting
+import com.edu.apnipadhai.utils.Const
 import com.edu.apnipadhai.utils.Const.COURSE_HEADER
 import com.edu.apnipadhai.utils.Const.COURSE_ITEM
 import com.edu.apnipadhai.utils.Const.SETTING_USER
@@ -20,9 +21,8 @@ import java.util.*
 
 class SettingsAdapter(
     private val list: ArrayList<Setting>,
-    private val listener: ListItemClickListener<Setting>
-) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val listener: ListItemClickListener<Int, Setting>
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
         return list[position].type
@@ -45,7 +45,7 @@ class SettingsAdapter(
             COURSE_HEADER ->
                 SettingBottom(
                     LayoutInflater.from(parent.context)
-                        .inflate(R.layout.item_setting, parent, false)
+                        .inflate(R.layout.item_setting_2, parent, false)
                 )
             else -> throw IllegalArgumentException()
         }
@@ -57,16 +57,15 @@ class SettingsAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder.itemViewType) {
-            SETTING_USER ->
-                onBindHeaderProfile(holder, position)
             COURSE_ITEM ->
-                onBindHeaderItems(holder, position)
-            COURSE_HEADER ->
-                onBindBottom(holder, position)
-            else -> throw IllegalArgumentException()
+                onBindHeaderItems(holder, holder.adapterPosition)
+            SETTING_USER ->
+                onBindHeaderProfile(holder, holder.adapterPosition)
+            else ->
+                onBindBottom(holder, holder.adapterPosition)
         }
         holder.itemView.setOnClickListener { v: View? ->
-            listener.onItemClick(list[position])
+            listener.onItemClick(Const.TYPE_CLICKED, list[position])
         }
 
     }
@@ -80,10 +79,9 @@ class SettingsAdapter(
                                 .getReference("userPhoto/" + list[position].url)
                         )
                         .into(headerRow.civProfile)
-
     }
 
-    fun setUser(name: String,url : String) {
+    fun setUser(name: String, url: String?) {
         list[0].name = name
         list[0].url = url
         notifyItemChanged(0)
@@ -123,6 +121,4 @@ class SettingsAdapter(
             (itemView.layoutParams as StaggeredGridLayoutManager.LayoutParams).isFullSpan = true
         }
     }
-
-
 }

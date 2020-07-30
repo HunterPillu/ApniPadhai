@@ -23,7 +23,7 @@
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
                 android:scaleType="center"
-                app:srcCompat="@drawable/logo" />
+                tools:srcCompat="@drawable/logo" />
 
             <View
                 android:layout_width="match_parent"

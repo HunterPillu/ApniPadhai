@@ -3,7 +3,7 @@ package com.edu.apnipadhai.model
 open class Setting {
     var id: Int = 0
     var name: String = ""
-    var url: String = ""
+    var url: String? = null
     var type: Int = 0
 
     constructor(id: Int, name: String, type: Int) {

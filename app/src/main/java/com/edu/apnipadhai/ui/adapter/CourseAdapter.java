@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.edu.apnipadhai.R;
-import com.edu.apnipadhai.callbacks.ListItemClickListener;
 import com.edu.apnipadhai.model.Course;
 import com.edu.apnipadhai.utils.Const;
 
@@ -21,15 +20,12 @@ import java.util.List;
 
 public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private static final String TAG = "SupplierAdapter";
-    private final ListItemClickListener<Course> listener;
     private List<Course> list;
     private int selectedPosition = -1;
     private int cardSelected, cardUnselected;
 
-    public CourseAdapter(Context context, ListItemClickListener<Course> listener) {
+    public CourseAdapter(Context context) {
         this.list = new ArrayList<>();
-        this.listener = listener;
         cardSelected = context.getResources().getColor(R.color.colorPrimary);
         cardUnselected = context.getResources().getColor(R.color.card_color_category);
     }
@@ -49,7 +45,7 @@ public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (Const.INSTANCE.getCOURSE_HEADER() == viewType) {
+        if (Const.COURSE_HEADER == viewType) {
             View listItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_course_header, parent, false);
             return new HeaderVH(listItem);
         } else {
@@ -63,7 +59,7 @@ public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         try {
             Course vo = list.get(position);
 
-            if (vo.getCourseType() == Const.INSTANCE.getCOURSE_ITEM()) {
+            if (vo.getCourseType() == Const.COURSE_ITEM) {
                 ItemVH vh = (ItemVH) holder;
                 vh.cvMain.setCardBackgroundColor(vo.getSelected() ? cardSelected : cardUnselected);
                 vh.tvName.setText(vo.getName());
@@ -104,7 +100,10 @@ public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public int selectedCourseId() {
-        return selectedPosition;
+        if (selectedPosition == -1) {
+            return selectedPosition;
+        }
+        return list.get(selectedPosition).getId();
     }
 
 

@@ -13,6 +13,7 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivIcon"
+            app:tint="@color/colorPrimary"
             android:layout_width="@dimen/setting_item_icon_size"
             android:layout_height="@dimen/setting_item_icon_size"
             android:layout_centerVertical="true"
