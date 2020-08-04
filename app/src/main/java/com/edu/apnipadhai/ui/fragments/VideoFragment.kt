@@ -157,6 +157,8 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
 
     override fun onRefresh() {
         fetchData()
+        rlToolBar.visibility = View.VISIBLE
+        rlSearch.visibility = View.GONE
     }
 
     private fun fetchData() {
