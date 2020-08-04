@@ -1,6 +1,9 @@
 package com.edu.apnipadhai.ui.activity
 
 import android.os.Bundle
+import android.view.View
+import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.Toolbar
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.model.Category
 import com.edu.apnipadhai.ui.fragments.VideoFragment
@@ -11,18 +14,14 @@ import kotlinx.android.synthetic.main.custom_toolbar.*
 
 class VideoListActivity : BaseActivity() {
     internal val TAG = VideoListActivity::class.java.simpleName
-
-
-    // private var ivBack: ImageView? = null
-    // private lateinit var tvTitle: AppCompatTextView
+    public var toolbar: Toolbar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_toolbar_container)
 
-        // toolbar = findViewById(R.id.toolbar)
-        //ivBack = findViewById(R.id.ivBack)
-        //tvTitle = findViewById(R.id.tvTitle)
+        toolbar = findViewById(R.id.toolbar)
+        toolbar?.visibility = View.GONE
 
         val item = intent.getStringExtra("item")!!
         CustomLog.d(TAG, " crse  item : $item")
@@ -33,11 +32,5 @@ class VideoListActivity : BaseActivity() {
     override fun updateToolbarTitle(title: String) {
         tvTitle.text = title
     }
-
-    /* companion object {
-         fun openActivity(item: Category) {
-             Intent()
-         }
-     }*/
 
 }

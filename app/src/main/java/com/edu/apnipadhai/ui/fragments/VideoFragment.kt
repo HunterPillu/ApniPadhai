@@ -2,11 +2,14 @@ package com.edu.apnipadhai.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.PopupMenu
+import android.widget.RelativeLayout
+import androidx.appcompat.view.ActionMode
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.appcompat.widget.SearchView
+import androidx.core.widget.ImageViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.covidbeads.app.assesment.util.shortToast
@@ -21,32 +24,110 @@ import com.edu.apnipadhai.utils.Connectivity
 import com.edu.apnipadhai.utils.Const
 import com.edu.apnipadhai.utils.CustomLog
 import com.google.firebase.firestore.FirebaseFirestore
+import java.util.*
+import kotlin.collections.ArrayList
+
 
 class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
-    MenuClickListener<VideoModel, View> {
+    MenuClickListener<VideoModel, View>, SearchView.OnQueryTextListener,
+    SearchView.OnCloseListener {
     private lateinit var item: Category
     private lateinit var adapter: VideoAdapter
+    private lateinit var list1: ArrayList<VideoModel>
+    private  var searchString: String? = null
     private lateinit var swipeRefresh: SwipeRefreshLayout
+    private lateinit var actionMode: ActionMode
 
+    private lateinit var tvTitle: AppCompatTextView
+    private lateinit var tvNoData: AppCompatTextView
+    private lateinit var svSearchExpanded: SearchView
+    private lateinit var ivSearch: AppCompatImageView
+    private lateinit var ivBackSearch: AppCompatImageView
+    private lateinit var rlToolBar: RelativeLayout
+    private lateinit var rlSearch: RelativeLayout
+    private lateinit var ivBack: AppCompatImageView
+    private lateinit var rvRecords: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         if (null != layoutView) {
             return layoutView
         }
-
         layoutView = inflater.inflate(R.layout.fragment_videos, container, false)
-      //  setRecyclerView()
+        init()
+
+//        btn_srch?.setOnClickListener {
+//
+//            val itemId = "${item.id}"
+//            FirebaseFirestore.getInstance().collection(Const.TABLE_VIDEOS).whereEqualTo(Const.FIELD_CATEGORY_ID,itemId)
+//                .whereEqualTo("name","CLASS 6th || MATHS || WHOLE NUMBERS || SOLVED QUESTION OF 3 TO 8 || FOR ALL BOARDS || NCERT")
+//                .get().addOnSuccessListener { documents ->
+//
+//                    val list1 = ArrayList<VideoModel>()
+//                    for (postSnapshot in documents) {
+//
+//                        val model: VideoModel = postSnapshot.toObject(VideoModel::class.java)
+//                        //course.fKey = postSnapshot.id
+//                        list1.add(model)
+//                    }
+//
+//                    adapter.setList(list1)
+//                }
+//                .addOnFailureListener { exception ->
+//                    CustomLog.e(
+//                        TAG,
+//                        "Error getting documents: ${exception.localizedMessage}"
+//                    )
+//                }
+//        }
+
+        setRecyclerView()
         fetchData()
         return layoutView
     }
 
+    private fun init() {
+        rvRecords = layoutView!!.findViewById(R.id.rvSuppliers)
+        tvTitle = layoutView!!.findViewById(R.id.tvTitle)
+        tvNoData = layoutView!!.findViewById(R.id.tvNoData)
+        svSearchExpanded = layoutView!!.findViewById(R.id.svSearchExpanded)
+        ivBackSearch = layoutView!!.findViewById(R.id.ivBackSearch)
+        ivSearch = layoutView!!.findViewById(R.id.ivSearch)
+        ivBack = layoutView!!.findViewById(R.id.ivBack)
+        rlSearch = layoutView!!.findViewById(R.id.rlSearch)
+        rlToolBar = layoutView!!.findViewById(R.id.rlToolBar)
+        svSearchExpanded.visibility = View.VISIBLE
+        ivSearch.visibility = View.VISIBLE
+        svSearchExpanded.setOnQueryTextListener(this)
+        svSearchExpanded.setOnCloseListener(this)
+
+        ivBack.setOnClickListener {
+            activity!!.finish()
+        }
+
+        ivSearch.setOnClickListener {
+            rlToolBar.visibility = View.GONE
+            rlSearch.visibility = View.VISIBLE
+            svSearchExpanded.onActionViewExpanded()
+        }
+
+        ivBackSearch.setOnClickListener {
+            rlToolBar.visibility = View.VISIBLE
+            rlSearch.visibility = View.GONE
+            svSearchExpanded.onActionViewCollapsed()
+            adapter.setList(list1,tvNoData,rvRecords)
+        }
+//        if (!this.svSearchExpanded.isIconified()) {
+//            svSearchExpanded.onActionViewCollapsed()
+//            if (adapter.itemCount == 0)
+//                adapter.setList(list1, tvNoData, rvRecords)
+//        } else
+    }
+
     private fun setRecyclerView() {
-        val rvRecords: RecyclerView? = layoutView?.findViewById<RecyclerView>(R.id.rvSuppliers)
-        adapter = VideoAdapter(context!!,this, this)
+        adapter = VideoAdapter(context!!, this, this)
         rvRecords?.adapter = adapter
         swipeRefresh = layoutView?.findViewById<View>(R.id.swipeRefresh) as SwipeRefreshLayout
         swipeRefresh?.setOnRefreshListener(this)
@@ -68,13 +149,6 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
         val intent = Intent(context, YouTubeActivity::class.java)
         intent.putExtra("videoId", item.videoId)
         startActivity(intent)
-        /* (activity!! as MainActivity).openFragment(
-             newInstance(
-                 item.id,
-                 item.name,
-                 item.videoCount,
-             )
-         )*/
     }
 
     override fun itemClick(item: VideoModel, obj: View) {
@@ -102,14 +176,8 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
             .get()
             .addOnSuccessListener { documents ->
                 swipeRefresh.setRefreshing(false)
-                val list1 = ArrayList<VideoModel>()
-                /* val course = Course().apply {
-                     id = -1
-                     name = ""
-                     courseType = Const.COURSE_HEADER
-                     parentId = parentID
-                 }
-                 list1.add(course)*/
+                list1 = ArrayList<VideoModel>()
+
                 for (postSnapshot in documents) {
 
                     val model: VideoModel = postSnapshot.toObject(VideoModel::class.java)
@@ -117,7 +185,7 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
                     list1.add(model)
                 }
 
-                adapter.setList(list1)
+                adapter.setList(list1,tvNoData,rvRecords)
             }
             .addOnFailureListener { exception ->
                 CustomLog.e(
@@ -158,6 +226,7 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
 
     override fun onResume() {
         super.onResume()
+        tvTitle.text = item.name
         updateToolbarTitle(item.name)
     }
 
@@ -168,6 +237,27 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
             fragment.item = item
             return fragment
         }
-
     }
+
+    private fun searchResult(query: String?)
+    {
+        if (!query.isNullOrEmpty() || !query.isNullOrBlank()) {
+            searchString = query
+            val listSearch: ArrayList<VideoModel?> = ArrayList()
+            for (i in 0 until list1.size) {
+                if (list1[i].name.toLowerCase(Locale.ROOT).contains(query.toLowerCase(Locale.ROOT).trim())) {
+                    listSearch.add(list1[i])
+                }
+            }
+            adapter.setList(listSearch,tvNoData,rvRecords)
+        }
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        searchResult(query)
+        return true }
+
+    override fun onQueryTextChange(newText: String?): Boolean { return true }
+
+    override fun onClose(): Boolean { return true }
 }

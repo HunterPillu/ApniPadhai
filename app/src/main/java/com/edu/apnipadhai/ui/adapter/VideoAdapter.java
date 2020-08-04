@@ -36,9 +36,17 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.RecordViewHo
     }
 
 
-    public void setList(List<VideoModel> list) {
+    public void setList(List<VideoModel> list, AppCompatTextView textView,RecyclerView rvRecords) {
         this.list = list;
         notifyDataSetChanged();
+        if (list.size() <=0) {
+            textView.setVisibility(View.VISIBLE);
+            rvRecords.setVisibility(View.GONE);
+        }
+        else{
+            textView.setVisibility(View.GONE);
+            rvRecords.setVisibility(View.VISIBLE);
+        }
     }
 
 

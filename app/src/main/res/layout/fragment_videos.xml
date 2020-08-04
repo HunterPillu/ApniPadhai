@@ -7,6 +7,13 @@
     android:layout_height="match_parent"
     android:layout_below="@+id/appbar">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/custom_toolbar" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvSuppliers"
         android:layout_width="match_parent"
@@ -14,6 +21,19 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:spanCount="2"
         android:layout_marginTop="@dimen/dp2"
-        tools:listitem="@layout/item_video" />
+        tools:listitem="@layout/item_video"
+        android:visibility="gone"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvNoData"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="No data found"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:visibility="visible"/>
+
+
+    </LinearLayout>
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

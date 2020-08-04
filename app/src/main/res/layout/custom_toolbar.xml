@@ -23,6 +23,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <RelativeLayout
+                android:id="@+id/rlToolBar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible">
+
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivBack"
                 android:layout_width="@dimen/size_toolbar_icon"
@@ -44,7 +50,8 @@
                 android:textColor="#fff"
                 android:textSize="@dimen/title"
                 android:textStyle="bold"
-                tools:text="@string/title_select_course" />
+                tools:text="@string/title_select_course"
+                android:visibility="visible"/>
 
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -57,7 +64,54 @@
                 android:src="@drawable/ic_settings_24dp"
                 android:visibility="gone"
                 app:tint="@color/white" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivSearch"
+                    android:layout_width="@dimen/size_toolbar_icon"
+                    android:layout_height="@dimen/size_toolbar_icon"
+                    android:src="@drawable/search"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:padding="12dp"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlSearch"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivBackSearch"
+                    android:layout_width="@dimen/size_toolbar_icon"
+                    android:layout_height="@dimen/size_toolbar_icon"
+                    android:layout_centerVertical="true"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_previous" />
+
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/svSearchExpanded"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:padding="12dp"
+                    android:visibility="visible"
+                    app:tint="@color/white"
+                    app:queryHint="@string/search"
+                    android:iconifiedByDefault="true" />
+
+            </RelativeLayout>
+
+
+
+
+
         </RelativeLayout>
+
+
     </androidx.appcompat.widget.Toolbar>
 
 </com.google.android.material.appbar.AppBarLayout>

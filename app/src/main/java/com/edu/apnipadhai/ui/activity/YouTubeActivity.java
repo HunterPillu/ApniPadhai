@@ -6,10 +6,14 @@ import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ActionMode;
 import androidx.core.content.ContextCompat;
 
 import com.edu.apnipadhai.R;
@@ -33,7 +37,7 @@ public class YouTubeActivity extends AppCompatActivity {
 
     private YouTubePlayerView youTubePlayerView;
     private FullScreenHelper fullScreenHelper = new FullScreenHelper(this);
-
+ActionMode mode;
     // a list of videos not available in some countries, to test if they're handled gracefully.
     // private String[] nonPlayableVideoIds = { "sop2V_MREEI" };
 
@@ -46,7 +50,53 @@ public class YouTubeActivity extends AppCompatActivity {
         youTubePlayerView = findViewById(R.id.youtube_player_view);
         String videoId = getIntent().getStringExtra("videoId");
         initYouTubePlayerView(videoId);
+
+
+        youTubePlayerView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                if (mode != null)
+                    return false;
+                mode = startSupportActionMode(callback);
+
+                return false;
+            }
+        });
     }
+
+    ActionMode.Callback callback = new ActionMode.Callback() {
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+
+            MenuInflater inflater = mode.getMenuInflater();
+            inflater.inflate(R.menu.search_menu,menu);
+
+            return false;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, android.view.MenuItem item) {
+
+            switch (item.getItemId())
+            {
+                case R.id.one11:
+                    Toast.makeText(YouTubeActivity.this, "hello", Toast.LENGTH_SHORT).show();
+            }
+
+            return false;
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+
+        }
+    };
 
     @Override
     public void onConfigurationChanged(Configuration newConfiguration) {

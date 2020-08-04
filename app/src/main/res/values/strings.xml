@@ -65,6 +65,7 @@
     <string name="delete">Delete</string>
     <string name="active">Active</string>
     <string name="update_category">Update Category</string>
+    <string name="search">Search</string>
 
 
 </resources>

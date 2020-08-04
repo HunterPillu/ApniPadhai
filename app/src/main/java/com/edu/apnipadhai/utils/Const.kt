@@ -28,4 +28,7 @@ object Const {
     const val TABLE_CATEGORY = "category"
     const val TABLE_USERS = "users"
     const val TABLE_VIDEOS = "videos"
+
+    // FIRESTORE FIELD
+    const val FIELD_CATEGORY_ID = "categoryId"
 }
