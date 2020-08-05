@@ -2,14 +2,16 @@ package com.edu.apnipadhai.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.PopupMenu
 import android.widget.RelativeLayout
 import androidx.appcompat.view.ActionMode
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.SearchView
-import androidx.core.widget.ImageViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.covidbeads.app.assesment.util.shortToast
@@ -23,7 +25,11 @@ import com.edu.apnipadhai.ui.adapter.VideoAdapter
 import com.edu.apnipadhai.utils.Connectivity
 import com.edu.apnipadhai.utils.Const
 import com.edu.apnipadhai.utils.CustomLog
+import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.QuerySnapshot
+import com.google.gson.Gson
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -57,6 +63,27 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
         }
         layoutView = inflater.inflate(R.layout.fragment_videos, container, false)
         init()
+
+        tvTitle.setOnClickListener {
+
+            val first = FirebaseFirestore.getInstance().collection(Const.TABLE_VIDEOS)
+                .limit(5)
+            first.get()
+                .addOnSuccessListener { documentSnapshots ->
+                    val lastVisible = documentSnapshots.documents[documentSnapshots.size() - 1]
+                    for (postSnapshot in documentSnapshots) {
+                        val model: VideoModel = postSnapshot.toObject(VideoModel::class.java)
+                    }
+                }
+
+        }
+
+
+
+
+
+
+
 
 //        btn_srch?.setOnClickListener {
 //
