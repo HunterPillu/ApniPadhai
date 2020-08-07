@@ -1,48 +1,60 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><!--<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/MatchWidth"
     android:layout_marginHorizontal="@dimen/margin_half"
-    android:layout_marginVertical="@dimen/margin_quarter">
+    android:layout_marginVertical="@dimen/margin_quarter">-->
 
-    <RelativeLayout
-        android:id="@+id/rlUserProfile"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rlUserProfile"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/margin_half"
+    android:layout_marginTop="@dimen/margin_full"
+    android:layout_marginBottom="@dimen/margin_quarter"
+
+    android:gravity="center_vertical"
+    android:minHeight="@dimen/height_min_item_2"
+    android:paddingHorizontal="@dimen/margin_half">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civProfile"
+        android:layout_width="@dimen/size_profile_img_2"
+        android:layout_height="@dimen/size_profile_img_2"
+        android:layout_gravity="center_vertical"
+        app:civ_border_color="@color/white"
+        app:civ_border_width="@dimen/min_border_width"
+        tools:src="@drawable/logo" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:gravity="center_vertical"
-        android:minHeight="@dimen/height_min_item_2"
-        android:paddingHorizontal="@dimen/margin_half">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/civProfile"
-            android:layout_width="@dimen/size_profile_img_2"
-            android:layout_height="@dimen/size_profile_img_2"
-            android:layout_gravity="center_vertical"
-            app:civ_border_color="@color/white"
-            app:civ_border_width="@dimen/min_border_width"
-            tools:src="@drawable/logo" />
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/civProfile"
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvUserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_quarter"
+            android:layout_marginStart="@dimen/margin_half"
             android:layout_toEndOf="@+id/civProfile"
             android:textColor="@color/text_primary"
-            android:textSize="@dimen/body_primary" />
+            android:textSize="@dimen/body_primary"
+            tools:text="Prinkal Kumar" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvUserName"
-            android:layout_marginStart="@dimen/margin_quarter"
+            android:layout_marginStart="@dimen/margin_half"
             android:layout_toEndOf="@+id/civProfile"
             android:text="@string/see_profile"
             android:textColor="@color/text_secondary"
-            android:textSize="@dimen/body_secondary" />
+            android:textSize="@dimen/caption" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
-    </RelativeLayout>
-</androidx.cardview.widget.CardView>
+</RelativeLayout><!--</androidx.cardview.widget.CardView>-->
 

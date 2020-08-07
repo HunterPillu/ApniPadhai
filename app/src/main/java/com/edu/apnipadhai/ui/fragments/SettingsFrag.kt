@@ -13,6 +13,7 @@ import com.edu.apnipadhai.model.User
 import com.edu.apnipadhai.ui.activity.CommonActivity
 import com.edu.apnipadhai.ui.adapter.SettingsAdapter
 import com.edu.apnipadhai.utils.Const
+import com.edu.apnipadhai.utils.Utils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -57,12 +58,19 @@ class SettingsFrag : BaseFragment(), ListItemClickListener<Int, Setting> {
                 Const.COURSE_ITEM
             )
         )
-        list.add(Setting(R.drawable.ic_subscription_24, getString(R.string.Subscribe), Const.COURSE_ITEM))
+        list.add(
+            Setting(
+                R.drawable.ic_subscription_24,
+                getString(R.string.Subscribe),
+                Const.COURSE_ITEM
+            )
+        )
         list.add(Setting(R.drawable.ic_contacts_24, getString(R.string.contact), Const.COURSE_ITEM))
         list.add(Setting(R.drawable.ic_file_24, getString(R.string.TC), Const.COURSE_HEADER))
         list.add(Setting(R.drawable.ic_exit_24, getString(R.string.signout), Const.COURSE_HEADER))
+        list.add(Setting(-1, "", Const.ITEM_3))
         val rvRecords = layoutView?.findViewById<RecyclerView>(R.id.rvSetting)
-        adapter = SettingsAdapter(list, this)
+        adapter = SettingsAdapter(context!!, list, this)
         rvRecords?.adapter = adapter
     }
 
@@ -70,10 +78,14 @@ class SettingsFrag : BaseFragment(), ListItemClickListener<Int, Setting> {
         when (item.id) {
             R.drawable.ic_exit_24 ->
                 signoutDialog()
-            R.drawable.touch ->
-                startActivity(getYouTubeIntent())
-            R.drawable.ic_course_24 ->
+            R.drawable.ic_course_24 -> {
+                onBackPressed()
                 openCourse()
+            }
+            R.drawable.ic_contacts_24 ->
+                Utils.openMail(context!!)
+            R.drawable.ic_subscription_24 ->
+                Utils.openYouTube(context!!)
             0 ->
                 openScreen(Const.SCREEN_USER)
         }

@@ -36,7 +36,7 @@ class CategoryAdapter(listener: ListItemClickListener<Int, Category>) :
     ) {
         val vo = list[position]
         holder.tvName.text = vo.name
-        holder.tvCount.text = "" + vo.videoCount
+        holder.tvCount.text = "${vo.videoCount}"
         // holder.ivStatus.setImageResource(getStatusImg(vo.fetchStatus()));
         holder.itemView.setOnClickListener { v: View? ->
             listener.onItemClick(

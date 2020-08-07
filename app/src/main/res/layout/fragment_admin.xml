@@ -7,6 +7,7 @@
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:animateLayoutChanges="true"
     android:orientation="vertical">
 
@@ -31,6 +32,22 @@
         style="@style/button_default"
         android:layout_marginTop="@dimen/margin_full"
         android:text="@string/title_add_video" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bSyncCount"
+        style="@style/button_default"
+        android:layout_marginTop="@dimen/margin_full"
+        android:text="@string/update_video_count" />
+
+    <ProgressBar
+        android:id="@+id/pb"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/margin_full" />
 
 </androidx.appcompat.widget.LinearLayoutCompat><!--
 </ScrollView>-->

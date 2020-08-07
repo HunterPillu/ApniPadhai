@@ -253,72 +253,7 @@ class AddVideoFragment : BaseFragment() {
         }
     }
 
-    fun saveCategories() {
-        val mFirestore = FirebaseFirestore.getInstance();
 
-        // Get a reference to the restaurants collection
-
-        // Get a reference to the restaurants collection
-        val catList = mFirestore.collection("category")
-
-        // Add a new document to the restaurants collection
-        catList.add(Category(1, "Grades", 0).toMap())
-        catList.add(Category(2, "Exam Preparation", 0).toMap())
-        catList.add(Category(3, "6th", 1).toMap())
-        catList.add(Category(4, "7th", 1).toMap())
-        catList.add(Category(5, "8th", 1).toMap())
-        catList.add(Category(6, "9th", 1).toMap())
-        catList.add(Category(7, "10th", 1).toMap())
-        catList.add(Category(8, "11th Science", 1).toMap())
-        catList.add(Category(9, "12th Science", 1).toMap())
-        catList.add(Category(10, "11th Commerce", 1).toMap())
-        catList.add(Category(11, "12th Commerce", 1).toMap())
-        catList.add(Category(12, "UPSC", 2).toMap())
-        catList.add(Category(13, "SSC", 2).toMap())
-        catList.add(Category(14, "State Level", 2).toMap())
-        catList.add(Category(15, "Physics", 8).toMap())
-        catList.add(Category(16, "Chemistry", 8).toMap())
-        catList.add(Category(17, "Biology", 8).toMap())
-        catList.add(Category(18, "English", 8).toMap())
-        catList.add(Category(19, "Maths", 8).toMap())
-        catList.add(Category(20, "English", 8).toMap())
-
-    }
-
-
-    fun updateSelectedCourse(courseId: Int) {
-        val map: MutableMap<String, Any> = HashMap()
-        map["courseId"] = courseId
-        FirebaseFirestore.getInstance().collection("users")
-            .document(FirebaseAuth.getInstance().currentUser!!.uid).set(map, SetOptions.merge())
-
-    }
-
-    private fun fetchData(parentID: Int?) {
-        CustomLog.e(TAG, "fetchData")
-
-        if (!Connectivity.isConnected(context)) {
-
-            shortToast(getString(R.string.no_internet_connection))
-            return
-        }
-
-
-
-        FirebaseFirestore.getInstance().collection("category")
-            .whereEqualTo("parentId", parentID)
-            .get()
-            .addOnSuccessListener { documents ->
-
-                val list: ArrayList<Course> = ArrayList()
-                for (postSnapshot in documents) {
-                    val course: Course = postSnapshot.toObject(Course::class.java)
-                }
-            }
-            .addOnFailureListener { exception ->
-                CustomLog.w(TAG, "Error getting documents: ${exception.localizedMessage}")
-            }
-    }
 
     fun isValid(videoId: String): Boolean {
         return videoId.isEmpty()
