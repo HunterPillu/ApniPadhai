@@ -68,21 +68,4 @@ open class BaseFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
     }
 
-    open fun getYouTubeIntent(): Intent? {
-        var intent: Intent
-        val url = Const.YOUTUBE_URL
-        try {
-            // get the Twitter app if possible
-            val pm = context!!.packageManager
-            pm.getPackageInfo(Const.YOUTUBE_PACKAGE, 0)
-            intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-            intent.setPackage(Const.YOUTUBE_PACKAGE)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        } catch (e: Exception) {
-            // no Twitter app, revert to browser
-            intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-        }
-        return intent
-    }
-
 }

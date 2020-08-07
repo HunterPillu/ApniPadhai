@@ -141,32 +141,32 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
         }
     }
 
-    fun fireStorePagination()
-    {
+    fun fireStorePagination() {
         val query = if (lastResult == null) {
-            val first = FirebaseFirestore.getInstance().collection(Const.TABLE_VIDEOS).whereEqualTo(Const.FIELD_CATEGORY_ID,"${item.id}")
+            val first = FirebaseFirestore.getInstance().collection(Const.TABLE_VIDEOS)
+                .whereEqualTo(Const.FIELD_CATEGORY_ID, "${item.id}")
                 .limit(Const.LIMIT)
             first
         } else {
-            val first = FirebaseFirestore.getInstance().collection(Const.TABLE_VIDEOS).whereEqualTo(Const.FIELD_CATEGORY_ID,"${item.id}")
+            val first = FirebaseFirestore.getInstance().collection(Const.TABLE_VIDEOS)
+                .whereEqualTo(Const.FIELD_CATEGORY_ID, "${item.id}")
                 .startAfter(lastResult!!).limit(Const.LIMIT)
             first
         }
         query.get().addOnSuccessListener { documentSnapshots ->
-            if (documentSnapshots.size() > 0){
-            for (postSnapshot in documentSnapshots) {
+            if (documentSnapshots.size() > 0) {
+                for (postSnapshot in documentSnapshots) {
 
-                val model: VideoModel = postSnapshot.toObject(VideoModel::class.java)
-                list1.add(model)
-                Log.e("videoModel__", model.name)
-            }
+                    val model: VideoModel = postSnapshot.toObject(VideoModel::class.java)
+                    list1.add(model)
+                    Log.e("videoModel__", model.name)
+                }
                 pb_progress.visibility = View.GONE
-            adapter.setList(list1, tvNoData, rvRecords)
-            isScrolling = false
-            Log.e("----------", "----------")
+                adapter.setList(list1, tvNoData, rvRecords)
+                isScrolling = false
+                Log.e("----------", "----------")
                 lastResult = documentSnapshots.documents.get(documentSnapshots.size() - 1)
-            }
-            else {
+            } else {
                 final_listItem = 0
                 pb_progress.visibility = View.GONE
             }
@@ -203,13 +203,16 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
             .get()
             .addOnSuccessListener { documents ->
                 swipeRefresh.setRefreshing(false)
-                for (postSnapshot in documents) {
-                    val model: VideoModel = postSnapshot.toObject(VideoModel::class.java)
-                    list1.add(model)
+
+                if (documents.size() > 0) {
+                    for (postSnapshot in documents) {
+                        val model: VideoModel = postSnapshot.toObject(VideoModel::class.java)
+                        list1.add(model)
+                    }
+                    lastResult = documents.documents.get(documents.size() - 1)
+                    adapter.setList(list1, tvNoData, rvRecords)
+                    isScrolling = false
                 }
-                lastResult = documents.documents.get(documents.size() - 1)
-                adapter.setList(list1, tvNoData, rvRecords)
-                isScrolling = false
             }
             .addOnFailureListener { exception ->
                 CustomLog.e(TAG, "Error getting documents: ${exception.localizedMessage}")
@@ -228,27 +231,27 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
         rvRecords.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (!isSearching){
-                if (list1.size >= Const.LIMIT) {
-                    currentItems = layoutManager.childCount
-                    totalItems = layoutManager.getItemCount()
-                    scrolloutItems = layoutManager.findFirstVisibleItemPosition()
-                    Log.e("items_count_", "$currentItems  $totalItems  $scrolloutItems")
-                }
+                if (!isSearching) {
+                    if (list1.size >= Const.LIMIT) {
+                        currentItems = layoutManager.childCount
+                        totalItems = layoutManager.getItemCount()
+                        scrolloutItems = layoutManager.findFirstVisibleItemPosition()
+                        Log.e("items_count_", "$currentItems  $totalItems  $scrolloutItems")
+                    }
 
-                if (!isScrolling && currentItems + scrolloutItems >= totalItems) {
-                    if (final_listItem > 0) {
-                        if (!Connectivity.isConnected(context)) {
-                            swipeRefresh.isRefreshing = false
-                            shortToast(getString(R.string.no_internet_connection))
-                            return
+                    if (!isScrolling && currentItems + scrolloutItems >= totalItems) {
+                        if (final_listItem > 0) {
+                            if (!Connectivity.isConnected(context)) {
+                                swipeRefresh.isRefreshing = false
+                                shortToast(getString(R.string.no_internet_connection))
+                                return
+                            }
+                            isScrolling = true
+                            pb_progress.visibility = View.VISIBLE
+                            fireStorePagination()
                         }
-                        isScrolling = true
-                        pb_progress.visibility = View.VISIBLE
-                        fireStorePagination()
                     }
                 }
-            }
 
             }
         })

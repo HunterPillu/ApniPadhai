@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingHorizontal="16dp">
+    android:layout_marginTop="@dimen/margin_medium"
+    android:paddingHorizontal="@dimen/margin_quarter">
 
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -11,10 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginHorizontal="@dimen/margin_half"
         android:layout_marginTop="@dimen/margin_full"
-        android:textColor="@color/text_secondary"
-        android:textSize="@dimen/sub_title"
+        android:textColor="@color/text_primary"
+        android:textSize="@dimen/body_primary"
+        android:textStyle="bold"
         tools:text="Text" />
 
 </RelativeLayout>

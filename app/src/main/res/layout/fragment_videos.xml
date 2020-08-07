@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/swipeRefresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_below="@+id/appbar">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:visibility="visible">
+    android:animateLayoutChanges="true"
+    android:orientation="vertical">
 
         <include layout="@layout/custom_toolbar" />
+
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/appbar">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/appbar">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvSuppliers"
@@ -23,39 +29,30 @@
             android:visibility="visible"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:spanCount="2"
-            tools:listitem="@layout/item_video"
-            android:layout_below="@+id/appbar"/>
+            tools:listitem="@layout/item_video" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvNoData"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/no_data_found"
-            android:textColor="@color/black"
-            android:layout_below="@+id/appbar"
-            android:visibility="gone" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvNoData"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/no_data"
+                android:textColor="@color/text_secondary"
+                android:visibility="gone" />
 
         <ProgressBar
             android:id="@+id/pb_progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
             android:minWidth="50dp"
             android:minHeight="50dp"
-            android:visibility="gone"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"/>
-
-    </RelativeLayout>
+            android:visibility="gone" />
 
 
-    <ProgressBar
-        android:id="@+id/progressBar_cyclic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:minWidth="50dp"
-        android:minHeight="50dp" />
+            </RelativeLayout>
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    </RelativeLayout>

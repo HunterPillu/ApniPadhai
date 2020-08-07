@@ -24,19 +24,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipChildren="false"
-            android:padding="@dimen/margin_half"
+            android:paddingHorizontal="@dimen/margin_medium"
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             app:spanCount="2"
             tools:listitem="@layout/item_category" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-
     <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/next"
+
         android:id="@+id/bNext"
-        android:textAllCaps="false" />
+        style="@style/button_default"
+        android:layout_width="match_parent"
+        android:text="@string/update" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -53,7 +53,7 @@ class CourseFragment : BaseFragment() {
 
     private fun setRecyclerView() {
         val rvRecords: RecyclerView? = layoutView?.findViewById<RecyclerView>(R.id.rvList)
-        adapter = CourseAdapter(context)
+        adapter = CourseAdapter(context!!)
         rvRecords?.adapter = adapter
         swipeRefresh = layoutView?.findViewById<View>(R.id.swipeRefresh) as SwipeRefreshLayout
     }
@@ -101,7 +101,7 @@ class CourseFragment : BaseFragment() {
         swipeRefresh?.setRefreshing(true)
 
 
-        FirebaseFirestore.getInstance().collection("category")
+        FirebaseFirestore.getInstance().collection(Const.TABLE_CATEGORY)
             .whereEqualTo("parentId", parentID)
             .get()
             .addOnSuccessListener { documents ->
@@ -109,7 +109,7 @@ class CourseFragment : BaseFragment() {
                 val isParentHeader = (parentID == 0)
                 swipeRefresh?.setRefreshing(false)
                 swipeRefresh?.isEnabled = false
-
+                val currentCourseId = PrefUtil.getCourseId(context!!)
                 val list: ArrayList<Course> = ArrayList()
 
                 if (!isParentHeader) {
@@ -123,17 +123,20 @@ class CourseFragment : BaseFragment() {
                         map[course.id] = course
                         fetchData(course.id)
                     } else {
+                        if (course.id == currentCourseId) {
+                            course.selected = true
+                        }
                         list.add(course)
                     }
                 }
                 if (!isParentHeader)
-                    adapter.setList(list)
+                    adapter.updateList(list)
 
             }
             .addOnFailureListener { exception ->
                 swipeRefresh?.setRefreshing(false)
                 swipeRefresh?.isEnabled = false
-                CustomLog.w(TAG, "Error getting documents: ${exception.localizedMessage}")
+                CustomLog.e(TAG, "Error getting documents: ${exception.localizedMessage}")
             }
     }
 
