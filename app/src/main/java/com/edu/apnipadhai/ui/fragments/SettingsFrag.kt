@@ -76,6 +76,8 @@ class SettingsFrag : BaseFragment(), ListItemClickListener<Int, Setting> {
 
     override fun onItemClick(type: Int, item: Setting) {
         when (item.id) {
+            R.drawable.ic_share_24 ->
+                Utils.shareApp(context!!)
             R.drawable.ic_exit_24 ->
                 signoutDialog()
             R.drawable.ic_course_24 -> {

@@ -2,24 +2,38 @@ package com.edu.apnipadhai.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.*
+import android.os.Handler
+import android.util.TypedValue
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.appcompat.widget.LinearLayoutCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.covidbeads.app.assesment.util.PrefUtil
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.callbacks.ListItemClickListener
 import com.edu.apnipadhai.model.Category
 import com.edu.apnipadhai.model.Course
+import com.edu.apnipadhai.model.VideoModel
 import com.edu.apnipadhai.ui.activity.VideoListActivity
+import com.edu.apnipadhai.ui.activity.YouTubeActivity
 import com.edu.apnipadhai.ui.adapter.CategoryAdapter
+import com.edu.apnipadhai.ui.adapter.VideoAdapter
+import com.edu.apnipadhai.utils.Connectivity
 import com.edu.apnipadhai.utils.Const
 import com.edu.apnipadhai.utils.CustomLog
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.layout_course_topic.*
+import kotlinx.android.synthetic.main.fragment_category.*
 
 
 class CategoryFragment : BaseFragment(), ListItemClickListener<Int, Category> {
     private lateinit var adapter: CategoryAdapter
+    private lateinit var videoAdapter: VideoAdapter
+    private var canBeCalledOnResume = true
     // private var swipeRefresh: SwipeRefreshLayout? = null
 
 
@@ -33,36 +47,27 @@ class CategoryFragment : BaseFragment(), ListItemClickListener<Int, Category> {
         }
 
         layoutView = inflater.inflate(R.layout.fragment_category, container, false)
-        setRecyclerView()
+        canBeCalledOnResume = false
+        Handler().postDelayed({ initView() }, 50)
         return layoutView
-    }
-
-    override fun onStart() {
-        super.onStart()
-        CustomLog.d("test_tag", "onStart")
     }
 
     override fun onResume() {
         super.onResume()
-        CustomLog.d("test_tag", "onResume")
+        if (canBeCalledOnResume) {
+            fetchData()
+            fetchRecentVideos()
+        } else {
+            canBeCalledOnResume = true
+        }
+    }
+
+    fun initView() {
+        setCourseList()
+        setRecentList()
         fetchData()
+        fetchRecentVideos()
     }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        CustomLog.d("test_tag", "1111111111111111111111111")
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        CustomLog.d("test_tag", "2222222222222222222222222")
-    }
-
-    override fun onHiddenChanged(hidden: Boolean) {
-        super.onHiddenChanged(hidden)
-        CustomLog.d("test_tag", "33333333333333333333333333333")
-    }
-
 
     /* override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
          super.onViewCreated(view, savedInstanceState)
@@ -71,12 +76,80 @@ class CategoryFragment : BaseFragment(), ListItemClickListener<Int, Category> {
          fetchSuppliers()
      }*/
 
-    private fun setRecyclerView() {
-        val rvRecords: RecyclerView? = layoutView?.findViewById<RecyclerView>(R.id.rvSuppliers)
+    private fun setCourseList() {
+        val view = layoutView?.findViewById<View>(R.id.ll2)!!
+        val rvRecords: RecyclerView? = view.findViewById<RecyclerView>(R.id.rvList)
         adapter = CategoryAdapter(this)
         rvRecords?.adapter = adapter
         //swipeRefresh = layoutView?.findViewById<View>(R.id.swipeRefresh) as SwipeRefreshLayout
         //swipeRefresh?.setOnRefreshListener(this)
+    }
+
+    private fun setRecentList() {
+        val view = layoutView?.findViewById<View>(R.id.ll1)!!
+        val header = view.findViewById<AppCompatTextView>(R.id.tvHeader)
+        header.setText(R.string.recent_upload)
+        val params: LinearLayoutCompat.LayoutParams =
+            header.layoutParams as LinearLayoutCompat.LayoutParams
+        val margin = (TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            12f,
+            context!!.resources.displayMetrics
+        ).toInt())
+
+        params.setMargins(
+            margin, margin, 0, 0
+        )
+        header.layoutParams = params;
+        val rv: RecyclerView = view.findViewById<RecyclerView>(R.id.rvList)
+        rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        val snapHelper = LinearSnapHelper() // Or PagerSnapHelper
+        snapHelper.attachToRecyclerView(rv)
+        videoAdapter = VideoAdapter(
+            context,
+            object : ListItemClickListener<Int, VideoModel> {
+                override fun onItemClick(type: Int, item: VideoModel) {
+                    val intent = Intent(context, YouTubeActivity::class.java)
+                    intent.putExtra("videoId", item.videoId)
+                    startActivity(intent)
+                }
+            },
+            true
+        )
+        rv.adapter = videoAdapter
+
+        //swipeRefresh = layoutView?.findViewById<View> (R.id.swipeRefresh) as SwipeRefreshLayout
+        //swipeRefresh?.setOnRefreshListener(this)
+    }
+
+    private fun fetchRecentVideos() {
+        val courseId = PrefUtil.getCourseId(context!!)
+        if (!Connectivity.isConnected(context)) {
+            return
+        }
+
+        FirebaseFirestore.getInstance().collection(Const.TABLE_VIDEOS)
+            .whereEqualTo("courseId", courseId)
+            .limit(5)
+            .get()
+            .addOnSuccessListener { documents ->
+                val list1 = ArrayList<VideoModel>()
+
+                for (postSnapshot in documents) {
+
+                    val model: VideoModel = postSnapshot.toObject(VideoModel::class.java)
+                    list1.add(model)
+                }
+
+                videoAdapter.updateList(list1)
+                ll1.visibility = if (documents.size() > 0) View.VISIBLE else View.GONE
+            }
+            .addOnFailureListener { exception ->
+                CustomLog.e(
+                    VideoFragment.TAG,
+                    "Error getting documents: ${exception.localizedMessage}"
+                )
+            }
     }
 
 
@@ -108,7 +181,8 @@ class CategoryFragment : BaseFragment(), ListItemClickListener<Int, Category> {
                 }
 
                 adapter.setList(list1)
-                llCourseTopic.visibility = View.VISIBLE
+                ll2.visibility = View.VISIBLE
+                // ll1.visibility = View.VISIBLE
             }
             .addOnFailureListener { exception ->
                 CustomLog.w(

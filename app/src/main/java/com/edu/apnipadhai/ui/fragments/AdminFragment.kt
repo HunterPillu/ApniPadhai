@@ -42,13 +42,13 @@ class AdminFragment : BaseFragment() {
     }
 
     fun showLoader() {
-        bSyncCount.visibility = View.GONE
-        pb.visibility = View.VISIBLE
+        bSyncCount?.visibility = View.GONE
+        pb?.visibility = View.VISIBLE
     }
 
     fun hideLoader() {
-        pb.visibility = View.GONE
-        bSyncCount.visibility = View.VISIBLE
+        pb?.visibility = View.GONE
+        bSyncCount?.visibility = View.VISIBLE
 
     }
 
@@ -70,7 +70,7 @@ class AdminFragment : BaseFragment() {
             .get()
             .addOnSuccessListener { documents ->
 
-                //val list = ArrayList<VideoModel>()
+                // val list = ArrayList<VideoModel>()
                 val map = HashMap<Int, Int>()
 
                 for (postSnapshot in documents) {
@@ -83,7 +83,9 @@ class AdminFragment : BaseFragment() {
                     } else {
                         map[id] = 1
                     }
-                    //list.add(model)
+                    //model.fKey = postSnapshot.id
+                    //updateVideoModel(model)
+                    // list.add(model)
                 }
 
                 updateVideoCount(map)
@@ -128,10 +130,35 @@ class AdminFragment : BaseFragment() {
                         .addOnSuccessListener { updateParentCourseCount(course.parentId) }
 
                 }
-
                 hideLoader()
+            }
+            .addOnFailureListener { exception ->
+                hideLoader()
+                CustomLog.w(
+                    EditCategoryFragment.TAG,
+                    "Error getting documents: ${exception.localizedMessage}"
+                )
+            }
+    }
+
+    private fun updateVideoModel(value: VideoModel) {
+
+        FirebaseFirestore.getInstance().collection("category")
+            .whereEqualTo("id", value.categoryId.toInt())
+            .get()
+            .addOnSuccessListener { documents ->
+                //var course: Course
+                for (postSnapshot in documents) {
+                    val course: Course = postSnapshot.toObject(Course::class.java)
+                    //course.videoCount = value
+                    //list1.add(course)
+                    value.courseId = course.parentId
+                    FirebaseFirestore.getInstance().collection(Const.TABLE_VIDEOS)
+                        .document(value.fKey!!).set(value)
 
 
+                }
+                hideLoader()
             }
             .addOnFailureListener { exception ->
                 hideLoader()

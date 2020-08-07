@@ -15,6 +15,8 @@
     <dimen name="size_profile_img_2">56dp</dimen>
     <dimen name="height_edittext">48dp</dimen>
     <dimen name="height_video_item">140dp</dimen>
+    <dimen name="width_video_item_horizontal">300dp</dimen>
+    <dimen name="height_video_item_horizontal">180dp</dimen>
 
     <dimen name="size_toolbar_icon">48dp</dimen>
     <dimen name="row_button_height">48dp</dimen>

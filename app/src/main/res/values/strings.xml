@@ -66,7 +66,10 @@
     <string name="active">Active</string>
     <string name="update_category">Update Category</string>
     <string name="search">Search</string>
-    <string name="no_data_found">No data found</string>
     <string name="update_video_count">Sync Video Count</string>
     <string name="no_data">No data available</string>
+    <string name="recent_upload">Recently Uploaded</string>
+    <string name="share_app_text">Hey check out my awesome app at:</string>
+
+
 </resources>

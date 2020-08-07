@@ -16,6 +16,8 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
+import com.edu.apnipadhai.BuildConfig
+import com.edu.apnipadhai.R
 import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
 import java.util.*
@@ -47,6 +49,17 @@ object Utils {
             //the app isn't available: we open in browser`
             context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(URL_YOUTUBE)))
         }
+    }
+
+    fun shareApp(context: Context) {
+        val sendIntent = Intent()
+        sendIntent.action = Intent.ACTION_SEND
+        sendIntent.putExtra(
+            Intent.EXTRA_TEXT,
+            "${context.getString(R.string.share_app_text)} https://play.google.com/store/apps/details?id= ${BuildConfig.APPLICATION_ID}"
+        )
+        sendIntent.type = "text/plain"
+        context.startActivity(sendIntent)
     }
 
     fun openInstagram(context: Context) {
@@ -95,17 +108,6 @@ object Utils {
         )
         emailIntent.data = data;
         context.startActivity(emailIntent);
-
-        /* Fill it with Data *//*
-        emailIntent.setType("plain/text");
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Feedback");
-        emailIntent.putExtra(
-            Intent.EXTRA_TEXT,
-            "Unique Id : ${FirebaseAuth.getInstance().currentUser?.uid}\n\n"
-        );
-
-        *//* Send it off to the Activity-Chooser *//*
-        context.startActivity(Intent.createChooser(emailIntent, "Send mail..."));*/
     }
 
     fun showToast(context: Context?, message: String?) {

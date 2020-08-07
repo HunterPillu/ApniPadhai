@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
@@ -21,7 +20,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.covidbeads.app.assesment.util.shortToast
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.callbacks.ListItemClickListener
-import com.edu.apnipadhai.callbacks.MenuClickListener
 import com.edu.apnipadhai.model.Category
 import com.edu.apnipadhai.model.VideoModel
 import com.edu.apnipadhai.ui.activity.YouTubeActivity
@@ -36,8 +34,7 @@ import kotlin.collections.ArrayList
 
 
 class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
-    MenuClickListener<VideoModel, View>, SearchView.OnQueryTextListener,
-    SearchView.OnCloseListener {
+    SearchView.OnQueryTextListener, SearchView.OnCloseListener {
     private lateinit var item: Category
     private lateinit var adapter: VideoAdapter
     private lateinit var list1: ArrayList<VideoModel>
@@ -180,8 +177,6 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
     }
 
     private fun fetchData() {
-        //val parentID = PrefUtil.getCourseId(context!!)
-
         if (!Connectivity.isConnected(context)) {
             swipeRefresh.isRefreshing = false
             shortToast(getString(R.string.no_internet_connection))
@@ -221,7 +216,7 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
 
 
     private fun setRecyclerView() {
-        adapter = VideoAdapter(context!!, this, this)
+        adapter = VideoAdapter(context!!, this,false)
         val layoutManager = LinearLayoutManager(context)
         rvRecords.layoutManager = layoutManager
         rvRecords?.adapter = adapter
@@ -259,17 +254,7 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
 
     }
 
-    private fun popupMenus(view: View) {
 
-        val popup = PopupMenu(context, view)
-        popup.getMenuInflater().inflate(R.menu.video_menu, popup.getMenu())
-        popup.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener {
-            override fun onMenuItemClick(item: MenuItem): Boolean {
-                return true
-            }
-        })
-        popup.show()
-    }
 
     override fun onItemClick(type: Int, item: VideoModel) {
         val intent = Intent(context, YouTubeActivity::class.java)
@@ -277,9 +262,6 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
         startActivity(intent)
     }
 
-    override fun itemClick(item: VideoModel, obj: View) {
-        popupMenus(obj)
-    }
 
 
     override fun onResume() {

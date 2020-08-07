@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.edu.apnipadhai.R;
 import com.edu.apnipadhai.callbacks.ListItemClickListener;
-import com.edu.apnipadhai.callbacks.MenuClickListener;
 import com.edu.apnipadhai.model.VideoModel;
 import com.edu.apnipadhai.utils.GlideApp;
 import com.edu.apnipadhai.utils.GlideRequests;
@@ -24,26 +23,29 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.RecordViewHo
 
     private final ListItemClickListener<Integer, VideoModel> listener;
     private List<VideoModel> list;
-    private MenuClickListener<VideoModel, View> menuListener;
     private GlideRequests glide;
+    private boolean horizontal;
 
-    public VideoAdapter(Context context, ListItemClickListener<Integer, VideoModel> listener, MenuClickListener<VideoModel, View> menuListener) {
+    public VideoAdapter(Context context, ListItemClickListener<Integer, VideoModel> listener, boolean orientation) {
         this.list = new ArrayList<>();
         this.listener = listener;
-        this.menuListener = menuListener;
         glide = GlideApp.with(context);
+        horizontal = orientation;
 
     }
 
-
-    public void setList(List<VideoModel> list, AppCompatTextView textView,RecyclerView rvRecords) {
+    public void updateList(List<VideoModel> list) {
         this.list = list;
         notifyDataSetChanged();
-        if (list.size() <=0) {
+    }
+
+
+    public void setList(List<VideoModel> list, AppCompatTextView textView, RecyclerView rvRecords) {
+        updateList(list);
+        if (list.size() <= 0) {
             textView.setVisibility(View.VISIBLE);
             rvRecords.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             textView.setVisibility(View.GONE);
             rvRecords.setVisibility(View.VISIBLE);
         }
@@ -53,7 +55,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.RecordViewHo
     @NonNull
     @Override
     public RecordViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View listItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_video, parent, false);
+        View listItem = LayoutInflater.from(parent.getContext()).inflate(horizontal ? R.layout.item_video_horizontal : R.layout.item_video, parent, false);
         return new RecordViewHolder(listItem);
     }
 
