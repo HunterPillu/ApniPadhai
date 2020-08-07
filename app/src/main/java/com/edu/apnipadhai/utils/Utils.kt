@@ -56,7 +56,7 @@ object Utils {
         sendIntent.action = Intent.ACTION_SEND
         sendIntent.putExtra(
             Intent.EXTRA_TEXT,
-            "${context.getString(R.string.share_app_text)} https://play.google.com/store/apps/details?id= ${BuildConfig.APPLICATION_ID}"
+            "${context.getString(R.string.share_app_text)} https://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}"
         )
         sendIntent.type = "text/plain"
         context.startActivity(sendIntent)

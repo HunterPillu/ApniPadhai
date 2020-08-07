@@ -106,7 +106,7 @@ class CategoryFragment : BaseFragment(), ListItemClickListener<Int, Category> {
         val snapHelper = LinearSnapHelper() // Or PagerSnapHelper
         snapHelper.attachToRecyclerView(rv)
         videoAdapter = VideoAdapter(
-            context,
+            context!!,
             object : ListItemClickListener<Int, VideoModel> {
                 override fun onItemClick(type: Int, item: VideoModel) {
                     val intent = Intent(context, YouTubeActivity::class.java)
@@ -124,7 +124,7 @@ class CategoryFragment : BaseFragment(), ListItemClickListener<Int, Category> {
 
     private fun fetchRecentVideos() {
         val courseId = PrefUtil.getCourseId(context!!)
-        if (!Connectivity.isConnected(context)) {
+        if (!Connectivity.isConnected(context!!)) {
             return
         }
 

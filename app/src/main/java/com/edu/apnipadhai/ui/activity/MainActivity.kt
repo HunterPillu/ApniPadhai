@@ -3,14 +3,12 @@ package com.edu.apnipadhai.ui.activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.widget.AppCompatTextView
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.ui.fragments.BaseFragment
 import com.edu.apnipadhai.ui.fragments.CategoryFragment
 import com.edu.apnipadhai.ui.fragments.SettingsFrag
 import com.edu.apnipadhai.ui.fragments.UserFragment
-import com.edu.apnipadhai.utils.FirebaseData
 import com.edu.apnipadhai.utils.Utils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.custom_toolbar.*
@@ -25,7 +23,6 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        FirebaseData.init()
         init()
         setupNavigation()
     }
@@ -53,7 +50,7 @@ class MainActivity : BaseActivity() {
     }
 
     private lateinit var fragment1: BaseFragment
-    private lateinit var fragment2: BaseFragment
+   // private lateinit var fragment2: BaseFragment
 
     //private lateinit var fragment3: BaseFragment
     private lateinit var fragment3: BaseFragment
@@ -61,15 +58,14 @@ class MainActivity : BaseActivity() {
 
     private fun setupNavigation() {
         fragment1 = CategoryFragment.newInstance()
-        fragment2 = UserFragment()
+       // fragment2 = UserFragment()
         //fragment3 = fragment2
         fragment3 = SettingsFrag()
         active = fragment1
 
         supportFragmentManager.beginTransaction().add(R.id.container, fragment3, "3")
             .hide(fragment3).commit();
-        supportFragmentManager.beginTransaction().add(R.id.container, fragment2, "2")
-            .hide(fragment2).commit();
+       // supportFragmentManager.beginTransaction().add(R.id.container, fragment2, "2").hide(fragment2).commit();
         supportFragmentManager.beginTransaction().add(R.id.container, fragment1, "1").commit();
 
         updateToolbarTitle(getString(R.string.home))

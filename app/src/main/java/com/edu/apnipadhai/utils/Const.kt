@@ -6,8 +6,7 @@ object Const {
     const val SCREEN_COURSE = 202
     const val SCREEN_USER = 201
     const val EXTRA_TYPE: String = "extra_type"
-    const val YOUTUBE_URL = "http://www.youtube.com/user/Meri%d20padhai"
-    const val YOUTUBE_PACKAGE = "com.google.android.youtube"
+
 
     const val ITEM_3 = 3
     const val SETTING_USER: Int = 2

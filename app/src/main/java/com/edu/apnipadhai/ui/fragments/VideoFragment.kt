@@ -6,10 +6,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
-import android.widget.Toast
 import androidx.appcompat.view.ActionMode
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
@@ -177,7 +175,7 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
     }
 
     private fun fetchData() {
-        if (!Connectivity.isConnected(context)) {
+        if (!Connectivity.isConnected(context!!)) {
             swipeRefresh.isRefreshing = false
             shortToast(getString(R.string.no_internet_connection))
             return
@@ -216,7 +214,7 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
 
 
     private fun setRecyclerView() {
-        adapter = VideoAdapter(context!!, this,false)
+        adapter = VideoAdapter(context!!, this, false)
         val layoutManager = LinearLayoutManager(context)
         rvRecords.layoutManager = layoutManager
         rvRecords?.adapter = adapter
@@ -236,7 +234,7 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
 
                     if (!isScrolling && currentItems + scrolloutItems >= totalItems) {
                         if (final_listItem > 0) {
-                            if (!Connectivity.isConnected(context)) {
+                            if (!Connectivity.isConnected(context!!)) {
                                 swipeRefresh.isRefreshing = false
                                 shortToast(getString(R.string.no_internet_connection))
                                 return
@@ -247,21 +245,15 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
                         }
                     }
                 }
-
             }
         })
-
-
     }
-
-
 
     override fun onItemClick(type: Int, item: VideoModel) {
         val intent = Intent(context, YouTubeActivity::class.java)
         intent.putExtra("videoId", item.videoId)
         startActivity(intent)
     }
-
 
 
     override fun onResume() {
@@ -282,7 +274,7 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
     private fun searchResult(query: String?) {
         if (!query.isNullOrEmpty() || !query.isNullOrBlank()) {
             searchString = query
-            val listSearch: ArrayList<VideoModel?> = ArrayList()
+            val listSearch: ArrayList<VideoModel> = ArrayList()
             for (i in 0 until list1.size) {
                 if (list1[i].name.toLowerCase(Locale.ROOT)
                         .contains(query.toLowerCase(Locale.ROOT).trim())

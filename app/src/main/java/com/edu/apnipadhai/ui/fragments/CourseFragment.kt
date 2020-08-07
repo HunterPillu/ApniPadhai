@@ -91,7 +91,7 @@ class CourseFragment : BaseFragment() {
     private fun fetchData(parentID: Int?) {
         CustomLog.e(TAG, "fetchData")
 
-        if (!Connectivity.isConnected(context)) {
+        if (!Connectivity.isConnected(context!!)) {
             swipeRefresh?.isRefreshing = false
             swipeRefresh?.isEnabled = false
             shortToast(getString(R.string.no_internet_connection))

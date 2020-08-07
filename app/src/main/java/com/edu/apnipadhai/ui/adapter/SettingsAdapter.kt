@@ -8,12 +8,10 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.bumptech.glide.Glide
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.callbacks.ListItemClickListener
 import com.edu.apnipadhai.model.Setting
 import com.edu.apnipadhai.utils.Const
-import com.edu.apnipadhai.utils.Const.COURSE_HEADER
 import com.edu.apnipadhai.utils.Const.COURSE_ITEM
 import com.edu.apnipadhai.utils.Const.ITEM_3
 import com.edu.apnipadhai.utils.Const.SETTING_USER
@@ -27,13 +25,13 @@ class SettingsAdapter(
     val context: Context,
     private val list: ArrayList<Setting>,
     private val listener: ListItemClickListener<Int, Setting>
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<SettingsAdapter.BaseItem>() {
 
     override fun getItemViewType(position: Int): Int {
         return list[position].type
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseItem {
         return when (viewType) {
             SETTING_USER ->
                 SettingHeaderProfile(
@@ -53,12 +51,12 @@ class SettingsAdapter(
                         .inflate(R.layout.item_setting, parent, false)
                 )
 
-            COURSE_HEADER ->
+            else ->//COURSE_HEADER ->
                 SettingBottom(
                     LayoutInflater.from(parent.context)
                         .inflate(R.layout.item_setting_2, parent, false)
                 )
-            else -> throw IllegalArgumentException()
+
         }
     }
 
@@ -66,7 +64,7 @@ class SettingsAdapter(
         return list.size
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BaseItem, position: Int) {
         when (holder.itemViewType) {
             COURSE_ITEM ->
                 onBindHeaderItems(holder, holder.adapterPosition)
@@ -78,13 +76,13 @@ class SettingsAdapter(
             else ->
                 onBindBottom(holder, holder.adapterPosition)
         }
-        holder.itemView.setOnClickListener { v: View? ->
+        holder.vMain.setOnClickListener { v: View? ->
             listener.onItemClick(Const.TYPE_CLICKED, list[position])
         }
 
     }
 
-    private fun onBindHeaderProfile(holder: RecyclerView.ViewHolder, position: Int) {
+    private fun onBindHeaderProfile(holder: BaseItem, position: Int) {
         val headerRow = holder as SettingHeaderProfile
         headerRow.tvUserName.text = list[position].name
         GlideApp.with(headerRow.civProfile.context)
@@ -103,19 +101,19 @@ class SettingsAdapter(
         notifyItemChanged(0)
     }
 
-    private fun onBindHeaderItems(holder: RecyclerView.ViewHolder, position: Int) {
+    private fun onBindHeaderItems(holder: BaseItem, position: Int) {
         val headerRow = holder as SettingItems
         headerRow.tvName.text = list[position].name
         holder.ivIcon.setImageResource(list[position].id)
     }
 
-    private fun onBindBottom(holder: RecyclerView.ViewHolder, position: Int) {
+    private fun onBindBottom(holder: BaseItem, position: Int) {
         val headerRow = holder as SettingBottom
         headerRow.tvName.text = list[position].name
         holder.ivIcon.setImageResource(list[position].id)
     }
 
-    class SettingHeaderProfile(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class SettingHeaderProfile(itemView: View) : BaseItem(itemView) {
         val tvUserName: AppCompatTextView = itemView.findViewById(R.id.tvUserName)
         val civProfile: CircleImageView = itemView.findViewById(R.id.civProfile)
 
@@ -124,12 +122,12 @@ class SettingsAdapter(
         }
     }
 
-    class SettingItems(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class SettingItems(itemView: View) : BaseItem(itemView) {
         val tvName: AppCompatTextView = itemView.findViewById(R.id.tvName)
         val ivIcon: AppCompatImageView = itemView.findViewById(R.id.ivIcon)
     }
 
-    class SettingBottom(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class SettingBottom(itemView: View) : BaseItem(itemView) {
         val tvName: AppCompatTextView = itemView.findViewById(R.id.tvName)
         val ivIcon: AppCompatImageView = itemView.findViewById(R.id.ivIcon)
 
@@ -138,11 +136,11 @@ class SettingsAdapter(
         }
     }
 
-    class SettingSocial(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val iv1: View = itemView.findViewById(R.id.iv1)
-        val iv2: View = itemView.findViewById(R.id.iv2)
-        val iv3: View = itemView.findViewById(R.id.iv3)
-        val iv4: View = itemView.findViewById(R.id.iv4)
+    class SettingSocial(itemView: View) : BaseItem(itemView) {
+        private val iv1: View = itemView.findViewById(R.id.iv1)
+        private val iv2: View = itemView.findViewById(R.id.iv2)
+        private val iv3: View = itemView.findViewById(R.id.iv3)
+        private val iv4: View = itemView.findViewById(R.id.iv4)
 
         init {
             (itemView.layoutParams as StaggeredGridLayoutManager.LayoutParams).isFullSpan = true
@@ -151,5 +149,9 @@ class SettingsAdapter(
             iv3.setOnClickListener { Utils.openInstagram(itemView.context) }
             iv4.setOnClickListener { Utils.openTwitter(itemView.context) }
         }
+    }
+
+    open class BaseItem(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val vMain: View = itemView.findViewById(R.id.vMain)
     }
 }

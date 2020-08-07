@@ -45,8 +45,8 @@ class CustomLog {
 
 
         fun sendToCrashlytics(msg: Throwable) {
-            FirebaseData.init().database.getReference("logs/${FirebaseData.myID}").push()
-                .setValue(msg.localizedMessage)
+            /*FirebaseData.init().database.getReference("logs/${FirebaseData.myID}").push()
+                .setValue(msg.localizedMessage)*/
             //FirebaseCrashlytics.getInstance().recordException(msg);
         }
     }

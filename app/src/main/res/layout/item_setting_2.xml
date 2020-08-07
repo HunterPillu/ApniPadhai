@@ -2,6 +2,8 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/MatchWidth"
+    android:id="@+id/vMain"
+    android:foreground="?android:attr/selectableItemBackground"
     android:layout_marginHorizontal="@dimen/margin_half"
     android:layout_marginVertical="@dimen/margin_quarter">
 

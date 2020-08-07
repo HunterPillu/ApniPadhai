@@ -28,6 +28,8 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.PlayerUiController;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.menu.MenuItem;
 
+import org.jetbrains.annotations.NotNull;
+
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -36,8 +38,8 @@ import io.reactivex.schedulers.Schedulers;
 public class YouTubeActivity extends AppCompatActivity {
 
     private YouTubePlayerView youTubePlayerView;
-    private FullScreenHelper fullScreenHelper = new FullScreenHelper(this);
-ActionMode mode;
+    private FullScreenHelper fullScreenHelper = new FullScreenHelper(this, null);
+    ActionMode mode;
     // a list of videos not available in some countries, to test if they're handled gracefully.
     // private String[] nonPlayableVideoIds = { "sop2V_MREEI" };
 
@@ -70,7 +72,7 @@ ActionMode mode;
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 
             MenuInflater inflater = mode.getMenuInflater();
-            inflater.inflate(R.menu.search_menu,menu);
+            inflater.inflate(R.menu.search_menu, menu);
 
             return false;
         }
@@ -83,8 +85,7 @@ ActionMode mode;
         @Override
         public boolean onActionItemClicked(ActionMode mode, android.view.MenuItem item) {
 
-            switch (item.getItemId())
-            {
+            switch (item.getItemId()) {
                 case R.id.one11:
                     Toast.makeText(YouTubeActivity.this, "hello", Toast.LENGTH_SHORT).show();
             }
@@ -99,7 +100,7 @@ ActionMode mode;
     };
 
     @Override
-    public void onConfigurationChanged(Configuration newConfiguration) {
+    public void onConfigurationChanged(@NotNull Configuration newConfiguration) {
         super.onConfigurationChanged(newConfiguration);
         youTubePlayerView.getPlayerUiController().getMenu().dismiss();
     }
@@ -113,7 +114,7 @@ ActionMode mode;
     }
 
     private void initYouTubePlayerView(String videoId) {
-        initPlayerMenu();
+       // initPlayerMenu();
 
         // The player will automatically release itself when the activity is destroyed.
         // The player will automatically pause when the activity is stopped

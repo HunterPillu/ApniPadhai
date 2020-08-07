@@ -2,10 +2,12 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cvMain"
     android:layout_width="@dimen/width_video_item_horizontal"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/margin_half"
     android:layout_marginTop="@dimen/margin_half"
+    android:foreground="?android:attr/selectableItemBackground"
     app:cardCornerRadius="@dimen/margin_quarter">
 
     <RelativeLayout

@@ -60,20 +60,20 @@ class EditCategoryAdapter(
             val vh =
                 holder as ItemVH
             vh.tvName.text = vo.name
-            holder.itemView.setOnClickListener {
+            holder.cvMain.setOnClickListener {
                 listener.onItemClick(
                     Const.TYPE_CLICKED,
                     vo
                 )
             }
-            vh.itemView.setOnLongClickListener {
+            vh.cvMain.setOnLongClickListener {
                 popupMenus(it, holder.adapterPosition)
                 true
             }
         } else {
-            /* HeaderVH vh = (HeaderVH) holder;
-            vh.tvName.setText(vo.getName());*/
-            holder.itemView.setOnClickListener {
+            val vh = holder as HeaderVH;
+            //vh.tvName.setText(vo.getName());
+            vh.cvMain.setOnClickListener {
                 listener.onItemClick(
                     Const.TYPE_ADD,
                     vo
@@ -110,12 +110,13 @@ class EditCategoryAdapter(
 
     class ItemVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvName: AppCompatTextView = itemView.findViewById(R.id.tvName)
-        // val cvMain: CardView = itemView.findViewById(R.id.cvMain)
+        val cvMain: View = itemView.findViewById(R.id.cvMain)
 
     }
 
-    class HeaderVH  //private AppCompatTextView tvName;
-        (itemView: View) : RecyclerView.ViewHolder(itemView)
+    class HeaderVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val cvMain: View = itemView.findViewById(R.id.cvMain)
+    }
 
 
     init {

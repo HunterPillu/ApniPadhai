@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cvMain"
     style="@style/MatchWidth"
+    android:foreground="?android:attr/selectableItemBackground"
     android:layout_margin="@dimen/margin_half"
     app:cardBackgroundColor="@color/card_color_category">
 

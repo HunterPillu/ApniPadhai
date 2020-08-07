@@ -6,19 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import com.bumptech.glide.Glide
-import com.covidbeads.app.assesment.util.shortToast
 import com.edu.apnipadhai.R
-import com.edu.apnipadhai.model.Category
 import com.edu.apnipadhai.model.Course
 import com.edu.apnipadhai.model.VideoModel
 import com.edu.apnipadhai.ui.adapter.SpinnerAdapter
-import com.edu.apnipadhai.utils.Connectivity
+import com.edu.apnipadhai.utils.Const
 import com.edu.apnipadhai.utils.CustomLog
 import com.edu.apnipadhai.utils.Utils
 import com.edu.apnipadhai.utils.YouTubeDataEndpoint
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.SetOptions
 import com.google.gson.Gson
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -32,6 +28,7 @@ class AddVideoFragment : BaseFragment() {
     private var list0: ArrayList<Course> = ArrayList()
     private var list1: ArrayList<Course> = ArrayList()
     private var list2: ArrayList<Course> = ArrayList()
+    private var selectItem1 = 0
     private var selectItem2 = 0
     private var videoInfo: VideoModel? = null
     //var map: HashMap<Int, Course> = HashMap<Int, Course>()
@@ -186,7 +183,13 @@ class AddVideoFragment : BaseFragment() {
                 position: Int,
                 id: Long
             ) {
+
                 CustomLog.d(TAG, list1[position].name)
+                if (list1[position].id == -1) {
+                    return
+                }
+                selectItem1 = list1[position].id
+
                 getCategory(2, list1[position].id)
             }
 
@@ -241,8 +244,9 @@ class AddVideoFragment : BaseFragment() {
             )
             return
         }
+        videoInfo?.courseId = selectItem1
         val mFirestore = FirebaseFirestore.getInstance();
-        val videoList = mFirestore.collection("videos")
+        val videoList = mFirestore.collection(Const.TABLE_VIDEOS)
         videoList.add(videoInfo!!).addOnCompleteListener {
             videoInfo = null
             hideLowerContent()
@@ -252,7 +256,6 @@ class AddVideoFragment : BaseFragment() {
             )
         }
     }
-
 
 
     fun isValid(videoId: String): Boolean {

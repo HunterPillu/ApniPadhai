@@ -38,8 +38,7 @@ class CategoryAdapter(listener: ListItemClickListener<Int, Category>) :
         holder.tvName.text = vo.name
         holder.tvCount.text = "${vo.videoCount}"
         // holder.ivStatus.setImageResource(getStatusImg(vo.fetchStatus()));
-        holder.itemView.setOnClickListener { v: View? ->
-            listener.onItemClick(
+        holder.cvMain.setOnClickListener { listener.onItemClick(
                 -1,
                 vo
             )
@@ -54,6 +53,7 @@ class CategoryAdapter(listener: ListItemClickListener<Int, Category>) :
         RecyclerView.ViewHolder(itemView) {
         val tvName: AppCompatTextView = itemView.findViewById(R.id.tvName)
         val tvCount: AppCompatTextView = itemView.findViewById(R.id.tvCount)
+        val cvMain: View = itemView.findViewById(R.id.cvMain)
 
     }
 

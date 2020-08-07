@@ -71,7 +71,7 @@ class CourseAdapter(context: Context) :
                 vh.tvCount.compoundDrawables[0]?.setTint(cardSelected)
             }
             // holder.ivStatus.setImageResource(getStatusImg(vo.fetchStatus()));
-            vh.itemView.setOnClickListener { v: View? ->
+            vh.cvMain.setOnClickListener { v: View? ->
                 updatePreviousItem(
                     holder.adapterPosition
                 )

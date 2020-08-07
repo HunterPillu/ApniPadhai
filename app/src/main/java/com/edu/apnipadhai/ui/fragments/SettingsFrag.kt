@@ -41,10 +41,16 @@ class SettingsFrag : BaseFragment(), ListItemClickListener<Int, Setting> {
         val list = ArrayList<Setting>()
 
         list.add(Setting(0, userName.toString(), Const.SETTING_USER))
-        list.add(Setting(R.drawable.bookmark, getString(R.string.bookmrk), Const.COURSE_ITEM))
         list.add(
             Setting(
-                R.drawable.notification,
+                R.drawable.ic_bookmarks_24,
+                getString(R.string.bookmrk),
+                Const.COURSE_ITEM
+            )
+        )
+        list.add(
+            Setting(
+                R.drawable.ic_notifications_24,
                 getString(R.string.notification),
                 Const.COURSE_ITEM
             )
@@ -76,6 +82,11 @@ class SettingsFrag : BaseFragment(), ListItemClickListener<Int, Setting> {
 
     override fun onItemClick(type: Int, item: Setting) {
         when (item.id) {
+            R.drawable.ic_bookmarks_24,
+            R.drawable.ic_notifications_24,
+            R.drawable.ic_file_24 ->
+                Utils.showToast(context!!, getString(R.string.work_in_progress))
+
             R.drawable.ic_share_24 ->
                 Utils.shareApp(context!!)
             R.drawable.ic_exit_24 ->

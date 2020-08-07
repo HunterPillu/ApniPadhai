@@ -55,8 +55,8 @@
     <string name="load_preview">Load Preview</string>
     <string name="submit">Submit</string>
     <string name="invalid_video">Can\'t retrieve video title, are you connected to the internet?</string>
-    <string name="video_uploaded">VIdeo successfully uploaded</string>
-    <string name="work_in_progress">Work in progress</string>
+    <string name="video_uploaded">Video successfully uploaded</string>
+    <string name="work_in_progress">This feature will available soon.</string>
     <string name="text_course_2">Click item to edit the category or simply add a new category by tapping on \'Add Category\'</string>
     <string name="add_Category">Manage Category</string>
     <string name="text_admin_1">"Admin Panel : Here you can Add/Edit the Videos and Categories "</string>

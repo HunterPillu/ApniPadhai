@@ -5,6 +5,7 @@
     android:id="@+id/cvMain"
     style="@style/MatchWidth"
     android:layout_margin="@dimen/margin_quarter"
+    android:foreground="?android:attr/selectableItemBackground"
     app:cardElevation="@dimen/home_item_elevation">
 
     <RelativeLayout style="@style/MatchWidth">

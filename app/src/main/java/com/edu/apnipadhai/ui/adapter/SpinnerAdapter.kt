@@ -10,12 +10,12 @@ import com.edu.apnipadhai.R
 import com.edu.apnipadhai.model.Course
 
 class SpinnerAdapter(
-    private val cntxt: Context,
+    cntxt: Context,
     private val items: List<Course>
 ) : ArrayAdapter<Course>(cntxt, R.layout.support_simple_spinner_dropdown_item, items) {
     override fun getDropDownView(
         position: Int,
-        convertView: View,
+        convertView: View?,
         parent: ViewGroup
     ): View {
         val v = super.getView(position, convertView, parent) as TextView
@@ -31,10 +31,10 @@ class SpinnerAdapter(
 
     override fun getView(
         position: Int,
-        v: View?,
+        convertView: View?,
         parent: ViewGroup
     ): View {
-        var v = v
+        var v = convertView
         if (v == null) {
             v = LayoutInflater.from(parent.context)
                 .inflate(R.layout.support_simple_spinner_dropdown_item, null)

@@ -56,7 +56,7 @@ class AdminFragment : BaseFragment() {
     private fun updateVideoCount() {
         //val parentID = PrefUtil.getCourseId(context!!)
 
-        if (!Connectivity.isConnected(context)) {
+        if (!Connectivity.isConnected(context!!)) {
             shortToast(getString(R.string.no_internet_connection))
             return
         }
