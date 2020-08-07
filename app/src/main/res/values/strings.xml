@@ -66,6 +66,7 @@
     <string name="active">Active</string>
     <string name="update_category">Update Category</string>
     <string name="search">Search</string>
+    <string name="no_data_found">No data found</string>
 
 
 </resources>

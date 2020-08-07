@@ -29,6 +29,11 @@ object Const {
     const val TABLE_USERS = "users"
     const val TABLE_VIDEOS = "videos"
 
+
+    // PAGINATION
+    const val LIMIT : Long = 30
+
+
     // FIRESTORE FIELD
     const val FIELD_CATEGORY_ID = "categoryId"
 }
