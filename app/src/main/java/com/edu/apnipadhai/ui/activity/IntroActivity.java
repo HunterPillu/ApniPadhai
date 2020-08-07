@@ -19,7 +19,7 @@ public class IntroActivity extends MaterialIntroActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        enableLastSlideAlphaExitTransition(true);
+        enableLastSlideAlphaExitTransition(false);
 
         getBackButtonTranslationWrapper()
                 .setEnterTranslation(new IViewTranslation() {
@@ -28,6 +28,7 @@ public class IntroActivity extends MaterialIntroActivity {
                         view.setAlpha(percentage);
                     }
                 });
+
 
         addSlide(new SlideFragmentBuilder()
                         .backgroundColor(R.color.first_slide_background)

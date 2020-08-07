@@ -9,18 +9,26 @@ public class VideoInfo {
     private final String videoTitle;
     @NonNull
     private final String channelTitle;
+    private final String url;
     @NonNull
     private final Bitmap thumbnail;
 
-    VideoInfo(@NonNull String videoTitle, @NonNull String channelTitle, @NonNull Bitmap thumbnail) {
+    VideoInfo(@NonNull String videoTitle, @NonNull String channelTitle, @NonNull Bitmap thumbnail, String url) {
         this.videoTitle = videoTitle;
         this.channelTitle = channelTitle;
         this.thumbnail = thumbnail;
+        this.url = url;
     }
+
+
 
     @NonNull
     public String getVideoTitle() {
         return videoTitle;
+    }
+
+    public String getUrl() {
+        return url;
     }
 
     @NonNull

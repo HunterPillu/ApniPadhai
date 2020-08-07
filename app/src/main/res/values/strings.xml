@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ApniPadhai</string>
+    <string name="app_name">Meri Padhai</string>
 
     <!-- Auth UI -->
     <string name="unknown_response">Unexpected onActivityResult response code</string>
@@ -16,6 +16,58 @@
     <string name="dob">Date of birth</string>
     <string name="mobile">Mobile no</string>
     <string name="update">Update</string>
-    <string name="signin">Log-In</string>
+    <string name="signinn">Update/SignIn</string>
+    <string name="bookmrk">Bookmark</string>
+    <string name="notification">Notification</string>
+    <string name="shareapp">Share App</string>
+    <string name="contact">Contact us</string>
+    <string name="Subscribe">Subscribe Now</string>
+    <string name="TC">Terms and condition</string>
+    <string name="signin">Sign In</string>
+    <string name="signout">Sign Out</string>
+    <string name="see_profile">See your profile</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="signout_msg">Are you sure you want to sign out ?</string>
     <string name="user_created_updated">User profile updated successfully</string>
+    <string name="title_select_course">Select Course</string>
+    <string name="text_course_1">Please select a course so that we can provide most related content for you.</string>
+    <string name="next">Next</string>
+    <string name="home">Home</string>
+    <string name="news">News</string>
+    <string name="current_affairs">Current Affairs</string>
+    <string name="profile">Profile</string>
+    <string name="setting">Settings</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="error_select_course">Please select a course</string>
+    <string name="demo_text_series">Demo Test Series</string>
+    <string name="multiplayer_test_series">Multiplayer Test Series</string>
+    <string name="winner_list">Winner List</string>
+    <string name="header_quiz">Quiz</string>
+    <string name="header_course_topic">Course Topic</string>
+    <string name="header_paid_quiz">Paid Quiz</string>
+    <string name="mera_doubt">Mera Doubt</string>
+    <string name="text_add_video">Select category then add video link from YouTube to upload the video.</string>
+    <string name="title_add_video">Manage Videos</string>
+    <string name="video_link">Video Link</string>
+    <string name="admin_no_subcategory">No sub category found. please create one first from \'Add Category Screen\'</string>
+    <string name="load_preview">Load Preview</string>
+    <string name="submit">Submit</string>
+    <string name="invalid_video">Can\'t retrieve video title, are you connected to the internet?</string>
+    <string name="video_uploaded">VIdeo successfully uploaded</string>
+    <string name="work_in_progress">Work in progress</string>
+    <string name="text_course_2">Click item to edit the category or simply add a new category by tapping on \'Add Category\'</string>
+    <string name="add_Category">Manage Category</string>
+    <string name="text_admin_1">"Admin Panel : Here you can Add/Edit the Videos and Categories "</string>
+    <string name="title_admin">Admin panel</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="active">Active</string>
+    <string name="update_category">Update Category</string>
+    <string name="search">Search</string>
+    <string name="update_video_count">Sync Video Count</string>
+    <string name="no_data">No data available</string>
+
+
 </resources>

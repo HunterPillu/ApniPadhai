@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/user_field_margin"
+        android:layout_marginRight="@dimen/margin_medium"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_button_height"
+            android:background="@drawable/rounded_edittext"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/margin_half"
+            android:paddingRight="@dimen/margin_half">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img1"
+                android:layout_width="@dimen/normal_drawable_size"
+                android:layout_height="@dimen/normal_drawable_size"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_text_24"
+                app:tint="@color/colorPrimary" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/row_button_height"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:layout_toEndOf="@id/img1"
+                android:background="@null"
+                android:hint="@string/name"
+                android:textSize="@dimen/sub_title" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_button_height"
+            android:layout_marginTop="@dimen/margin_full"
+            android:background="@drawable/rounded_edittext"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/margin_half"
+            android:paddingRight="@dimen/margin_half">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img2"
+                android:layout_width="@dimen/normal_drawable_size"
+                android:layout_height="@dimen/normal_drawable_size"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+
+                android:src="@drawable/ic_switch_24"
+                app:tint="@color/colorPrimary" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/dob"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/row_button_height"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:layout_toStartOf="@+id/scActive"
+                android:layout_toEndOf="@+id/img2"
+                android:gravity="center_vertical"
+                android:hint="@string/active"
+                android:textSize="@dimen/sub_title" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/scActive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                tools:checked="true" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_button_height"
+            android:layout_marginTop="@dimen/margin_full"
+            android:background="@drawable/rounded_edittext"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/margin_half"
+            android:paddingRight="@dimen/margin_half"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img3"
+                android:layout_width="@dimen/normal_drawable_size"
+                android:layout_height="@dimen/normal_drawable_size"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_details_24"
+                app:tint="@color/colorPrimary" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvDetail"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/row_button_height"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:layout_toEndOf="@id/img3"
+                android:gravity="center_vertical"
+                android:hint="@string/mobile"
+                android:textSize="@dimen/sub_title" />
+
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bUpdate"
+        android:layout_width="@dimen/button_width_default"
+        android:layout_height="@dimen/row_button_height"
+        android:layout_marginTop="@dimen/margin_duper"
+        android:background="@color/colorPrimary"
+        android:text="@string/update"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:visibility="visible" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

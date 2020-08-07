@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_half"
+    app:cardElevation="@dimen/home_header_elevation">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_half">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/home_list_header"
+            android:text="@string/header_paid_quiz" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvMTS"
+            app:cardElevation="@dimen/home_item_elevation"
+            style="@style/MatchWidth"
+            android:layout_marginHorizontal="@dimen/margin_half"
+            app:cardBackgroundColor="@color/card_color_category">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:minHeight="@dimen/height_min_item"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvMTS"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginHorizontal="@dimen/margin_full"
+                    android:layout_marginVertical="@dimen/margin_quarter"
+                    android:text="@string/multiplayer_test_series"
+                    android:textColor="@color/text_primary"
+                    android:textSize="@dimen/body_secondary" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.cardview.widget.CardView>
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.cardview.widget.CardView>

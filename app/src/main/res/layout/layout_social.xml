@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchWidth"
+    android:layout_height="@dimen/height_min_item"
+    android:layout_marginHorizontal="@dimen/margin_half"
+    android:layout_marginVertical="@dimen/margin_quarter">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv1"
+        style="@style/Social_Icon"
+        app:srcCompat="@drawable/facebook" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv2"
+        style="@style/Social_Icon"
+        app:srcCompat="@drawable/youtube" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv3"
+        style="@style/Social_Icon"
+        app:srcCompat="@drawable/instagram" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv4"
+        style="@style/Social_Icon"
+        app:srcCompat="@drawable/twitter" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

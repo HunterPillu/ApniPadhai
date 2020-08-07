@@ -1,21 +1,24 @@
 package com.edu.apnipadhai.ui.activity;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ActionMode;
 import androidx.core.content.ContextCompat;
 
 import com.edu.apnipadhai.R;
+import com.edu.apnipadhai.model.VideoModel;
 import com.edu.apnipadhai.utils.FullScreenHelper;
-import com.edu.apnipadhai.utils.VideoInfo;
 import com.edu.apnipadhai.utils.YouTubeDataEndpoint;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
@@ -34,7 +37,7 @@ public class YouTubeActivity extends AppCompatActivity {
 
     private YouTubePlayerView youTubePlayerView;
     private FullScreenHelper fullScreenHelper = new FullScreenHelper(this);
-
+ActionMode mode;
     // a list of videos not available in some countries, to test if they're handled gracefully.
     // private String[] nonPlayableVideoIds = { "sop2V_MREEI" };
 
@@ -47,7 +50,53 @@ public class YouTubeActivity extends AppCompatActivity {
         youTubePlayerView = findViewById(R.id.youtube_player_view);
         String videoId = getIntent().getStringExtra("videoId");
         initYouTubePlayerView(videoId);
+
+
+        youTubePlayerView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                if (mode != null)
+                    return false;
+                mode = startSupportActionMode(callback);
+
+                return false;
+            }
+        });
     }
+
+    ActionMode.Callback callback = new ActionMode.Callback() {
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+
+            MenuInflater inflater = mode.getMenuInflater();
+            inflater.inflate(R.menu.search_menu,menu);
+
+            return false;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, android.view.MenuItem item) {
+
+            switch (item.getItemId())
+            {
+                case R.id.one11:
+                    Toast.makeText(YouTubeActivity.this, "hello", Toast.LENGTH_SHORT).show();
+            }
+
+            return false;
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+
+        }
+    };
 
     @Override
     public void onConfigurationChanged(Configuration newConfiguration) {
@@ -173,13 +222,13 @@ public class YouTubeActivity extends AppCompatActivity {
     @SuppressLint("CheckResult")
     private void setVideoTitle(PlayerUiController playerUiController, String videoId) {
 
-        Single<VideoInfo> observable = YouTubeDataEndpoint.getVideoInfoFromYouTubeDataAPIs(videoId);
+        Single<VideoModel> observable = YouTubeDataEndpoint.getVideoInfoFromYouTubeDataAPIs(videoId);
 
         observable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        videoInfo -> playerUiController.setVideoTitle(videoInfo.getVideoTitle()),
+                        videoInfo -> playerUiController.setVideoTitle(videoInfo.getName()),
                         error -> {
                             Log.e(getClass().getSimpleName(), "Can't retrieve video title, are you connected to the internet?");
                         }

@@ -22,7 +22,9 @@ import com.bumptech.glide.request.transition.Transition
 import com.edu.apnipadhai.BuildConfig
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.model.User
-import com.edu.apnipadhai.ui.activity.MainActivity
+import com.edu.apnipadhai.ui.activity.CommonActivity
+import com.edu.apnipadhai.utils.Const
+import com.edu.apnipadhai.utils.GlideApp
 import com.edu.apnipadhai.utils.Utils.hideKeyboard
 import com.edu.apnipadhai.utils.Utils.showToast
 import com.firebase.ui.auth.AuthUI
@@ -37,71 +39,86 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class UserFragment : BaseFragment() {
+    private var isUpdating: Boolean = false
     private val RC_SIGN_IN = 123
     private var userPhoto: CircleImageView? = null
-
-    //private var userId: AppCompatEditText? = null
     private var userName: AppCompatEditText? = null
-    private var userMsg: AppCompatTextView? = null
+    private var tvDob: AppCompatTextView? = null
+
     private var mobile: AppCompatTextView? = null
     private var userModel: User? = null
     private var userPhotoUri: Uri? = null
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_user, container, false)
-        //userId = view.findViewById(R.id.user_id)
-        // userId?.setEnabled(false)
-        userName = view.findViewById(R.id.user_name)
-        userMsg = view.findViewById(R.id.dob)
-        mobile = view.findViewById(R.id.mobile)
-        userPhoto = view.findViewById(R.id.user_photo)
+        layoutView = inflater.inflate(R.layout.fragment_user, container, false)
+        userName = layoutView?.findViewById(R.id.user_name)
+        tvDob = layoutView?.findViewById(R.id.dob)
+        mobile = layoutView?.findViewById(R.id.mobile)
+        userPhoto = layoutView?.findViewById(R.id.user_photo)
         userPhoto?.setOnClickListener(userPhotoIVClickListener)
-        val saveBtn = view.findViewById<AppCompatButton>(R.id.saveBtn)
-        saveBtn.setOnClickListener(saveBtnClickListener)
-        userMsg?.setOnClickListener(dobClickListener)
+
+        layoutView?.findViewById<AppCompatButton>(R.id.saveBtn)
+            ?.setOnClickListener { login() }
+        tvDob?.setOnClickListener(dobClickListener)
+        layoutView?.findViewById<View>(R.id.ivBack)?.setOnClickListener { onBackPressed() }
         userInfoFromServer
 
-        mobile?.setOnClickListener {
-            startActivityForResult(
-                AuthUI.getInstance()
-                    .createSignInIntentBuilder()
-                    .setLogo(R.drawable.logo)
-                    .setIsSmartLockEnabled(!BuildConfig.DEBUG /* credentials */, true /* hints */)
-                    .setAvailableProviders(
-                        Arrays.asList(
-                            AuthUI.IdpConfig.PhoneBuilder().build()
-                            // ,AuthUI.IdpConfig.EmailBuilder().build()
-                            //, AuthUI.IdpConfig.GoogleBuilder().build()
-                        )
-                    ).build(),
-                RC_SIGN_IN
-            )
-        }
-        return view
+        return layoutView
     }
+
+    val mobileClick = View.OnClickListener {
+        startActivityForResult(
+            AuthUI.getInstance()
+                .createSignInIntentBuilder()
+                .setLogo(R.drawable.logo)
+                .setIsSmartLockEnabled(!BuildConfig.DEBUG /* credentials */, true /* hints */)
+                .setAvailableProviders(
+                    Arrays.asList(
+                        AuthUI.IdpConfig.PhoneBuilder().build()
+                        // ,AuthUI.IdpConfig.EmailBuilder().build()
+                        //, AuthUI.IdpConfig.GoogleBuilder().build()
+                    )
+                ).build(),
+            RC_SIGN_IN
+        )
+    }
+
 
     val userInfoFromServer: Unit
         get() {
-            val user = FirebaseAuth.getInstance().currentUser ?: return //return if not logged in
-
+            val user = FirebaseAuth.getInstance().currentUser
+            if (user == null) {
+                //return if not logged in
+                isUpdating = false
+                updateToolbarTitle(getString(R.string.signin))
+                mobile?.setOnClickListener(mobileClick)
+                return
+            }
+            isUpdating = true
+            updateToolbarTitle(getString(R.string.profile))
             val uid = user.uid
             val docRef =
-                FirebaseFirestore.getInstance().collection("users").document(uid)
+                FirebaseFirestore.getInstance().collection(Const.TABLE_USERS).document(uid)
             docRef.get().addOnSuccessListener { documentSnapshot ->
                 userModel =
                     documentSnapshot.toObject(User::class.java)
                 //userId?.setText(userModel?.uid)
                 userName?.setText(userModel?.name)
-                userMsg?.setText(userModel?.dob)
+                tvDob?.setText(userModel?.dob)
+                mobile?.setText(userModel?.mobile)
                 if (userModel!!.photoUrl != null && "" != userModel!!.photoUrl) {
-                    Glide.with(context!!)
+                    GlideApp.with(context!!)
                         .load(
                             FirebaseStorage.getInstance()
                                 .getReference("userPhoto/" + userModel!!.photoUrl)
                         )
+                        .placeholder(R.drawable.user)
+                        .error(R.drawable.user)
                         .into(userPhoto!!)
                 }
             }
@@ -141,7 +158,7 @@ class UserFragment : BaseFragment() {
     private fun updateLabel() {
         val myFormat = "MM-dd-yyyy" //In which you need put here
         val sdf = SimpleDateFormat(myFormat, Locale.US)
-        userMsg?.setText(sdf.format(myCalendar.time))
+        tvDob?.setText(sdf.format(myCalendar.time))
     }
 
     override fun onActivityResult(
@@ -160,8 +177,9 @@ class UserFragment : BaseFragment() {
             // Successfully signed in
             if (resultCode == Activity.RESULT_OK) {
                 val user = User()
+                mobile?.setText(FirebaseAuth.getInstance().currentUser?.phoneNumber)
 
-                mobile?.text = FirebaseAuth.getInstance().currentUser?.phoneNumber
+                login()
                 /* user.mobile = FirebaseAuth.getInstance().currentUser?.phoneNumber!!
                  FirebaseData.updateUserData(user)
 
@@ -193,52 +211,59 @@ class UserFragment : BaseFragment() {
         }
     }
 
-    var saveBtnClickListener =
-        View.OnClickListener {
-            if (!validateForm()) return@OnClickListener
-            if (null == userModel) userModel = User()
-            userModel?.name = userName!!.text.toString()
-            userModel?.dob = userMsg!!.text.toString()
-            userModel?.mobile = mobile!!.text.toString()
-            val uid = FirebaseAuth.getInstance().currentUser!!.uid
-            val db = FirebaseFirestore.getInstance()
-            if (userPhotoUri != null) {
-                userModel!!.photoUrl = uid
-            }
-            db.collection("users").document(uid)
-                .set(userModel!!)
-                .addOnSuccessListener {
-                    if (userPhotoUri == null) {
-                        showToast(context, getString(R.string.user_created_updated))
-                        val intent = Intent(activity, MainActivity::class.java)
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                        startActivity(intent)
-                    } else {
-                        // small image
-                        Glide.with(context!!)
-                            .asBitmap()
-                            .load(userPhotoUri)
-                            .apply(RequestOptions())//.override(150, 150))
-                            .into(object : SimpleTarget<Bitmap?>() {
-                                override fun onResourceReady(
-                                    bitmap: Bitmap,
-                                    transition: Transition<in Bitmap?>?
-                                ) {
-                                    val baos =
-                                        ByteArrayOutputStream()
-                                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-                                    val data = baos.toByteArray()
-                                    FirebaseStorage.getInstance().reference
-                                        .child("userPhoto/$uid").putBytes(data)
-                                    showToast(
-                                        context ,
-                                        "Success to Save."
-                                    )
-                                }
-                            })
-                    }
-                }
+    fun login() {
+        if (!validateForm()) return
+        if (null == userModel) userModel = User()
+        userModel?.name = userName!!.text.toString()
+        userModel?.dob = tvDob!!.text.toString()
+        userModel?.mobile = mobile!!.text.toString()
+        val uid = FirebaseAuth.getInstance().currentUser!!.uid
+        val db = FirebaseFirestore.getInstance()
+        if (userPhotoUri != null) {
+            userModel!!.photoUrl = uid
         }
+        db.collection("users").document(uid)
+            .set(userModel!!)
+            .addOnSuccessListener {
+                showToast(context, getString(R.string.user_created_updated))
+                if (userPhotoUri == null) {
+                    moveNext()
+                } else {
+                    // small image
+                    GlideApp.with(context!!)
+                        .asBitmap()
+                        .load(userPhotoUri)
+                        .apply(RequestOptions())//.override(150, 150))
+                        .into(object : SimpleTarget<Bitmap?>() {
+                            override fun onResourceReady(
+                                bitmap: Bitmap,
+                                transition: Transition<in Bitmap?>?
+                            ) {
+                                val baos = ByteArrayOutputStream()
+                                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+                                val data = baos.toByteArray()
+                                FirebaseStorage.getInstance().reference
+                                    .child("userPhoto/$uid").putBytes(data)
+                                moveNext()
+                            }
+                        })
+                }
+            }
+    }
+
+    private fun moveNext() {
+
+        if (isUpdating) {
+            onBackPressed()
+        } else {
+            startActivity(Intent(activity, CommonActivity::class.java).apply {
+                putExtra(Const.EXTRA_TYPE, Const.SCREEN_COURSE)
+                setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            })
+        }
+
+
+    }
 
     private fun validateForm(): Boolean {
         var valid = true
@@ -249,12 +274,12 @@ class UserFragment : BaseFragment() {
         } else {
             userName!!.error = null
         }
-        val msgStr = userMsg!!.text.toString()
+        val msgStr = tvDob!!.text.toString()
         if (TextUtils.isEmpty(msgStr)) {
-            userMsg!!.error = "Required."
+            tvDob!!.error = "Required."
             valid = false
         } else {
-            userMsg!!.error = null
+            tvDob!!.error = null
         }
 
         if (null != FirebaseAuth.getInstance().currentUser) {

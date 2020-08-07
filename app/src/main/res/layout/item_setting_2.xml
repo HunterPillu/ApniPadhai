@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchWidth"
+    android:layout_marginHorizontal="@dimen/margin_half"
+    android:layout_marginVertical="@dimen/margin_quarter">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_min_item_2"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="@dimen/margin_half">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivIcon"
+            app:tint="@color/colorPrimary"
+            android:layout_width="@dimen/setting_item_icon_size"
+            android:layout_height="@dimen/setting_item_icon_size"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/document" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/margin_full"
+            android:layout_toEndOf="@id/ivIcon"
+            android:gravity="center_vertical"
+            android:text="@string/TC"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/body_primary" />
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
+

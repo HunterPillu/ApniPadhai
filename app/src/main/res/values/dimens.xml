@@ -1,11 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <dimen name="normal_drawable_size">24dp</dimen>
+    <dimen name="min_border_width">1dp</dimen>
+
     <dimen name="margin_quarter">4dp</dimen>
     <dimen name="margin_half">8dp</dimen>
     <dimen name="margin_medium">12dp</dimen>
     <dimen name="margin_full">16dp</dimen>
     <dimen name="margin_super">24dp</dimen>
     <dimen name="margin_duper">32dp</dimen>
+
     <dimen name="size_profile_img">124dp</dimen>
+    <dimen name="size_profile_img_2">56dp</dimen>
     <dimen name="height_edittext">48dp</dimen>
+    <dimen name="height_video_item">140dp</dimen>
+
+    <dimen name="size_toolbar_icon">48dp</dimen>
+    <dimen name="row_button_height">48dp</dimen>
+    <dimen name="button_width_default">180dp</dimen>
+
+    <dimen name="header">24sp</dimen>
+    <dimen name="sub_header">22sp</dimen>
+    <dimen name="title">20sp</dimen>
+    <dimen name="sub_title">18sp</dimen>
+    <dimen name="body_primary">16sp</dimen>
+    <dimen name="body_secondary">14sp</dimen>
+    <dimen name="caption">12sp</dimen>
+    <dimen name="caption_mini">10sp</dimen>
+
+    <dimen name="dp2">2dp</dimen>
+    <dimen name="dp10">10dp</dimen>
+    <dimen name="dp15">15dp</dimen>
+    <dimen name="dp18">18dp</dimen>
+    <dimen name="dp30">20dp</dimen>
+    <dimen name="dp22">22dp</dimen>
+    <dimen name="dp31">30dp</dimen>
+    <dimen name="dp40">40dp</dimen>
+    <dimen name="dp5">5dp</dimen>
+    <dimen name="layout_stroke_default">1dp</dimen>
+    <dimen name="layout_corner_radius">@dimen/margin_quarter</dimen>
+    <dimen name="layout_corner_radius2dp">2dp</dimen>
+    <dimen name="height_min_item">56dp</dimen>
+    <dimen name="height_min_item_2">@dimen/height_min_item</dimen>
+    <dimen name="home_header_elevation">0dp</dimen>
+    <dimen name="home_item_elevation">2dp</dimen>
+    <dimen name="setting_item_icon_size">@dimen/normal_drawable_size</dimen>
+    <dimen name="setting_item_height">72dp</dimen>
+    <dimen name="setting_item_elevation">4dp</dimen>
+    <dimen name="user_field_margin">24dp</dimen>
+    <dimen name="height_item_bottom_divider">3dp</dimen>
+    <dimen name="size_edittext_drawable">@dimen/normal_drawable_size</dimen>
+    <dimen name="size_play_icon">@dimen/normal_drawable_size</dimen>
+
+    <!--<dimen name="design_bottom_navigation_item_max_width" tools:override="true">600dp</dimen>
+    <dimen name="design_bottom_navigation_active_item_max_width" tools:override="true">600dp</dimen>-->
 </resources>

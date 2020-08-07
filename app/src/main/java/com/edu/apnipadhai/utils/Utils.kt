@@ -2,6 +2,7 @@ package com.edu.apnipadhai.utils
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -15,10 +16,98 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
+import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 object Utils {
+
+    fun openFacebookIntent(context: Context) {
+        val url: String = "https://www.facebook.com/Meri-padhai-101122954868149"
+        val pageId: String = "101122954868149"
+        return try {
+            context.packageManager.getPackageInfo("com.facebook.katana", 0)
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/$pageId"))
+            intent.setPackage("com.facebook.katana")
+            context.startActivity(intent)
+        } catch (e: Exception) {
+            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+        }
+    }
+
+    fun openYouTube(context: Context) {
+        val URL_YOUTUBE = "https://www.youtube.com/channel/UC1w-ro4_aFEhq2Quzf1Vz0w"
+        val URL_YOUTUBE_INAPP = "vnd.youtube.com/channel/UC1w-ro4_aFEhq2Quzf1Vz0w"
+
+        try {
+            //here we try to open the link in app
+            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(URL_YOUTUBE_INAPP)))
+        } catch (e: Exception) {
+            //the app isn't available: we open in browser`
+            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(URL_YOUTUBE)))
+        }
+    }
+
+    fun openInstagram(context: Context) {
+        val uri = Uri.parse("https://www.instagram.com/_u/meri.padhai")
+        val likeIng = Intent(Intent.ACTION_VIEW, uri)
+        likeIng.setPackage("com.instagram.android")
+        try {
+            context.startActivity(likeIng)
+        } catch (e: ActivityNotFoundException) {
+            context.startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://www.instagram.com/meri.padhai")
+                )
+            )
+        }
+    }
+
+    fun openTwitter(context: Context) {
+        val twitterId = "1291309686738825219"
+        try {
+            // Get Twitter app
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?user_id=$twitterId"))
+            intent.setPackage("com.twitter.android")
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent)
+        } catch (e: ActivityNotFoundException) {
+            // If no Twitter app found, open on browser
+            context.startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://twitter.com/PadhaiMeri")
+                )
+            )
+        }
+    }
+
+    fun openMail(context: Context) {
+        /* Create the Intent */
+        val emailIntent: Intent = Intent(Intent.ACTION_SEND);
+        val data = Uri.parse(
+            "mailto:"
+                    + "meripadhai80@gmail.com"
+                    + "?subject=" + "Feedback from user[${FirebaseAuth.getInstance().currentUser?.uid}]"
+                    + "&body=" + ""
+        )
+        emailIntent.data = data;
+        context.startActivity(emailIntent);
+
+        /* Fill it with Data *//*
+        emailIntent.setType("plain/text");
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Feedback");
+        emailIntent.putExtra(
+            Intent.EXTRA_TEXT,
+            "Unique Id : ${FirebaseAuth.getInstance().currentUser?.uid}\n\n"
+        );
+
+        *//* Send it off to the Activity-Chooser *//*
+        context.startActivity(Intent.createChooser(emailIntent, "Send mail..."));*/
+    }
+
     fun showToast(context: Context?, message: String?) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }

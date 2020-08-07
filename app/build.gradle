@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 
@@ -58,14 +59,6 @@ dependencies {
 
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
-   /* // Google APIs
-    googleApiClientAndroid          : '1.23.0',
-    googleApiServicesYoutube        : 'v3-rev198-1.23.0',
-
-    // Rx
-    rxJava                          : '2.2.2',
-    rxAndroid                       : '2.1.0',*/
-
     //youtube
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
     implementation "io.reactivex.rxjava2:rxjava:2.2.9"
@@ -88,8 +81,9 @@ dependencies {
     // Firebase & Firestore SDK
     implementation 'com.google.firebase:firebase-core:17.4.3'
     implementation 'com.google.firebase:firebase-firestore:21.4.3'
-    implementation 'com.github.bumptech.glide:glide:4.7.1'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    kapt 'com.github.bumptech.glide:compiler:4.11.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     // Firestore FirebaseUI Library
     implementation 'com.firebaseui:firebase-ui-firestore:5.0.0'

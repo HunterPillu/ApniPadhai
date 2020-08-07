@@ -1,67 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical">
 
-    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/user_photo"
+
+    <RelativeLayout
         android:layout_width="@dimen/size_profile_img"
         android:layout_height="@dimen/size_profile_img"
-        android:layout_margin="@dimen/margin_quarter"
-        android:src="@android:drawable/ic_menu_gallery"
-        app:civ_border_color="@color/colorPrimary"
-        app:civ_border_width="2dp" />
+        android:layout_marginBottom="@dimen/margin_full">
 
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/user_name"
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/user_photo"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/height_edittext"
-            android:hint="@string/name"
-            android:inputType="text" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="match_parent"
+            android:src="@drawable/user"
+            app:civ_border_color="@color/colorPrimary"
+            app:civ_border_width="@dimen/margin_quarter" />
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_image_edit"
+            android:layout_width="@dimen/margin_super"
+            android:layout_height="@dimen/margin_super"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/camera"
+            app:tint="@color/colorPrimary" />
 
-    <!-- <com.google.android.material.textfield.TextInputLayout
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content">
+    </RelativeLayout>
 
-         <androidx.appcompat.widget.AppCompatEditText
-             android:id="@+id/user_id"
-             android:layout_width="match_parent"
-             android:layout_height="@dimen/height_edittext"
-             android:hint="@string/email" />
-     </com.google.android.material.textfield.TextInputLayout>-->
-
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/dob"
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height_edittext"
-        android:clickable="true"
-        android:focusable="false"
-        android:gravity="center_vertical"
-        android:hint="@string/dob" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/user_field_margin"
+        android:layout_marginRight="@dimen/margin_medium"
+        android:orientation="vertical">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/mobile"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_edittext"
-        android:gravity="center_vertical"
-        android:hint="@string/mobile" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_button_height"
+            android:background="@drawable/rounded_edittext"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/margin_half"
+            android:paddingRight="@dimen/margin_half">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img1"
+                android:layout_width="@dimen/dp30"
+                android:layout_height="@dimen/dp30"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/user"
+                app:tint="@color/colorPrimary" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/user_name"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/row_button_height"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:layout_toEndOf="@id/img1"
+                android:background="@null"
+                android:hint="@string/name"
+                android:textSize="@dimen/sub_title" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_button_height"
+            android:layout_marginTop="@dimen/margin_full"
+            android:background="@drawable/rounded_edittext"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/margin_half"
+            android:paddingRight="@dimen/margin_half">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img2"
+                android:layout_width="@dimen/dp30"
+                android:layout_height="@dimen/dp30"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/calendar"
+                app:tint="@color/colorPrimary" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/dob"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/row_button_height"
+
+                android:layout_marginStart="@dimen/margin_medium"
+                android:layout_toEndOf="@id/img2"
+                android:gravity="center_vertical"
+                android:hint="@string/dob"
+                android:textSize="@dimen/sub_title" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_button_height"
+            android:layout_marginTop="@dimen/margin_full"
+            android:background="@drawable/rounded_edittext"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/margin_half"
+            android:paddingRight="@dimen/margin_half">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img3"
+                android:layout_width="@dimen/dp30"
+                android:layout_height="@dimen/dp30"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/phone_call"
+                app:tint="@color/colorPrimary" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/mobile"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/row_button_height"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:layout_toEndOf="@id/img3"
+                android:gravity="center_vertical"
+                android:hint="@string/mobile"
+                android:textSize="@dimen/sub_title" />
+
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/saveBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_half"
+        android:layout_width="@dimen/button_width_default"
+        android:layout_height="@dimen/row_button_height"
+        android:layout_marginTop="@dimen/margin_duper"
+        android:background="@color/colorPrimary"
         android:text="@string/signin"
-        android:textAllCaps="false" />
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:visibility="visible" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>
