@@ -67,6 +67,8 @@ class AffairsFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
             return layoutView
         }
         layoutView = inflater.inflate(R.layout.fragment_videos, container, false)
+        rlToolBar = layoutView!!.findViewById(R.id.rlToolBar)
+        rlToolBar.visibility = View.GONE
         Handler().postDelayed({ init() }, 50)
 
         return layoutView
@@ -81,7 +83,7 @@ class AffairsFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
         ivSearch = layoutView!!.findViewById(R.id.ivSearch)
         ivBack = layoutView!!.findViewById(R.id.ivBack)
         rlSearch = layoutView!!.findViewById(R.id.rlSearch)
-        rlToolBar = layoutView!!.findViewById(R.id.rlToolBar)
+
         pb_progress = layoutView!!.findViewById(R.id.pb_progress)
         svSearchExpanded.visibility = View.VISIBLE
         ivSearch.visibility = View.VISIBLE
@@ -146,8 +148,8 @@ class AffairsFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
 
     override fun onRefresh() {
         fetchData()
-        rlToolBar.visibility = View.VISIBLE
-        rlSearch.visibility = View.GONE
+        // rlToolBar.visibility = View.VISIBLE
+        //rlSearch.visibility = View.GONE
     }
 
     private fun fetchData() {
@@ -234,7 +236,7 @@ class AffairsFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
 
     override fun onResume() {
         super.onResume()
-       // tvTitle.text = getString(R.string.current_affairs)
+        // tvTitle.text = getString(R.string.current_affairs)
         updateToolbarTitle(getString(R.string.current_affairs))
     }
 
