@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.covidbeads.app.assesment.util.shortToast
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.model.Course
+import com.edu.apnipadhai.model.User
 import com.edu.apnipadhai.model.VideoModel
 import com.edu.apnipadhai.utils.Connectivity
 import com.edu.apnipadhai.utils.Const
@@ -33,7 +34,8 @@ class AdminFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         bAddCategory.setOnClickListener { openFragment(EditCategoryFragment.newInstance()) }
         bAddVideos.setOnClickListener { openFragment(AddVideoFragment.newInstance()) }
-        bSyncCount.setOnClickListener { updateVideoCount() }
+        bSyncCount.setOnClickListener { /*updateVideoCount()*/ updateUserUid() }
+        bAddAffairs.setOnClickListener { openFragment(AddAffairFragment.newInstance()) }
     }
 
     override fun onResume() {
@@ -155,6 +157,34 @@ class AdminFragment : BaseFragment() {
                     value.courseId = course.parentId
                     FirebaseFirestore.getInstance().collection(Const.TABLE_VIDEOS)
                         .document(value.fKey!!).set(value)
+
+
+                }
+                hideLoader()
+            }
+            .addOnFailureListener { exception ->
+                hideLoader()
+                CustomLog.w(
+                    EditCategoryFragment.TAG,
+                    "Error getting documents: ${exception.localizedMessage}"
+                )
+            }
+    }
+
+    private fun updateUserUid() {
+
+        FirebaseFirestore.getInstance().collection(Const.TABLE_USERS)
+            // .whereEqualTo("id", value.categoryId.toInt())
+            .get()
+            .addOnSuccessListener { documents ->
+                //var course: Course
+                for (postSnapshot in documents) {
+                    val user: User = postSnapshot.toObject(User::class.java)
+                    //course.videoCount = value
+                    //list1.add(course)
+                    user.uid = postSnapshot.id
+                    FirebaseFirestore.getInstance().collection(Const.TABLE_USERS)
+                        .document(user.uid).set(user)
 
 
                 }

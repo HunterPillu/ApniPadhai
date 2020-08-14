@@ -3,6 +3,8 @@ package com.edu.apnipadhai.utils
 object Const {
 
 
+
+    const val SCREEN_USER_INVITE = 203
     const val SCREEN_COURSE = 202
     const val SCREEN_USER = 201
     const val EXTRA_TYPE: String = "extra_type"
@@ -29,12 +31,20 @@ object Const {
     const val TABLE_CATEGORY = "category"
     const val TABLE_USERS = "users"
     const val TABLE_VIDEOS = "videos"
+    const val TABLE_AFFAIRS = "current_affairs"
 
 
     // PAGINATION
-    const val LIMIT : Long = 30
+    const val LIMIT: Long = 30
 
 
     // FIRESTORE FIELD
     const val FIELD_CATEGORY_ID = "categoryId"
+
+    //Game status
+    const val STATUS_IN_GAME = 3
+    const val STATUS_IDLE = 0
+    const val STATUS_REJECT = 1
+
+    const val CAN_REQUEST_IF_OFFLINE = true
 }

@@ -125,12 +125,6 @@ class SettingsFrag : BaseFragment(), ListItemClickListener<Int, Setting> {
         }
 
 
-    fun openScreen(type: Int) {
-        startActivity(Intent(activity, CommonActivity::class.java).apply {
-            putExtra(Const.EXTRA_TYPE, type)
-        })
-    }
-
     fun openCourse() {
         startActivity(Intent(activity, CommonActivity::class.java).apply {
             putExtra(Const.EXTRA_TYPE, Const.SCREEN_COURSE)

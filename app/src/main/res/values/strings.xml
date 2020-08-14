@@ -70,6 +70,13 @@
     <string name="no_data">No data available</string>
     <string name="recent_upload">Recently Uploaded</string>
     <string name="share_app_text">Hey check out my awesome app at:</string>
+    <string name="user_offline">%s is offline</string>
+    <string name="offline">Offline</string>
+    <string name="online">Online</string>
+    <string name="title_invite">Invite User</string>
+    <string name="text_invite_1">Select student to send him invite</string>
+    <string name="title_manage_current_affairs">Manage Current Affairs</string>
+    <string name="text_add_affairs">Add videos to current affairs</string>
 
 
 </resources>

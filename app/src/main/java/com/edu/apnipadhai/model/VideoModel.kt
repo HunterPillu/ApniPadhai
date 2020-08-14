@@ -12,6 +12,7 @@ class VideoModel {
     var courseId: Int = 0
     var videoId: String? = null
     var thumbnailUrl: String? = null
+    var timestamp = "0"
     var active: Boolean = true
 
 

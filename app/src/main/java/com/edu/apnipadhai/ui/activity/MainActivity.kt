@@ -5,10 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.AppCompatTextView
 import com.edu.apnipadhai.R
-import com.edu.apnipadhai.ui.fragments.BaseFragment
-import com.edu.apnipadhai.ui.fragments.CategoryFragment
-import com.edu.apnipadhai.ui.fragments.SettingsFrag
-import com.edu.apnipadhai.ui.fragments.UserFragment
+import com.edu.apnipadhai.ui.fragments.*
 import com.edu.apnipadhai.utils.Utils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.custom_toolbar.*
@@ -43,14 +40,14 @@ class MainActivity : BaseActivity() {
     override fun onBackPressed() {
 
         if (R.id.home != navView.selectedItemId) {
-            navView.setSelectedItemId(R.id.home)
+            navView.selectedItemId = R.id.home
             return
         }
         super.onBackPressed()
     }
 
     private lateinit var fragment1: BaseFragment
-   // private lateinit var fragment2: BaseFragment
+    private lateinit var fragment2: BaseFragment
 
     //private lateinit var fragment3: BaseFragment
     private lateinit var fragment3: BaseFragment
@@ -58,14 +55,14 @@ class MainActivity : BaseActivity() {
 
     private fun setupNavigation() {
         fragment1 = CategoryFragment.newInstance()
-       // fragment2 = UserFragment()
+        fragment2 = AffairsFragment.newInstance()
         //fragment3 = fragment2
         fragment3 = SettingsFrag()
         active = fragment1
 
         supportFragmentManager.beginTransaction().add(R.id.container, fragment3, "3")
             .hide(fragment3).commit();
-       // supportFragmentManager.beginTransaction().add(R.id.container, fragment2, "2").hide(fragment2).commit();
+        supportFragmentManager.beginTransaction().add(R.id.container, fragment2, "2").hide(fragment2).commit();
         supportFragmentManager.beginTransaction().add(R.id.container, fragment1, "1").commit();
 
         updateToolbarTitle(getString(R.string.home))
@@ -82,7 +79,9 @@ class MainActivity : BaseActivity() {
                     Toast.makeText(this, "Photos selected", Toast.LENGTH_SHORT).show()
                 }*/
                 R.id.current -> {
-                    Utils.showToast(this, getString(R.string.work_in_progress))
+                    updateToolbarTitle(getString(R.string.current_affairs))
+                    supportFragmentManager.beginTransaction().hide(active).show(fragment2).commit();
+                    active = fragment2
                 }
                 R.id.setting -> {
                     updateToolbarTitle(getString(R.string.setting))

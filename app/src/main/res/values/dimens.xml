@@ -54,6 +54,9 @@
     <dimen name="height_item_bottom_divider">3dp</dimen>
     <dimen name="size_edittext_drawable">@dimen/normal_drawable_size</dimen>
     <dimen name="size_play_icon">@dimen/normal_drawable_size</dimen>
+    <dimen name="grid_item_divider">1dp</dimen>
+    <dimen name="size_online_status">12dp</dimen>
+    <dimen name="size_user_item_img">48dp</dimen>
 
     <!--<dimen name="design_bottom_navigation_item_max_width" tools:override="true">600dp</dimen>
     <dimen name="design_bottom_navigation_active_item_max_width" tools:override="true">600dp</dimen>-->

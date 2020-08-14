@@ -33,7 +33,7 @@ public class IntroActivity extends MaterialIntroActivity {
         addSlide(new SlideFragmentBuilder()
                         .backgroundColor(R.color.first_slide_background)
                         .buttonsColor(R.color.first_slide_buttons)
-                        .image(R.drawable.img_office)
+                        .image(R.drawable.img_material_intro)//img_office)
                         .title("Organize your time with us")
                         .description("Would you try?")
                         .build(),
@@ -59,7 +59,7 @@ public class IntroActivity extends MaterialIntroActivity {
                 .buttonsColor(R.color.third_slide_buttons)
                 //.possiblePermissions(new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.READ_SMS})
                 //.neededPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
-                .image(R.drawable.img_equipment)
+                .image(R.drawable.img_material_intro)//img_equipment)
                 .title("We provide best tools")
                 .description("ever")
                 .build()/*,

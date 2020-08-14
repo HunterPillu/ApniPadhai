@@ -257,7 +257,6 @@ class AddVideoFragment : BaseFragment() {
         }
     }
 
-
     fun isValid(videoId: String): Boolean {
         return videoId.isEmpty()
     }

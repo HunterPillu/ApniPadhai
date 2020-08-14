@@ -72,7 +72,8 @@
     </style>
 
     <style name="button_default" parent="WrapContent">
-        <item name="android:width">@dimen/button_width_default</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:minWidth">@dimen/button_width_default</item>
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:height">@dimen/row_button_height</item>
         <item name="android:background">@color/colorPrimary</item>

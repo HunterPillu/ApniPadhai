@@ -2,21 +2,21 @@ package com.edu.apnipadhai.ui.fragments
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
-import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.callbacks.FragmentEventListener
+import com.edu.apnipadhai.model.User
+import com.edu.apnipadhai.ui.activity.CommonActivity
 import com.edu.apnipadhai.utils.Const
 import com.google.firebase.auth.FirebaseAuth
 
 open class BaseFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     private var TAG = "BaseFragment"
     var layoutView: View? = null
-    private var listener: FragmentEventListener?=null
+    private var listener: FragmentEventListener? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -66,6 +66,16 @@ open class BaseFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         alertDialog.show()
 
 
+    }
+
+    fun openScreen(type: Int) {
+        startActivity(Intent(context!!, CommonActivity::class.java).apply {
+            putExtra(Const.EXTRA_TYPE, type)
+        })
+    }
+
+    fun sendGameInvite(item: User) {
+        listener?.onInviteOpponent(item)
     }
 
 }

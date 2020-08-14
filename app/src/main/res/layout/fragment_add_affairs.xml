@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/appbar"
+            android:padding="@dimen/margin_full"
+            android:text="@string/text_add_affairs"
+            android:textColor="@color/text_secondary" />
+
+
+        <RelativeLayout
+            android:id="@+id/rlVideo"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_button_height"
+            android:layout_marginHorizontal="@dimen/margin_full"
+            android:layout_marginTop="@dimen/margin_full"
+            android:background="@drawable/rounded_edittext"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/margin_half"
+            android:paddingRight="@dimen/margin_half"
+            android:visibility="visible"
+            tools:visibility="visible">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img1"
+                android:layout_width="@dimen/size_edittext_drawable"
+                android:layout_height="@dimen/size_edittext_drawable"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/ic_video_24"
+                app:tint="@color/colorPrimary" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/etVideoLink"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/row_button_height"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:layout_toEndOf="@id/img1"
+                android:background="@null"
+                android:hint="@string/video_link"
+                android:textSize="@dimen/sub_title" />
+
+        </RelativeLayout>
+
+
+        <include
+            android:id="@+id/rlItemVideo"
+            layout="@layout/item_video"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_half"
+            android:layout_marginTop="@dimen/margin_full"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/bPreview"
+            style="@style/button_default"
+            android:layout_marginTop="@dimen/margin_full"
+            android:text="@string/load_preview" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/bSubmit"
+            style="@style/button_default"
+            android:layout_marginTop="@dimen/margin_full"
+            android:background="@color/colorPrimaryDark"
+            android:text="@string/submit"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</ScrollView>

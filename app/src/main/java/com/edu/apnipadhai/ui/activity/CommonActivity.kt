@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.ui.fragments.CourseFragment
 import com.edu.apnipadhai.ui.fragments.UserFragment
+import com.edu.apnipadhai.ui.fragments.UserListFragment
 import com.edu.apnipadhai.utils.Const
 import kotlinx.android.synthetic.main.custom_toolbar.*
 
@@ -21,6 +22,9 @@ class CommonActivity : BaseActivity() {
     private fun openRequiredFragment() {
         val type = intent.getIntExtra(Const.EXTRA_TYPE, -1)
         when (type) {
+            Const.SCREEN_USER_INVITE -> {
+                openFragment(UserListFragment())
+            }
             Const.SCREEN_USER -> {
                 openFragment(UserFragment())
             }

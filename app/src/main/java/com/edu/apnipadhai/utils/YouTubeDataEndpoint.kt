@@ -25,7 +25,7 @@ object YouTubeDataEndpoint {
                     val video =
                         videoListResponse.items[0]
                     val videoTitle = video.snippet.title
-                    val url = video.snippet.thumbnails.medium.url
+                    val url = video.snippet.thumbnails.high.url
                     // Bitmap bitmap = NetworkUtils.getBitmapFromURL(url);
                     val channel = buildChannelsListQuery(
                         youTubeDataAPIEndpoint,
@@ -48,7 +48,7 @@ object YouTubeDataEndpoint {
         return youTubeDataAPIEndpoint
             .videos()
             .list("snippet")
-            .setFields("items(snippet(title,channelId,thumbnails(medium(url))))")
+            .setFields("items(snippet(title,channelId,thumbnails(high(url))))")
             .setId(videoId)
             .setKey(YOUTUBE_DATA_API_KEY)
     }

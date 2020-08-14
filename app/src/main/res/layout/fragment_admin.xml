@@ -32,6 +32,11 @@
         style="@style/button_default"
         android:layout_marginTop="@dimen/margin_full"
         android:text="@string/title_add_video" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bAddAffairs"
+        style="@style/button_default"
+        android:layout_marginTop="@dimen/margin_full"
+        android:text="@string/title_manage_current_affairs" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/bSyncCount"

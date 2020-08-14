@@ -63,6 +63,8 @@ class CategoryFragment : BaseFragment(), ListItemClickListener<Int, Category> {
     }
 
     fun initView() {
+        layoutView?.findViewById<View>(R.id.cvMD)
+            ?.setOnClickListener { openScreen(Const.SCREEN_USER_INVITE) }
         setCourseList()
         setRecentList()
         fetchData()
