@@ -18,7 +18,9 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import com.edu.apnipadhai.BuildConfig
 import com.edu.apnipadhai.R
+import com.edu.apnipadhai.model.Bookmark
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -216,6 +218,18 @@ object Utils {
         } else { //permission is automatically granted on sdk<23 upon installation
             Log.v("DirectTalk9", "Permission is granted")
             true
+        }
+    }
+
+    @JvmStatic
+    fun bookmarkVideo(context : Context,fKey : String) {
+        val videoList = FirebaseFirestore.getInstance().collection(Const.TABLE_BOOKMARK)
+            .document(FirebaseAuth.getInstance().currentUser?.uid!!).collection(fKey)
+        videoList.add(Bookmark(fKey)).addOnCompleteListener {
+            Utils.showToast(
+                context,
+                context.getString(R.string.msg_bookmark_success)
+            )
         }
     }
 }

@@ -112,11 +112,12 @@ class CategoryFragment : BaseFragment(), ListItemClickListener<Int, Category> {
             object : ListItemClickListener<Int, VideoModel> {
                 override fun onItemClick(type: Int, item: VideoModel) {
                     val intent = Intent(context, YouTubeActivity::class.java)
-                    intent.putExtra(Const.VIDEO_MODEL, item)
+                    intent.putExtra(Const.VIDEO_MODEL, Gson().toJson(item))
                     startActivity(intent)
                 }
             },
-            true)
+            true
+        )
         rv.adapter = videoAdapter
 
         //swipeRefresh = layoutView?.findViewById<View> (R.id.swipeRefresh) as SwipeRefreshLayout

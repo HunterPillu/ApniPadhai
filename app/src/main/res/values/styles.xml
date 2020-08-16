@@ -60,8 +60,7 @@
 
     <style name="home_list_header" parent="WrapContent">
         <item name="android:textSize">@dimen/sub_title</item>
-        <item name="android:textColor">@color/text_secondary</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_primary</item>
         <item name="android:layout_marginBottom">@dimen/margin_quarter</item>
 
     </style>

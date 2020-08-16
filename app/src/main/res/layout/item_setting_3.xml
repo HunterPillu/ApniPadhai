@@ -24,7 +24,7 @@
         android:layout_width="@dimen/size_profile_img_2"
         android:layout_height="@dimen/size_profile_img_2"
         android:layout_gravity="center_vertical"
-        app:civ_border_color="@color/white"
+        app:civ_border_color="@color/colorPrimary"
         app:civ_border_width="@dimen/min_border_width"
         tools:src="@drawable/logo" />
 

@@ -11,7 +11,6 @@ import com.edu.apnipadhai.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 import agency.tango.materialintroscreen.MaterialIntroActivity;
-import agency.tango.materialintroscreen.MessageButtonBehaviour;
 import agency.tango.materialintroscreen.SlideFragmentBuilder;
 import agency.tango.materialintroscreen.animations.IViewTranslation;
 
@@ -34,22 +33,22 @@ public class IntroActivity extends MaterialIntroActivity {
                         .backgroundColor(R.color.first_slide_background)
                         .buttonsColor(R.color.first_slide_buttons)
                         .image(R.drawable.img_material_intro)//img_office)
-                        .title("Organize your time with us")
-                        .description("Would you try?")
-                        .build(),
-                new MessageButtonBehaviour(new View.OnClickListener() {
+                        .title(getString(R.string.intro_text_1))
+                        .description(getString(R.string.intro_text_11))
+                        .build()
+               /*, new MessageButtonBehaviour(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        showMessage("We provide solutions to make you love your work");
+                        showMessage(getString(R.string.intro_text_2));
                     }
-                }, "Work with love"));
+                }, "Work with love")*/);
 
         addSlide(new SlideFragmentBuilder()
                 .backgroundColor(R.color.second_slide_background)
                 .buttonsColor(R.color.second_slide_buttons)
                 .image(R.drawable.img_material_intro)
-                .title("Want more?")
-                .description("Go on")
+                .title(getString(R.string.intro_text_2))
+                .description(getString(R.string.intro_text_22))
                 .build());
 
         // addSlide(new CustomSlide());
@@ -60,8 +59,8 @@ public class IntroActivity extends MaterialIntroActivity {
                 //.possiblePermissions(new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.READ_SMS})
                 //.neededPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
                 .image(R.drawable.img_material_intro)//img_equipment)
-                .title("We provide best tools")
-                .description("ever")
+                .title(getString(R.string.intro_text_3))
+                .description(getString(R.string.intro_text_33))
                 .build()/*,
                 new MessageButtonBehaviour(new View.OnClickListener() {
                     @Override
@@ -72,9 +71,10 @@ public class IntroActivity extends MaterialIntroActivity {
 
         addSlide(new SlideFragmentBuilder()
                 .backgroundColor(R.color.fourth_slide_background)
+                .image(R.drawable.img_material_intro)
                 .buttonsColor(R.color.fourth_slide_buttons)
-                .title("That's it")
-                .description("Would you join us?")
+                .title(getString(R.string.intro_text_4))
+                .description(getString(R.string.intro_text_44))
                 .build());
     }
 

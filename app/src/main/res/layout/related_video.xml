@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cvMain"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/margin_quarter"
-    android:layout_marginTop="@dimen/margin_half"
+    android:layout_marginBottom="0.5dp"
     android:foreground="?android:attr/selectableItemBackground">
 
-    <LinearLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="@dimen/height_related_video_item_"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:weightSum="1"
-        android:padding="@dimen/dp5">
+        android:weightSum="1">
 
         <RelativeLayout
             android:id="@+id/rlVideo"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_margin="@dimen/margin_quarter"
             android:layout_weight="0.4">
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -31,25 +29,25 @@
                 android:scaleType="center"
                 tools:srcCompat="@drawable/logo" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/alpha_black_light" />
+            <!-- <View
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:background="@color/alpha_black_light" />-->
 
-            <androidx.appcompat.widget.AppCompatImageView
-                style="@style/WrapContent"
-                android:layout_centerInParent="true"
-                app:srcCompat="@drawable/ic_play_filled_36" />
+            <!-- <androidx.appcompat.widget.AppCompatImageView
+                 style="@style/WrapContent"
+                 android:layout_centerInParent="true"
+                 app:srcCompat="@drawable/ic_play_filled_36" />-->
         </RelativeLayout>
 
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/dp5"
+            android:layout_margin="@dimen/margin_half"
             android:layout_weight="0.6"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:visibility="visible">
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -58,11 +56,20 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:textColor="@color/black"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/body_secondary"
                 tools:text="title video " />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvOther"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_secondary"
+                android:textSize="@dimen/caption"
+                tools:text="others" />
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-    </LinearLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.cardview.widget.CardView>

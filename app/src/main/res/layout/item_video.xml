@@ -5,13 +5,14 @@
     android:id="@+id/cvMain"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/margin_quarter"
-    android:layout_marginTop="@dimen/margin_half"
-    android:foreground="?android:attr/selectableItemBackground">
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardCornerRadius="0dp"
+    app:cardElevation="0dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
         android:gravity="center_vertical">
 
         <RelativeLayout
@@ -58,13 +59,11 @@
 
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/llDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rlVideo"
-            android:layout_marginStart="@dimen/margin_half"
             android:layout_marginTop="@dimen/margin_half"
-            android:layout_marginEnd="@dimen/margin_half"
-            android:layout_marginBottom="@dimen/margin_half"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -73,15 +72,12 @@
                 android:layout_width="@dimen/margin_duper"
                 android:layout_height="@dimen/margin_duper"
                 android:layout_gravity="start"
-                android:src="@drawable/logo"
-                app:civ_border_color="@color/colorPrimary"
-                app:civ_border_width="@dimen/min_border_width" />
+                android:layout_marginHorizontal="@dimen/margin_half"
+                android:src="@drawable/logo" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_quarter"
-                android:layout_marginRight="@dimen/margin_quarter"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -91,29 +87,49 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    tools:text="title video " />
+                    android:textColor="@color/text_primary"
+                    android:textSize="@dimen/body_secondary"
+                    tools:text="title video goes here" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvOther"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/text_secondary"
                     android:textSize="@dimen/caption"
                     tools:text="others" />
 
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <!-- <androidx.appcompat.widget.AppCompatImageView
-                 android:id="@+id/ivMore"
-                 android:layout_width="@dimen/margin_duper"
-                 android:layout_height="@dimen/dp18"
-                 android:layout_gravity="end"
-                 android:src="@drawable/more"
-                 android:tint="@color/text_secondary" />-->
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivBookmark"
+                android:layout_width="@dimen/size_video_menu"
+                android:layout_height="@dimen/size_video_menu"
+                android:layout_gravity="end"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="6dp"
+                android:src="@drawable/ic_bookmarks_24"
+                android:tint="@color/text_secondary" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivDelete"
+                android:layout_width="@dimen/size_video_menu"
+                android:layout_height="@dimen/size_video_menu"
+                android:layout_gravity="end"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="6dp"
+                android:src="@drawable/ic_delete_24"
+                android:tint="@color/text_secondary" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/grid_item_divider"
+            android:layout_below="@+id/llDetail"
+            android:layout_marginTop="@dimen/margin_full"
+            android:background="@color/grey_transparent_20" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

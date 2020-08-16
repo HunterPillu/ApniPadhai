@@ -15,7 +15,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
-import androidx.appcompat.widget.AppCompatCheckedTextView;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
@@ -32,10 +31,10 @@ import com.edu.apnipadhai.utils.Utils;
 import com.edu.apnipadhai.utils.YouTubeDataEndpoint;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.gson.Gson;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener;
@@ -47,7 +46,6 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.menu.MenuItem;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -63,7 +61,7 @@ public class YouTubeActivity extends AppCompatActivity implements ListItemClickL
 
     private YouTubePlayerView youTubePlayerView;
     private AppCompatTextView tvTitle;
-    private AppCompatImageView ivBookmark,ivShare;
+    private AppCompatImageView ivBookmark, ivShare;
     private VideoModel videoModel;
     private FullScreenHelper fullScreenHelper = new FullScreenHelper(this, null);
     ActionMode mode;
@@ -75,7 +73,7 @@ public class YouTubeActivity extends AppCompatActivity implements ListItemClickL
 
 
         youTubePlayerView = findViewById(R.id.youtube_player_view);
-         videoModel = (VideoModel) getIntent().getSerializableExtra(Const.VIDEO_MODEL);
+        videoModel = new Gson().fromJson(getIntent().getStringExtra(Const.VIDEO_MODEL), VideoModel.class);
         initYouTubePlayerView(videoModel.getVideoId());
         init();
         setRecyclerView();
@@ -94,14 +92,14 @@ public class YouTubeActivity extends AppCompatActivity implements ListItemClickL
         });
     }
 
-    private void init()
-    {
+    private void init() {
         rvRelatedVideo = findViewById(R.id.rvRelatedVideo);
         tvNoData = findViewById(R.id.tvNoData);
-        ivShare = findViewById(R.id.ivShare);
+        /*ivShare = findViewById(R.id.ivShare);
         ivBookmark = findViewById(R.id.ivBookmark);
         tvTitle = findViewById(R.id.tvTitle);
         tvTitle.setText(videoModel.getName());
+        ((AppCompatTextView) findViewById(R.id.tvOther)).setText(videoModel.getChannel());
 
         ivShare.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,12 +107,19 @@ public class YouTubeActivity extends AppCompatActivity implements ListItemClickL
                 shareVideoLink(videoModel.getVideoId());
             }
         });
+        ivBookmark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utils.bookmarkVideo(YouTubeActivity.this, videoModel.getFKey());
+            }
+        }); */
 
     }
 
     private void setRecyclerView() {
         list1 = new ArrayList<>();
-        adapter = new VideoRelatedAdapter(this,this);
+        list1.add(videoModel);
+        adapter = new VideoRelatedAdapter(this, this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         rvRelatedVideo.setLayoutManager(layoutManager);
         rvRelatedVideo.setAdapter(adapter);
@@ -122,9 +127,21 @@ public class YouTubeActivity extends AppCompatActivity implements ListItemClickL
 
     @Override
     public void onItemClick(Integer type, VideoModel item) {
-        Intent intent = new Intent(this, YouTubeActivity.class);
-        intent.putExtra(Const.VIDEO_MODEL, item);
-        startActivity(intent);
+
+        switch (type) {
+            case Const.TYPE_CLICKED_2:
+                shareVideoLink(videoModel.getVideoId());
+                break;
+            case Const.TYPE_BOOKMARK:
+                Utils.bookmarkVideo(YouTubeActivity.this, videoModel.getFKey());
+                break;
+            default:
+                Intent intent = new Intent(this, YouTubeActivity.class);
+                intent.putExtra(Const.VIDEO_MODEL, new Gson().toJson(item));
+                startActivity(intent);
+                break;
+        }
+
     }
 
     private void fetchData() {
@@ -136,11 +153,12 @@ public class YouTubeActivity extends AppCompatActivity implements ListItemClickL
 
                         if (queryDocumentSnapshots.size() > 0) {
                             for (QueryDocumentSnapshot snapshot : queryDocumentSnapshots) {
-                              VideoModel model = snapshot.toObject(VideoModel.class);
-                              if (!videoModel.getVideoId().equals(model.getVideoId()))
-                                list1.add(model);
+                                VideoModel model = snapshot.toObject(VideoModel.class);
+                                if (!videoModel.getVideoId().equals(model.getVideoId()))
+                                    list1.add(model);
                             }
-                        }    adapter.setList(list1, tvNoData, rvRelatedVideo);
+                        }
+                        adapter.setList(list1, tvNoData, rvRelatedVideo);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -155,9 +173,10 @@ public class YouTubeActivity extends AppCompatActivity implements ListItemClickL
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(
-                Intent.EXTRA_TEXT, getString(R.string.video_link)+"https://youtu.be/"+videoLink
+                Intent.EXTRA_TEXT, getString(R.string.video_link) + "https://youtu.be/" + videoLink
         );
-        sendIntent.setType("text/plain");startActivity(sendIntent);
+        sendIntent.setType("text/plain");
+        startActivity(sendIntent);
     }
 
 
@@ -208,7 +227,7 @@ public class YouTubeActivity extends AppCompatActivity implements ListItemClickL
     }
 
     private void initYouTubePlayerView(String videoId) {
-       // initPlayerMenu();
+        // initPlayerMenu();
 
         // The player will automatically release itself when the activity is destroyed.
         // The player will automatically pause when the activity is stopped

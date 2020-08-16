@@ -10,15 +10,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.callbacks.ListItemClickListener
 import com.edu.apnipadhai.model.VideoModel
+import com.edu.apnipadhai.utils.Const
 import com.edu.apnipadhai.utils.GlideApp
 import com.edu.apnipadhai.utils.GlideRequests
-import java.util.*
-import kotlin.collections.ArrayList
 
 class VideoRelatedAdapter(
     context: Context,
     listener: ListItemClickListener<Int, VideoModel>
-) : RecyclerView.Adapter<VideoRelatedAdapter.RecordViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val listener: ListItemClickListener<Int, VideoModel>
     private var list: ArrayList<VideoModel>
     private val glide: GlideRequests
@@ -42,29 +41,57 @@ class VideoRelatedAdapter(
         }
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): RecordViewHolder {
-        val listItem = LayoutInflater.from(parent.context).inflate(
-            R.layout.related_video,
-            parent,
-            false
-        )
+    ): RecyclerView.ViewHolder {
+        if (viewType == 0) {
+            val listItem = LayoutInflater.from(parent.context).inflate(
+                R.layout.item_related_video_header,
+                parent,
+                false
+            )
 
-        return RecordViewHolder(listItem)
+            return HeaderViewHolder(listItem)
+        } else {
+            val listItem = LayoutInflater.from(parent.context).inflate(
+                R.layout.related_video,
+                parent,
+                false
+            )
+
+            return RecordViewHolder(listItem)
+        }
     }
 
     override fun onBindViewHolder(
-        holder: RecordViewHolder,
+        holder: RecyclerView.ViewHolder,
         position: Int
     ) {
         val vo = list[position]
-        holder.tvTitle.text = vo.name
-        glide.load(vo.thumbnailUrl).placeholder(R.drawable.logo).into(holder.ivThumbnail)
+        if (position == 0) {
+            val vh = holder as HeaderViewHolder
+            vh.tvTitle.text = vo.name
+            vh.tvOther.text = vo.channel
+            holder.ivShare.setOnClickListener {
+                listener.onItemClick(Const.TYPE_CLICKED_2, vo)
+            }
+            holder.ivBookmark.setOnClickListener {
+                listener.onItemClick(Const.TYPE_BOOKMARK, vo)
+            }
+        } else {
+            val vh = holder as RecordViewHolder
+            vh.tvTitle.text = vo.name
+            vh.tvOther.text = vo.channel
+            glide.load(vo.thumbnailUrl).placeholder(R.drawable.placeholder).into(vh.ivThumbnail)
 
-        holder.itemView.setOnClickListener {
-            listener.onItemClick(-1,vo)
+            holder.itemView.setOnClickListener {
+                listener.onItemClick(Const.TYPE_CLICKED, vo)
+            }
         }
     }
 
@@ -75,7 +102,16 @@ class VideoRelatedAdapter(
     class RecordViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
         val tvTitle: AppCompatTextView = itemView.findViewById(R.id.tvTitle)
+        val tvOther: AppCompatTextView = itemView.findViewById(R.id.tvOther)
         val ivThumbnail: AppCompatImageView = itemView.findViewById(R.id.ivThumbnail)
+    }
+
+    class HeaderViewHolder(itemView: View) :
+        RecyclerView.ViewHolder(itemView) {
+        val ivShare = itemView.findViewById<View>(R.id.tvShare)
+        val ivBookmark = itemView.findViewById<View>(R.id.tvBookmark)
+        val tvTitle = itemView.findViewById<AppCompatTextView>(R.id.tvTitle)
+        val tvOther = itemView.findViewById<AppCompatTextView>(R.id.tvOther)
     }
 
     init {

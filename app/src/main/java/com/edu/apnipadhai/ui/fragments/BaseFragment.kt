@@ -50,24 +50,6 @@ open class BaseFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         listener?.updateToolbarTitle(title)
     }
 
-    fun signoutDialog() {
-        val builder = AlertDialog.Builder(activity!!)
-        builder.setTitle(R.string.signout)
-        builder.setMessage(R.string.signout_msg)
-            .setPositiveButton(R.string.yes) { dialog, id ->
-                FirebaseAuth.getInstance().signOut()
-                activity!!.finish()
-            }
-            .setNegativeButton(R.string.no) { dialog, id ->
-                dialog.dismiss()
-            }
-        val alertDialog: AlertDialog = builder.create()
-        alertDialog.setCancelable(false)
-        alertDialog.show()
-
-
-    }
-
     fun openScreen(type: Int) {
         startActivity(Intent(context!!, CommonActivity::class.java).apply {
             putExtra(Const.EXTRA_TYPE, type)

@@ -17,11 +17,11 @@ import com.edu.apnipadhai.utils.GlideRequests
 import com.edu.apnipadhai.utils.Utils
 import com.google.firebase.firestore.FirebaseFirestore
 
-class VideoAdapter(
+class AffairAdapter(
     context: Context,
     listener: ListItemClickListener<Int, VideoModel>,
     orientation: Boolean
-) : RecyclerView.Adapter<VideoAdapter.RecordViewHolder>() {
+) : RecyclerView.Adapter<AffairAdapter.RecordViewHolder>() {
     private val context: Context
     private val listener: ListItemClickListener<Int, VideoModel>
     private var list: ArrayList<VideoModel>
@@ -76,14 +76,17 @@ class VideoAdapter(
         }
         glide.load(vo.thumbnailUrl).placeholder(R.drawable.placeholder).into(holder.ivThumbnail)
 
-        holder.ivBookmark?.setOnClickListener {
-            listener.onItemClick(Const.TYPE_BOOKMARK, list[holder.adapterPosition])
-        }
-        holder.ivDelete?.visibility = if (isAdmin) View.VISIBLE else View.GONE
+
+        holder.ivDelete?.visibility = View.GONE
+        holder.ivBookmark?.visibility = View.GONE
+        /*
+         holder.ivBookmark?.setOnClickListener {
+             listener.onItemClick(Const.TYPE_BOOKMARK, list[holder.adapterPosition])
+         }
+
         holder.ivDelete?.setOnClickListener {
-            showDeleteDialog(holder.adapterPosition)
-            //listener.onItemClick(Const.TYPE_DELETE, list[position])
-        }
+             showDeleteDialog(holder.adapterPosition)
+         }*/
     }
 
     /* private fun popupMenus(view: View, position: Int) {

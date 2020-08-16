@@ -34,7 +34,7 @@ class AdminFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         bAddCategory.setOnClickListener { openFragment(EditCategoryFragment.newInstance()) }
         bAddVideos.setOnClickListener { openFragment(AddVideoFragment.newInstance()) }
-        bSyncCount.setOnClickListener { /*updateVideoCount()*/ updateUserUid() }
+        bSyncCount.setOnClickListener { updateVideoCount() /*updateUserUid()*/ }
         bAddAffairs.setOnClickListener { openFragment(AddAffairFragment.newInstance()) }
     }
 
@@ -85,8 +85,11 @@ class AdminFragment : BaseFragment() {
                     } else {
                         map[id] = 1
                     }
-                    //model.fKey = postSnapshot.id
-                    //updateVideoModel(model)
+
+                    if (null == model.fKey || model.courseId == 0) {
+                        model.fKey = postSnapshot.id
+                        updateVideoModel(model)
+                    }
                     // list.add(model)
                 }
 

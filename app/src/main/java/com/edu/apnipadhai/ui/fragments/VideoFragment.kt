@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.view.ActionMode
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
@@ -25,8 +26,10 @@ import com.edu.apnipadhai.ui.adapter.VideoAdapter
 import com.edu.apnipadhai.utils.Connectivity
 import com.edu.apnipadhai.utils.Const
 import com.edu.apnipadhai.utils.CustomLog
+import com.edu.apnipadhai.utils.Utils
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.gson.Gson
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -68,31 +71,6 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
         }
         layoutView = inflater.inflate(R.layout.fragment_videos, container, false)
         init()
-
-//        btn_srch?.setOnClickListener {
-//
-//            val itemId = "${item.id}"
-//            FirebaseFirestore.getInstance().collection(Const.TABLE_VIDEOS).whereEqualTo(Const.FIELD_CATEGORY_ID,itemId)
-//                .whereEqualTo("name","CLASS 6th || MATHS || WHOLE NUMBERS || SOLVED QUESTION OF 3 TO 8 || FOR ALL BOARDS || NCERT")
-//                .get().addOnSuccessListener { documents ->
-//
-//                    val list1 = ArrayList<VideoModel>()
-//                    for (postSnapshot in documents) {
-//
-//                        val model: VideoModel = postSnapshot.toObject(VideoModel::class.java)
-//                        //course.fKey = postSnapshot.id
-//                        list1.add(model)
-//                    }
-//
-//                    adapter.setList(list1)
-//                }
-//                .addOnFailureListener { exception ->
-//                    CustomLog.e(
-//                        TAG,
-//                        "Error getting documents: ${exception.localizedMessage}"
-//                    )
-//                }
-//        }
 
         list1 = ArrayList<VideoModel>()
         setRecyclerView()
@@ -250,17 +228,61 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
     }
 
     override fun onItemClick(type: Int, item: VideoModel) {
-        val intent = Intent(context, YouTubeActivity::class.java)
-        intent.putExtra(Const.VIDEO_MODEL, item)
-        startActivity(intent)
-    }
+        when (type) {
+            Const.TYPE_DELETE -> {
+                showDeleteDialog(item.fKey!!)
+            }
+            Const.TYPE_BOOKMARK -> {
+                Utils.bookmarkVideo(context!!, item.fKey!!)
+                /*val videoList = FirebaseFirestore.getInstance().collection(Const.TABLE_BOOKMARK)
+                    .document(FirebaseAuth.getInstance().currentUser?.uid!!).collection(item.fKey!!)
+                videoList.add(Bookmark(item.fKey!!)).addOnCompleteListener {
+                    Utils.showToast(
+                        context!!,
+                        getString(R.string.msg_bookmark_success)
+                    )
+                }*/
+            }
+            else -> {
+                val intent = Intent(context, YouTubeActivity::class.java)
+                intent.putExtra(Const.VIDEO_MODEL, Gson().toJson(item))
+                startActivity(intent)
+            }
+        }
 
+    }
 
     override fun onResume() {
         super.onResume()
         tvTitle.text = item.name
         updateToolbarTitle(item.name)
     }
+
+    private fun showDeleteDialog(fKey: String) {
+        val builder = AlertDialog.Builder(activity!!)
+        builder.setTitle(R.string.msg_delete_title)
+        builder.setMessage(R.string.msg_delete)
+            .setPositiveButton(R.string.yes) { dialog, id ->
+
+                FirebaseFirestore.getInstance().collection(Const.TABLE_VIDEOS)
+                    .document(fKey).delete().addOnCompleteListener {
+                        onRefresh()
+                        Utils.showToast(
+                            context,
+                            getString(R.string.msg_delete_success)
+                        )
+                    }
+            }
+            .setNegativeButton(R.string.no) { dialog, id ->
+                dialog.dismiss()
+            }
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.setCancelable(false)
+        alertDialog.show()
+
+
+    }
+
 
     companion object {
         const val TAG = "VideoFragment"

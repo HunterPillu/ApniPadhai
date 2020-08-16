@@ -21,12 +21,14 @@ import com.edu.apnipadhai.R
 import com.edu.apnipadhai.callbacks.ListItemClickListener
 import com.edu.apnipadhai.model.VideoModel
 import com.edu.apnipadhai.ui.activity.YouTubeActivity
+import com.edu.apnipadhai.ui.adapter.AffairAdapter
 import com.edu.apnipadhai.ui.adapter.VideoAdapter
 import com.edu.apnipadhai.utils.Connectivity
 import com.edu.apnipadhai.utils.Const
 import com.edu.apnipadhai.utils.CustomLog
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.gson.Gson
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -34,7 +36,7 @@ import kotlin.collections.ArrayList
 class AffairsFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
     SearchView.OnQueryTextListener, SearchView.OnCloseListener {
     //private lateinit var item: Category
-    private lateinit var adapter: VideoAdapter
+    private lateinit var adapter: AffairAdapter
     private lateinit var list1: ArrayList<VideoModel>
     private var searchString: String? = null
     private var lastResult: DocumentSnapshot? = null
@@ -46,7 +48,7 @@ class AffairsFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
     private lateinit var svSearchExpanded: SearchView
     private lateinit var ivSearch: AppCompatImageView
     private lateinit var ivBackSearch: AppCompatImageView
-    private lateinit var rlToolBar: RelativeLayout
+    private lateinit var rlToolBar: View
     private lateinit var rlSearch: RelativeLayout
     private lateinit var ivBack: AppCompatImageView
     private lateinit var rvRecords: RecyclerView
@@ -67,7 +69,7 @@ class AffairsFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
             return layoutView
         }
         layoutView = inflater.inflate(R.layout.fragment_videos, container, false)
-        rlToolBar = layoutView!!.findViewById(R.id.rlToolBar)
+        rlToolBar = layoutView!!.findViewById(R.id.appbar)
         rlToolBar.visibility = View.GONE
         Handler().postDelayed({ init() }, 50)
 
@@ -192,7 +194,7 @@ class AffairsFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
 
 
     private fun setRecyclerView() {
-        adapter = VideoAdapter(context!!, this, false)
+        adapter = AffairAdapter(context!!, this, false)
         val layoutManager = LinearLayoutManager(context)
         rvRecords.layoutManager = layoutManager
         rvRecords.adapter = adapter
@@ -229,7 +231,7 @@ class AffairsFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
 
     override fun onItemClick(type: Int, item: VideoModel) {
         val intent = Intent(context, YouTubeActivity::class.java)
-        intent.putExtra(Const.VIDEO_MODEL, item)
+        intent.putExtra(Const.VIDEO_MODEL, Gson().toJson(item))
         startActivity(intent)
     }
 

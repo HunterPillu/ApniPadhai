@@ -245,8 +245,7 @@ class AddVideoFragment : BaseFragment() {
             return
         }
         videoInfo?.courseId = selectItem1
-        val mFirestore = FirebaseFirestore.getInstance();
-        val videoList = mFirestore.collection(Const.TABLE_VIDEOS)
+        val videoList = FirebaseFirestore.getInstance().collection(Const.TABLE_VIDEOS)
         videoList.add(videoInfo!!).addOnCompleteListener {
             videoInfo = null
             hideLowerContent()

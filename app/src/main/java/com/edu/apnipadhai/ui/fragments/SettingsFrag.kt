@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.callbacks.ListItemClickListener
@@ -102,6 +103,22 @@ class SettingsFrag : BaseFragment(), ListItemClickListener<Int, Setting> {
             0 ->
                 openScreen(Const.SCREEN_USER)
         }
+    }
+
+    private fun signoutDialog() {
+        val builder = AlertDialog.Builder(activity!!)
+        builder.setTitle(R.string.signout)
+        builder.setMessage(R.string.signout_msg)
+            .setPositiveButton(R.string.yes) { dialog, id ->
+                FirebaseAuth.getInstance().signOut()
+                activity!!.finish()
+            }
+            .setNegativeButton(R.string.no) { dialog, id ->
+                dialog.dismiss()
+            }
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.setCancelable(false)
+        alertDialog.show()
     }
 
     val userInfoFromServer: Unit

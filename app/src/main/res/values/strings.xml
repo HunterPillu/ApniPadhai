@@ -63,6 +63,8 @@
     <string name="title_admin">Admin panel</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
+    <string name="msg_delete">Are you sure you want to delete this video?</string>
+    <string name="msg_delete_title">Delete Video</string>
     <string name="active">Active</string>
     <string name="update_category">Update Category</string>
     <string name="search">Search</string>
@@ -77,6 +79,18 @@
     <string name="text_invite_1">Select student to send him invite</string>
     <string name="title_manage_current_affairs">Manage Current Affairs</string>
     <string name="text_add_affairs">Add videos to current affairs</string>
-
+    <string name="msg_delete_success">Video deleted successfully.</string>
+    <string name="msg_bookmark_success">Video saved to your favorite list successfully.</string>
+    <string name="no_related_video">No related video found</string>
+    <string name="related_video">Related Videos</string>
+    <string name="share">Share</string>
+    <string name="intro_text_1">A better learning future start here</string>
+    <string name="intro_text_11">You are on the right track now</string>
+    <string name="intro_text_2">Learning together to be the best we can be.</string>
+    <string name="intro_text_22">I teach, therefore I learn</string>
+    <string name="intro_text_3">A modern, global app for a modern, global academic experience.</string>
+    <string name="intro_text_33">Education is the most powerful weapon</string>
+    <string name="intro_text_4">Not every classroom has four walls.</string>
+    <string name="intro_text_44">Continue to join us…</string>
 
 </resources>
