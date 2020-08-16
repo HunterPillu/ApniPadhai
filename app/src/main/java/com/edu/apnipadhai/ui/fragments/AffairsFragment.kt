@@ -229,7 +229,7 @@ class AffairsFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
 
     override fun onItemClick(type: Int, item: VideoModel) {
         val intent = Intent(context, YouTubeActivity::class.java)
-        intent.putExtra("videoId", item.videoId)
+        intent.putExtra(Const.VIDEO_MODEL, item)
         startActivity(intent)
     }
 

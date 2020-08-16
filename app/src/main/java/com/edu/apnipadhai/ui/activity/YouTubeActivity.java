@@ -1,6 +1,7 @@
 package com.edu.apnipadhai.ui.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
@@ -14,12 +15,27 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
+import androidx.appcompat.widget.AppCompatCheckedTextView;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.edu.apnipadhai.R;
+import com.edu.apnipadhai.callbacks.ListItemClickListener;
 import com.edu.apnipadhai.model.VideoModel;
+import com.edu.apnipadhai.ui.adapter.VideoRelatedAdapter;
+import com.edu.apnipadhai.utils.Const;
 import com.edu.apnipadhai.utils.FullScreenHelper;
+import com.edu.apnipadhai.utils.Utils;
 import com.edu.apnipadhai.utils.YouTubeDataEndpoint;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener;
@@ -30,18 +46,27 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.menu.MenuItem;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class YouTubeActivity extends AppCompatActivity {
+public class YouTubeActivity extends AppCompatActivity implements ListItemClickListener<Integer, VideoModel> {
+
+    private VideoRelatedAdapter adapter;
+    private RecyclerView rvRelatedVideo;
+    private AppCompatTextView tvNoData;
+    private ArrayList<VideoModel> list1;
 
     private YouTubePlayerView youTubePlayerView;
+    private AppCompatTextView tvTitle;
+    private AppCompatImageView ivBookmark,ivShare;
+    private VideoModel videoModel;
     private FullScreenHelper fullScreenHelper = new FullScreenHelper(this, null);
     ActionMode mode;
-    // a list of videos not available in some countries, to test if they're handled gracefully.
-    // private String[] nonPlayableVideoIds = { "sop2V_MREEI" };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +75,11 @@ public class YouTubeActivity extends AppCompatActivity {
 
 
         youTubePlayerView = findViewById(R.id.youtube_player_view);
-        String videoId = getIntent().getStringExtra("videoId");
-        initYouTubePlayerView(videoId);
-
+         videoModel = (VideoModel) getIntent().getSerializableExtra(Const.VIDEO_MODEL);
+        initYouTubePlayerView(videoModel.getVideoId());
+        init();
+        setRecyclerView();
+        fetchData();
 
         youTubePlayerView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -66,6 +93,73 @@ public class YouTubeActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void init()
+    {
+        rvRelatedVideo = findViewById(R.id.rvRelatedVideo);
+        tvNoData = findViewById(R.id.tvNoData);
+        ivShare = findViewById(R.id.ivShare);
+        ivBookmark = findViewById(R.id.ivBookmark);
+        tvTitle = findViewById(R.id.tvTitle);
+        tvTitle.setText(videoModel.getName());
+
+        ivShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shareVideoLink(videoModel.getVideoId());
+            }
+        });
+
+    }
+
+    private void setRecyclerView() {
+        list1 = new ArrayList<>();
+        adapter = new VideoRelatedAdapter(this,this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        rvRelatedVideo.setLayoutManager(layoutManager);
+        rvRelatedVideo.setAdapter(adapter);
+    }
+
+    @Override
+    public void onItemClick(Integer type, VideoModel item) {
+        Intent intent = new Intent(this, YouTubeActivity.class);
+        intent.putExtra(Const.VIDEO_MODEL, item);
+        startActivity(intent);
+    }
+
+    private void fetchData() {
+        FirebaseFirestore.getInstance().collection(Const.TABLE_VIDEOS)
+                .whereEqualTo("courseId", videoModel.getCourseId()).limit(Const.LIMIT_VIDEOS).limit(Const.LIMIT_VIDEOS).get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                        if (queryDocumentSnapshots.size() > 0) {
+                            for (QueryDocumentSnapshot snapshot : queryDocumentSnapshots) {
+                              VideoModel model = snapshot.toObject(VideoModel.class);
+                              if (!videoModel.getVideoId().equals(model.getVideoId()))
+                                list1.add(model);
+                            }
+                        }    adapter.setList(list1, tvNoData, rvRelatedVideo);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+    }
+
+
+    private void shareVideoLink(String videoLink) {
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(
+                Intent.EXTRA_TEXT, getString(R.string.video_link)+"https://youtu.be/"+videoLink
+        );
+        sendIntent.setType("text/plain");startActivity(sendIntent);
+    }
+
 
     ActionMode.Callback callback = new ActionMode.Callback() {
         @Override

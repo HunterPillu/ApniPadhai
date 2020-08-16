@@ -1,6 +1,8 @@
 package com.edu.apnipadhai.model
 
-class VideoModel {
+import java.io.Serializable
+
+class VideoModel : Serializable {
     // var id = 0
     var fKey: String? = null
     var name = ""

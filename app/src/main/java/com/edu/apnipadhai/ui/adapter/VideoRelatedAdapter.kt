@@ -15,15 +15,13 @@ import com.edu.apnipadhai.utils.GlideRequests
 import java.util.*
 import kotlin.collections.ArrayList
 
-class VideoAdapter(
+class VideoRelatedAdapter(
     context: Context,
-    listener: ListItemClickListener<Int, VideoModel>,
-    orientation: Boolean
-) : RecyclerView.Adapter<VideoAdapter.RecordViewHolder>() {
+    listener: ListItemClickListener<Int, VideoModel>
+) : RecyclerView.Adapter<VideoRelatedAdapter.RecordViewHolder>() {
     private val listener: ListItemClickListener<Int, VideoModel>
     private var list: ArrayList<VideoModel>
     private val glide: GlideRequests
-    private val horizontal: Boolean
     fun updateList(list: ArrayList<VideoModel>) {
         this.list = list
         notifyDataSetChanged()
@@ -49,7 +47,7 @@ class VideoAdapter(
         viewType: Int
     ): RecordViewHolder {
         val listItem = LayoutInflater.from(parent.context).inflate(
-            if (horizontal) R.layout.item_video_horizontal else R.layout.item_video,
+            R.layout.related_video,
             parent,
             false
         )
@@ -63,14 +61,11 @@ class VideoAdapter(
     ) {
         val vo = list[position]
         holder.tvTitle.text = vo.name
-        holder.tvOther.text = vo.channel
-        holder.cvMain.setOnClickListener { v: View? ->
-            listener.onItemClick(
-                -1,
-                vo
-            )
-        }
         glide.load(vo.thumbnailUrl).placeholder(R.drawable.logo).into(holder.ivThumbnail)
+
+        holder.itemView.setOnClickListener {
+            listener.onItemClick(-1,vo)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -80,16 +75,12 @@ class VideoAdapter(
     class RecordViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
         val tvTitle: AppCompatTextView = itemView.findViewById(R.id.tvTitle)
-        val tvOther: AppCompatTextView = itemView.findViewById(R.id.tvOther)
         val ivThumbnail: AppCompatImageView = itemView.findViewById(R.id.ivThumbnail)
-        val cvMain: View = itemView.findViewById(R.id.cvMain)
-
     }
 
     init {
         list = ArrayList()
         this.listener = listener
         glide = GlideApp.with(context)
-        horizontal = orientation
     }
 }

@@ -1,21 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-        android:id="@+id/youtube_player_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
-  <!--  <Button
-        android:id="@+id/next_video_button"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/llPlayer_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="26dp"
-        android:backgroundTint="@android:color/white"
-        android:text="Play Next Video" />-->
-</LinearLayout>
+        android:orientation="vertical">
+
+        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+            android:id="@+id/youtube_player_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            tools:text="title video "
+            android:layout_margin="@dimen/dp5"/>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp5">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivBookmark"
+                android:layout_width="@dimen/setting_item_icon_size"
+                android:layout_height="@dimen/setting_item_icon_size"
+                app:tint="@color/colorPrimary"
+                android:src="@drawable/ic_bookmarks_24"
+                android:layout_marginStart="@dimen/dp10"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivShare"
+                android:layout_width="@dimen/setting_item_icon_size"
+                android:layout_height="@dimen/setting_item_icon_size"
+                app:tint="@color/colorPrimary"
+                android:src="@drawable/ic_share_24"
+                android:layout_marginStart="@dimen/dp15"/>
+
+<!--            <androidx.appcompat.widget.AppCompatImageView-->
+<!--                android:id="@+id/ivShare"-->
+<!--                android:layout_width="@dimen/setting_item_icon_size"-->
+<!--                android:layout_height="@dimen/setting_item_icon_size"-->
+<!--                app:tint="@color/colorPrimary"-->
+<!--                tools:src="@drawable/ic_share_24"-->
+<!--                android:layout_marginStart="@dimen/dp10"/>-->
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/llPlayer_view">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvRelatedVideo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp2"
+            android:visibility="visible"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:spanCount="2"
+            tools:listitem="@layout/item_video" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvNoData"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/no_data"
+            android:textColor="@color/text_secondary"
+            android:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/pb_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:minWidth="50dp"
+            android:minHeight="50dp"
+            android:visibility="gone" />
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

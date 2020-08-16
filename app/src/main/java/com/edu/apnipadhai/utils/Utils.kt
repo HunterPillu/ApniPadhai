@@ -62,6 +62,17 @@ object Utils {
         context.startActivity(sendIntent)
     }
 
+    fun shareVideoLink(context: Context, videoLink: String) {
+        val sendIntent = Intent()
+        sendIntent.action = Intent.ACTION_SEND
+        sendIntent.putExtra(
+            Intent.EXTRA_TEXT,
+            "${context.getString(R.string.share_app_text)} https://youtu.be/${videoLink}"
+        )
+        sendIntent.type = "text/plain"
+        context.startActivity(sendIntent)
+    }
+
     fun openInstagram(context: Context) {
         val uri = Uri.parse("https://www.instagram.com/_u/meri.padhai")
         val likeIng = Intent(Intent.ACTION_VIEW, uri)

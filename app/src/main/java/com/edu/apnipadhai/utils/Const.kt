@@ -14,7 +14,10 @@ object Const {
     const val SETTING_USER: Int = 2
     const val COURSE_HEADER: Int = 1
     const val COURSE_ITEM: Int = 0
+    const val VIDEO_ID: String = "videoId"
+    const val CATEGORY_ID: String = "categoryId"
     const val COURSE_SELECT = "course_selected"
+    const val VIDEO_MODEL = "video_model"
     const val INTRO_ENABLE = true
     const val SHOW_INTRO_ALWAYS = true && INTRO_ENABLE
 
@@ -36,6 +39,8 @@ object Const {
 
     // PAGINATION
     const val LIMIT: Long = 30
+
+    const val LIMIT_VIDEOS: Long = 10
 
 
     // FIRESTORE FIELD
