@@ -49,6 +49,8 @@ object Const {
 
     // FIRESTORE FIELD
     const val FIELD_CATEGORY_ID = "categoryId"
+    const val FIELD_VIDEOID = "videoId"
+    const val FIELD_FKEY = "fkey"
 
     //Game status
     const val STATUS_IN_GAME = 3

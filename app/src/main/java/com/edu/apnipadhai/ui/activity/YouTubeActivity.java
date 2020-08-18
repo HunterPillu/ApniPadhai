@@ -95,25 +95,6 @@ public class YouTubeActivity extends AppCompatActivity implements ListItemClickL
     private void init() {
         rvRelatedVideo = findViewById(R.id.rvRelatedVideo);
         tvNoData = findViewById(R.id.tvNoData);
-        /*ivShare = findViewById(R.id.ivShare);
-        ivBookmark = findViewById(R.id.ivBookmark);
-        tvTitle = findViewById(R.id.tvTitle);
-        tvTitle.setText(videoModel.getName());
-        ((AppCompatTextView) findViewById(R.id.tvOther)).setText(videoModel.getChannel());
-
-        ivShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                shareVideoLink(videoModel.getVideoId());
-            }
-        });
-        ivBookmark.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Utils.bookmarkVideo(YouTubeActivity.this, videoModel.getFKey());
-            }
-        }); */
-
     }
 
     private void setRecyclerView() {

@@ -55,7 +55,6 @@ class VideoRelatedAdapter(
                 parent,
                 false
             )
-
             return HeaderViewHolder(listItem)
         } else {
             val listItem = LayoutInflater.from(parent.context).inflate(
