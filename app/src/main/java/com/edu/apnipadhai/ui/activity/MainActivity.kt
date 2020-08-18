@@ -2,12 +2,19 @@ package com.edu.apnipadhai.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.widget.AppCompatTextView
 import com.edu.apnipadhai.R
-import com.edu.apnipadhai.ui.fragments.*
-import com.edu.apnipadhai.utils.Utils
+import com.edu.apnipadhai.model.VideoModel
+import com.edu.apnipadhai.ui.fragments.AffairsFragment
+import com.edu.apnipadhai.ui.fragments.BaseFragment
+import com.edu.apnipadhai.ui.fragments.CategoryFragment
+import com.edu.apnipadhai.ui.fragments.SettingsFrag
+import com.edu.apnipadhai.utils.Const
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.custom_toolbar.*
 
 

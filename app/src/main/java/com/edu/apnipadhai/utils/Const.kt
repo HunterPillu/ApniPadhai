@@ -38,6 +38,8 @@ object Const {
     const val TABLE_VIDEOS = "videos"
     const val TABLE_AFFAIRS = "current_affairs"
 
+    //FIRESTORE SUB-COLLECTION
+    const val SUB_BOOKMARK_VIDEOS = "bookmark_videos"
 
     // PAGINATION
     const val LIMIT: Long = 30
