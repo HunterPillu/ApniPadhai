@@ -84,7 +84,7 @@ class SettingsFrag : BaseFragment(), ListItemClickListener<Int, Setting> {
     override fun onItemClick(type: Int, item: Setting) {
         when (item.id) {
             R.drawable.ic_bookmarks_24->
-                openFragment(BookamrksFragment.newInstance())
+                openScreen(Const.SCREEN_BOOKMARK)
             R.drawable.ic_notifications_24,
             R.drawable.ic_file_24 ->
                 Utils.showToast(context!!, getString(R.string.work_in_progress))

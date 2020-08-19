@@ -6,6 +6,7 @@ object Const {
     const val SCREEN_USER_INVITE = 203
     const val SCREEN_COURSE = 202
     const val SCREEN_USER = 201
+    const val SCREEN_BOOKMARK = 204
     const val EXTRA_TYPE: String = "extra_type"
 
 

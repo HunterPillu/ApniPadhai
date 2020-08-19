@@ -2,6 +2,7 @@ package com.edu.apnipadhai.ui.activity
 
 import android.os.Bundle
 import com.edu.apnipadhai.R
+import com.edu.apnipadhai.ui.fragments.BookamrksFragment
 import com.edu.apnipadhai.ui.fragments.CourseFragment
 import com.edu.apnipadhai.ui.fragments.UserFragment
 import com.edu.apnipadhai.ui.fragments.UserListFragment
@@ -31,6 +32,9 @@ class CommonActivity : BaseActivity() {
             Const.SCREEN_COURSE -> {
                 val isUpdate = intent.getBooleanExtra("is_update", false)
                 openFragment(CourseFragment.newInstance(isUpdate))
+            }
+            Const.SCREEN_BOOKMARK -> {
+                openFragment(BookamrksFragment())
             }
             else -> {
             }
