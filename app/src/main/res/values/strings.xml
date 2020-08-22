@@ -112,5 +112,7 @@
     <string name="onboarding_slide3_desc">User will be able to give you live, chat and meet
         with people nearby.</string>
     <string name="welcome">Welcome !</string>
+    <string name="see_all">More</string>
+    <string name="no_data_for_course">No data available for this course. Please select another course.</string>
 
 </resources>

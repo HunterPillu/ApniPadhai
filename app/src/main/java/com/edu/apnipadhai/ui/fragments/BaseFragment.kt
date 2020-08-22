@@ -3,15 +3,12 @@ package com.edu.apnipadhai.ui.fragments
 import android.content.Context
 import android.content.Intent
 import android.view.View
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.edu.apnipadhai.R
 import com.edu.apnipadhai.callbacks.FragmentEventListener
 import com.edu.apnipadhai.model.User
 import com.edu.apnipadhai.ui.activity.CommonActivity
 import com.edu.apnipadhai.utils.Const
-import com.google.firebase.auth.FirebaseAuth
 
 open class BaseFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     private var TAG = "BaseFragment"
@@ -60,4 +57,7 @@ open class BaseFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         listener?.onInviteOpponent(item)
     }
 
+    open fun initViews() {
+        //override in child fragment
+    }
 }

@@ -102,7 +102,7 @@ class CategoryFragment : BaseFragment(), ListItemClickListener<Int, Category> {
         params.setMargins(
             margin, margin, 0, 0
         )
-        header.layoutParams = params;
+        header.layoutParams = params
         val rv: RecyclerView = view.findViewById<RecyclerView>(R.id.rvList)
         rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         val snapHelper = LinearSnapHelper() // Or PagerSnapHelper
@@ -116,8 +116,9 @@ class CategoryFragment : BaseFragment(), ListItemClickListener<Int, Category> {
                     startActivity(intent)
                 }
             },
-            true
+            2
         )
+        videoAdapter.pagingEnabled = false
         rv.adapter = videoAdapter
 
         //swipeRefresh = layoutView?.findViewById<View> (R.id.swipeRefresh) as SwipeRefreshLayout

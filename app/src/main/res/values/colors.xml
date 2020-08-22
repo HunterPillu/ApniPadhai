@@ -18,7 +18,7 @@
     <color name="black_transparent_10">#20000000</color>
 
     <color name="grey">#d3d3d3</color>
-    <color name="divider">@color/grey_transparent_20</color>
+    <color name="divider">@color/grey</color>
     <color name="offline">@color/palette_red</color>
     <color name="online">#009688</color>
     <color name="disabled">@color/grey</color>

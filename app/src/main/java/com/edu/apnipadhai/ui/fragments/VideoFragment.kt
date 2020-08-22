@@ -6,16 +6,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewStub
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.view.ActionMode
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.airbnb.lottie.LottieAnimationView
 import com.covidbeads.app.assesment.util.shortToast
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.callbacks.ListItemClickListener
@@ -42,10 +43,10 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
     private var searchString: String? = null
     private var lastResult: DocumentSnapshot? = null
     private lateinit var swipeRefresh: SwipeRefreshLayout
-    private lateinit var actionMode: ActionMode
 
     private lateinit var tvTitle: AppCompatTextView
-    private lateinit var tvNoData: AppCompatTextView
+
+    //private lateinit var tvNoData: AppCompatTextView
     private lateinit var svSearchExpanded: SearchView
     private lateinit var ivSearch: AppCompatImageView
     private lateinit var ivBackSearch: AppCompatImageView
@@ -55,11 +56,6 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
     private lateinit var rvRecords: RecyclerView
     private lateinit var pb_progress: ProgressBar
 
-    private var final_listItem = 1
-    private var currentItems = 0
-    private var totalItems = 0
-    private var scrolloutItems = 0
-    private var isScrolling = false
     private var isSearching = false
 
     override fun onCreateView(
@@ -81,7 +77,7 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
     private fun init() {
         rvRecords = layoutView!!.findViewById(R.id.rvSuppliers)
         tvTitle = layoutView!!.findViewById(R.id.tvTitle)
-        tvNoData = layoutView!!.findViewById(R.id.tvNoData)
+        //tvNoData = layoutView!!.findViewById(R.id.tvNoData)
         svSearchExpanded = layoutView!!.findViewById(R.id.svSearchExpanded)
         ivBackSearch = layoutView!!.findViewById(R.id.ivBackSearch)
         ivSearch = layoutView!!.findViewById(R.id.ivSearch)
@@ -110,7 +106,8 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
             rlToolBar.visibility = View.VISIBLE
             rlSearch.visibility = View.GONE
             svSearchExpanded.onActionViewCollapsed()
-            adapter.setList(list1, tvNoData, rvRecords)
+            adapter.updateList(list1)
+            showHideEmptyState(list1.size > 0)
         }
     }
 
@@ -135,13 +132,12 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
                     Log.e("videoModel__", model.name)
                 }
                 pb_progress.visibility = View.GONE
-                adapter.setList(list1, tvNoData, rvRecords)
-                isScrolling = false
+                adapter.updateList(list1)
                 Log.e("----------", "----------")
                 lastResult = documentSnapshots.documents.get(documentSnapshots.size() - 1)
             } else {
-                final_listItem = 0
                 pb_progress.visibility = View.GONE
+                showHideEmptyState(list1.size > 0)
             }
         }
     }
@@ -160,10 +156,6 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
         }
         isSearching = false
         lastResult = null
-        currentItems = 0
-        totalItems = 0
-        scrolloutItems = 0
-        final_listItem = 1
         list1.clear()
         swipeRefresh.setRefreshing(true)
 
@@ -181,9 +173,9 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
                         list1.add(model)
                     }
                     lastResult = documents.documents.get(documents.size() - 1)
-                    adapter.setList(list1, tvNoData, rvRecords)
-                    isScrolling = false
+                    adapter.updateList(list1)
                 }
+                showHideEmptyState(list1.size > 0)
             }
             .addOnFailureListener { exception ->
                 CustomLog.e(TAG, "Error getting documents: ${exception.localizedMessage}")
@@ -192,39 +184,24 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
 
 
     private fun setRecyclerView() {
-        adapter = VideoAdapter(context!!, this, false)
+        adapter = VideoAdapter(context!!, this, 1)
+        adapter.pagingEnabled = true
         val layoutManager = LinearLayoutManager(context)
         rvRecords.layoutManager = layoutManager
-        rvRecords?.adapter = adapter
+        rvRecords.adapter = adapter
         swipeRefresh = layoutView?.findViewById<View>(R.id.swipeRefresh) as SwipeRefreshLayout
-        swipeRefresh?.setOnRefreshListener(this)
+        swipeRefresh.setOnRefreshListener(this)
 
-        rvRecords.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                if (!isSearching) {
-                    if (list1.size >= Const.LIMIT) {
-                        currentItems = layoutManager.childCount
-                        totalItems = layoutManager.getItemCount()
-                        scrolloutItems = layoutManager.findFirstVisibleItemPosition()
-                        Log.e("items_count_", "$currentItems  $totalItems  $scrolloutItems")
-                    }
+    }
 
-                    if (!isScrolling && currentItems + scrolloutItems >= totalItems) {
-                        if (final_listItem > 0) {
-                            if (!Connectivity.isConnected(context!!)) {
-                                swipeRefresh.isRefreshing = false
-                                shortToast(getString(R.string.no_internet_connection))
-                                return
-                            }
-                            isScrolling = true
-                            pb_progress.visibility = View.VISIBLE
-                            fireStorePagination()
-                        }
-                    }
-                }
+    private fun onLoadMore() {
+        if (!isSearching && pb_progress.visibility != View.VISIBLE) {
+            if (!Connectivity.isConnected(context!!)) {
+                return
             }
-        })
+            pb_progress.visibility = View.VISIBLE
+            fireStorePagination()
+        }
     }
 
     override fun onItemClick(type: Int, item: VideoModel) {
@@ -234,16 +211,12 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
             }
             Const.TYPE_BOOKMARK -> {
                 Utils.bookmarkVideo(context!!, item.fKey!!)
-                /*val videoList = FirebaseFirestore.getInstance().collection(Const.TABLE_BOOKMARK)
-                    .document(FirebaseAuth.getInstance().currentUser?.uid!!).collection(item.fKey!!)
-                videoList.add(Bookmark(item.fKey!!)).addOnCompleteListener {
-                    Utils.showToast(
-                        context!!,
-                        getString(R.string.msg_bookmark_success)
-                    )
-                }*/
             }
-            else -> {
+            Const.TYPE_PAGINATION -> {
+                onLoadMore()
+            }
+
+            Const.TYPE_CLICKED -> {
                 val intent = Intent(context, YouTubeActivity::class.java)
                 intent.putExtra(Const.VIDEO_MODEL, Gson().toJson(item))
                 startActivity(intent)
@@ -304,7 +277,27 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
                     listSearch.add(list1[i])
                 }
             }
-            adapter.setList(listSearch, tvNoData, rvRecords)
+            adapter.updateList(listSearch)
+            showHideEmptyState(listSearch.size > 0)
+        }
+    }
+
+    private var viewStub: ViewStub? = null
+    private fun showHideEmptyState(dataExits: Boolean) {
+        if (dataExits) {
+            if (null != viewStub) {
+                rvRecords.visibility = View.VISIBLE
+                viewStub?.visibility = View.GONE
+                //viewStub?.findViewById<LottieAnimationView>(R.id.img)?.pauseAnimation()
+            }
+        } else {
+            if (null == viewStub) {
+                viewStub = layoutView?.findViewById(R.id.viewStub)!!
+                val view = viewStub?.inflate()
+                view?.findViewById<LottieAnimationView>(R.id.img)?.playAnimation()
+            }
+            rvRecords.visibility = View.GONE
+            viewStub?.visibility = View.VISIBLE
         }
     }
 

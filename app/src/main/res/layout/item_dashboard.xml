@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cvCourseTopic"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/margin_quarter"
+    app:cardBackgroundColor="@color/card_color_category"
+    app:cardElevation="@dimen/home_header_elevation">
+
+    <RelativeLayout
+        android:id="@+id/llCourseTopic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_quarter">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvHeader"
+            style="@style/WrapContent"
+            android:layout_marginStart="@dimen/margin_full"
+            android:paddingTop="@dimen/margin_quarter"
+            android:textColor="@color/colorBlueMidnight"
+            android:textSize="@dimen/sub_title"
+            android:textStyle="bold"
+            tools:text="@string/header_course_topic" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvCount"
+            style="@style/WrapContent"
+            android:layout_marginStart="@dimen/margin_quarter"
+            android:layout_marginTop="5sp"
+            android:layout_toEndOf="@+id/tvHeader"
+            android:drawableStart="@drawable/ic_video_12"
+            android:drawablePadding="@dimen/margin_quarter"
+            android:gravity="center"
+            android:paddingTop="@dimen/margin_quarter"
+            android:textColor="@color/text_secondary"
+            android:textSize="@dimen/caption"
+            app:drawableTint="@color/colorPrimary"
+            tools:text="25" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvSeeAll"
+            style="@style/WrapContent"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="2sp"
+            android:layout_marginEnd="@dimen/margin_half"
+            android:background="@drawable/rounded_bg_primary"
+            android:paddingHorizontal="@dimen/margin_medium"
+            android:paddingVertical="2sp"
+            android:text="@string/see_all"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/body_secondary"
+            android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvHeader"
+            android:clipToPadding="false"
+            android:nestedScrollingEnabled="false"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/margin_full"
+            android:paddingVertical="@dimen/margin_quarter"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/dashboard_video" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

@@ -3,6 +3,7 @@ package com.edu.apnipadhai.utils
 object Const {
 
 
+    const val VIDEO_THRESHOLD = 5
     const val SCREEN_USER_INVITE = 203
     const val SCREEN_COURSE = 202
     const val SCREEN_USER = 201
@@ -23,6 +24,8 @@ object Const {
 
 
     //EVENT TYPE
+    const val TYPE_PAGINATION = 8
+    const val TYPE_CLICKED_3 = 7
     const val TYPE_CLICKED_2 = 6
     const val TYPE_CLICKED = 5
     const val TYPE_BOOKMARK = 4

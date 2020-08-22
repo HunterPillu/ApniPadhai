@@ -20,45 +20,61 @@ import com.google.firebase.firestore.FirebaseFirestore
 class VideoAdapter(
     context: Context,
     listener: ListItemClickListener<Int, VideoModel>,
-    orientation: Boolean
+    orientation: Int
 ) : RecyclerView.Adapter<VideoAdapter.RecordViewHolder>() {
     private val context: Context
     private val listener: ListItemClickListener<Int, VideoModel>
     private var list: ArrayList<VideoModel>
     private val glide: GlideRequests
-    private val horizontal: Boolean
+    private val layoutType: Int
     private val isAdmin: Boolean = true
+    var pagingEnabled = false
+
     fun updateList(list: ArrayList<VideoModel>) {
         this.list = list
         notifyDataSetChanged()
     }
 
-    fun setList(
-        list: ArrayList<VideoModel>,
-        textView: AppCompatTextView,
-        rvRecords: RecyclerView
-    ) {
+
+
+    fun setList(list: ArrayList<VideoModel>) {
         updateList(list)
-        if (list.size <= 0) {
-            textView.visibility = View.VISIBLE
-            rvRecords.visibility = View.GONE
-        } else {
-            textView.visibility = View.GONE
-            rvRecords.visibility = View.VISIBLE
+    }
+
+    override fun onViewAttachedToWindow(holder: RecordViewHolder) {
+        super.onViewAttachedToWindow(holder)
+        if (pagingEnabled && list.size - 1 == holder.absoluteAdapterPosition) {
+            listener.onItemClick(Const.TYPE_PAGINATION, list[0])//no use of list[0]
         }
     }
+
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): RecordViewHolder {
         val listItem = LayoutInflater.from(parent.context).inflate(
-            if (horizontal) R.layout.item_video_horizontal else R.layout.item_video,
+            getLayoutRes(layoutType),
+            //if (horizontal) R.layout.item_video_horizontal else R.layout.item_video,
             parent,
             false
         )
 
         return RecordViewHolder(listItem)
+    }
+
+    private fun getLayoutRes(layoutType: Int): Int {
+        when (layoutType) {
+            1 -> {
+                return R.layout.item_video
+            }
+            2 -> {
+                return R.layout.item_video_horizontal
+            }
+            else -> {
+                return R.layout.dashboard_video
+            }
+        }
     }
 
     override fun onBindViewHolder(
@@ -125,7 +141,7 @@ class VideoAdapter(
         this.listener = listener
         glide = GlideApp.with(context)
         this.context = context
-        horizontal = orientation
+        this.layoutType = orientation
     }
 
 
