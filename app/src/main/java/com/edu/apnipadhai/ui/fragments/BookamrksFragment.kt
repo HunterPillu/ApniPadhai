@@ -3,16 +3,11 @@ package com.edu.apnipadhai.ui.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
-import android.widget.RelativeLayout
-import androidx.appcompat.view.ActionMode
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -23,46 +18,24 @@ import com.edu.apnipadhai.model.Video
 import com.edu.apnipadhai.model.VideoModel
 import com.edu.apnipadhai.ui.activity.YouTubeActivity
 import com.edu.apnipadhai.ui.adapter.BookmarksAdapter
-import com.edu.apnipadhai.ui.adapter.VideoAdapter
 import com.edu.apnipadhai.utils.Connectivity
 import com.edu.apnipadhai.utils.Const
 import com.edu.apnipadhai.utils.CustomLog
-import com.edu.apnipadhai.utils.Utils
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
-import java.util.*
-import kotlin.collections.ArrayList
 
 
-class BookamrksFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
-    SearchView.OnQueryTextListener, SearchView.OnCloseListener {
+class BookamrksFragment : BaseFragment(), ListItemClickListener<Int, VideoModel> {
     //private lateinit var item: Category
     private lateinit var adapter: BookmarksAdapter
-    private lateinit var list1: ArrayList<VideoModel>
-    private var searchString: String? = null
-    private var lastResult: DocumentSnapshot? = null
     private lateinit var swipeRefresh: SwipeRefreshLayout
-    private lateinit var actionMode: ActionMode
 
-    private lateinit var tvTitle: AppCompatTextView
     private lateinit var tvNoData: AppCompatTextView
-    private lateinit var svSearchExpanded: SearchView
-    private lateinit var ivSearch: AppCompatImageView
-    private lateinit var ivBackSearch: AppCompatImageView
-    private lateinit var rlToolBar: View
-    private lateinit var rlSearch: RelativeLayout
-    private lateinit var ivBack: AppCompatImageView
-    private lateinit var rvRecords: RecyclerView
-    private lateinit var pb_progress: ProgressBar
 
-    private var final_listItem = 1
-    private var currentItems = 0
-    private var totalItems = 0
-    private var scrolloutItems = 0
-    private var isScrolling = false
-    private var isSearching = false
+    private lateinit var ivSearch: AppCompatImageView
+    private lateinit var rvRecords: RecyclerView
+
     val videoIdsList = ArrayList<String>()
 
     override fun onCreateView(
@@ -73,8 +46,8 @@ class BookamrksFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>
             return layoutView
         }
         layoutView = inflater.inflate(R.layout.fragment_videos, container, false)
-        rlToolBar = layoutView!!.findViewById(R.id.appbar)
-        rlToolBar.visibility = View.GONE
+        layoutView!!.findViewById<View>(R.id.appbar).visibility = View.GONE
+
         Handler().postDelayed({ init() }, 50)
 
         return layoutView
@@ -82,75 +55,15 @@ class BookamrksFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>
 
     private fun init() {
         rvRecords = layoutView!!.findViewById(R.id.rvSuppliers)
-        tvTitle = layoutView!!.findViewById(R.id.tvTitle)
         tvNoData = layoutView!!.findViewById(R.id.tvNoData)
-        svSearchExpanded = layoutView!!.findViewById(R.id.svSearchExpanded)
-        ivBackSearch = layoutView!!.findViewById(R.id.ivBackSearch)
+
         ivSearch = layoutView!!.findViewById(R.id.ivSearch)
-        ivBack = layoutView!!.findViewById(R.id.ivBack)
-        rlSearch = layoutView!!.findViewById(R.id.rlSearch)
+        ivSearch.visibility = View.GONE
 
-        pb_progress = layoutView!!.findViewById(R.id.pb_progress)
-        svSearchExpanded.visibility = View.VISIBLE
-        ivSearch.visibility = View.VISIBLE
-        svSearchExpanded.setOnQueryTextListener(this)
-        svSearchExpanded.setOnCloseListener(this)
-
-        list1 = ArrayList<VideoModel>()
         setRecyclerView()
         fetchData()
-
-        ivBack.setOnClickListener {
-            onBackPressed()
-        }
-
-        ivSearch.setOnClickListener {
-            isSearching = true
-            rlToolBar.visibility = View.GONE
-            rlSearch.visibility = View.VISIBLE
-            svSearchExpanded.onActionViewExpanded()
-        }
-
-        ivBackSearch.setOnClickListener {
-            isSearching = false
-            rlToolBar.visibility = View.VISIBLE
-            rlSearch.visibility = View.GONE
-            svSearchExpanded.onActionViewCollapsed()
-            adapter.setList(list1, tvNoData, rvRecords)
-        }
     }
 
-    fun fireStorePagination() {
-        val query = if (lastResult == null) {
-            val first = FirebaseFirestore.getInstance().collection(Const.TABLE_AFFAIRS)
-                //.whereEqualTo(Const.FIELD_CATEGORY_ID, "${item.id}")
-                .limit(Const.LIMIT)
-            first
-        } else {
-            val first = FirebaseFirestore.getInstance().collection(Const.TABLE_AFFAIRS)
-                //.whereEqualTo(Const.FIELD_CATEGORY_ID, "${item.id}")
-                .startAfter(lastResult!!).limit(Const.LIMIT)
-            first
-        }
-        query.get().addOnSuccessListener { documentSnapshots ->
-            if (documentSnapshots.size() > 0) {
-                for (postSnapshot in documentSnapshots) {
-
-                    val model: VideoModel = postSnapshot.toObject(VideoModel::class.java)
-                    list1.add(model)
-                    Log.e("videoModel__", model.name)
-                }
-                pb_progress.visibility = View.GONE
-                adapter.setList(list1, tvNoData, rvRecords)
-                isScrolling = false
-                Log.e("----------", "----------")
-                lastResult = documentSnapshots.documents.get(documentSnapshots.size() - 1)
-            } else {
-                final_listItem = 0
-                pb_progress.visibility = View.GONE
-            }
-        }
-    }
 
     override fun onRefresh() {
         fetchData()
@@ -164,16 +77,10 @@ class BookamrksFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>
             shortToast(getString(R.string.no_internet_connection))
             return
         }
-        isSearching = false
-        lastResult = null
-        currentItems = 0
-        totalItems = 0
-        scrolloutItems = 0
-        final_listItem = 1
+
         videoIdsList.clear()
-        list1.clear()
         swipeRefresh.setRefreshing(true)
-        
+
         FirebaseFirestore.getInstance().collection(Const.TABLE_BOOKMARK)
             .document(FirebaseAuth.getInstance().currentUser?.uid!!)
             .collection(Const.SUB_BOOKMARK_VIDEOS)
@@ -184,24 +91,38 @@ class BookamrksFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>
                         val model: Video = postSnapshot.toObject(Video::class.java)
                         videoIdsList.add(model.videoId.toString())
                     }
-                    FirebaseFirestore.getInstance().collection(Const.TABLE_VIDEOS)
-                        .whereIn(Const.FIELD_FKEY,videoIdsList)
-                        .get()
-                        .addOnSuccessListener { documents ->
-                            swipeRefresh.setRefreshing(false)
-                            if (documents.size() > 0) {
-                                for (postSnapshot in documents) {
-                                    val model: VideoModel = postSnapshot.toObject(VideoModel::class.java)
-                                    list1.add(model)
-                                }
-                                lastResult = documents.documents.get(documents.size() - 1)
-                                adapter.setList(list1, tvNoData, rvRecords)
-                                isScrolling = false
-                            }
-                        }
-                        .addOnFailureListener { exception ->
-                            CustomLog.e(TAG, "Error getting documents: ${exception.localizedMessage}")
-                        }
+                    loadVideos(0, 10)
+                }
+            }
+            .addOnFailureListener { exception ->
+                CustomLog.e(TAG, "Error getting documents: ${exception.localizedMessage}")
+            }
+    }
+
+    fun loadVideos(startPos: Int, endPos: Int) {
+        //whereIn query can only take 10 ids per query : so handling that
+        var toPos = endPos
+        if (endPos > videoIdsList.size) {
+            toPos = videoIdsList.size
+        } else {
+            loadVideos(endPos, endPos + 10)
+        }
+        FirebaseFirestore.getInstance().collection(Const.TABLE_VIDEOS)
+            .whereIn(Const.FIELD_FKEY, videoIdsList.subList(startPos, toPos))
+            .get()
+            .addOnSuccessListener { documents ->
+                swipeRefresh.setRefreshing(false)
+                val list1 = ArrayList<VideoModel>()
+                if (documents.size() > 0) {
+                    for (postSnapshot in documents) {
+                        val model: VideoModel = postSnapshot.toObject(VideoModel::class.java)
+                        list1.add(model)
+                    }
+                    if (startPos == 0) {
+                        adapter.setList(list1, tvNoData, rvRecords)
+                    } else {
+                        adapter.addList(list1)
+                    }
                 }
             }
             .addOnFailureListener { exception ->
@@ -218,32 +139,6 @@ class BookamrksFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>
         swipeRefresh = layoutView?.findViewById<View>(R.id.swipeRefresh) as SwipeRefreshLayout
         swipeRefresh.setOnRefreshListener(this)
 
-        rvRecords.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                if (!isSearching) {
-                    if (list1.size >= Const.LIMIT) {
-                        currentItems = layoutManager.childCount
-                        totalItems = layoutManager.getItemCount()
-                        scrolloutItems = layoutManager.findFirstVisibleItemPosition()
-                        Log.e("items_count_", "$currentItems  $totalItems  $scrolloutItems")
-                    }
-
-                    if (!isScrolling && currentItems + scrolloutItems >= totalItems) {
-                        if (final_listItem > 0) {
-                            if (!Connectivity.isConnected(context!!)) {
-                                swipeRefresh.isRefreshing = false
-                                shortToast(getString(R.string.no_internet_connection))
-                                return
-                            }
-                            isScrolling = true
-                            pb_progress.visibility = View.VISIBLE
-                            fireStorePagination()
-                        }
-                    }
-                }
-            }
-        })
     }
 
     override fun onItemClick(type: Int, item: VideoModel) {
@@ -266,33 +161,5 @@ class BookamrksFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>
             // fragment.item = item
             return fragment
         }
-    }
-
-    private fun searchResult(query: String?) {
-        if (!query.isNullOrEmpty() || !query.isNullOrBlank()) {
-            searchString = query
-            val listSearch: ArrayList<VideoModel> = ArrayList()
-            for (i in 0 until list1.size) {
-                if (list1[i].name.toLowerCase(Locale.ROOT)
-                        .contains(query.toLowerCase(Locale.ROOT).trim())
-                ) {
-                    listSearch.add(list1[i])
-                }
-            }
-            adapter.setList(listSearch, tvNoData, rvRecords)
-        }
-    }
-
-    override fun onQueryTextSubmit(query: String?): Boolean {
-        searchResult(query)
-        return true
-    }
-
-    override fun onQueryTextChange(newText: String?): Boolean {
-        return true
-    }
-
-    override fun onClose(): Boolean {
-        return true
     }
 }

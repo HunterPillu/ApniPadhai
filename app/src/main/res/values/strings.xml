@@ -93,5 +93,24 @@
     <string name="intro_text_33">Education is the most powerful weapon</string>
     <string name="intro_text_4">Not every classroom has four walls.</string>
     <string name="intro_text_44">Continue to join us…</string>
+    <string name="empty">""</string>
+    <string name="skip">Skip</string>
+    <string name="get_started">Get Started</string>
+
+    <string name="onboarding_slide1_title">Create an account</string>
+    <string name="onboarding_slide1_subtitle">Connect with people around the world</string>
+    <string name="onboarding_slide1_desc">User will be able to give you live, chat and meet
+        with people nearby.</string>
+
+    <string name="onboarding_slide2_title">Login to your account</string>
+    <string name="onboarding_slide2_subtitle">Let\'s build connection with new people</string>
+    <string name="onboarding_slide2_desc">Connect helps you locate the people around you who
+        are closest from your home.</string>
+
+    <string name="onboarding_slide3_title">Login to your account</string>
+    <string name="onboarding_slide3_subtitle">Feel the happiness</string>
+    <string name="onboarding_slide3_desc">User will be able to give you live, chat and meet
+        with people nearby.</string>
+    <string name="welcome">Welcome !</string>
 
 </resources>

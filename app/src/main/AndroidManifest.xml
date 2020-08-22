@@ -43,9 +43,10 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.activity.IntroActivity"
+            android:name=".ui.onboardingscreen.feature.onboarding.OnBoardingActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Intro" />
+            android:theme="@style/AppTheme.OnBoarding" />
+
         <activity
             android:name=".ui.activity.YouTubeActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"

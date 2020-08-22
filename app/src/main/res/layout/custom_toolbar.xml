@@ -36,7 +36,7 @@
                     android:layout_centerVertical="true"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:padding="12dp"
-                    android:src="@drawable/ic_previous" />
+                    android:src="@drawable/ic_back_24" />
 
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -46,8 +46,8 @@
                     android:layout_centerVertical="true"
                     android:layout_gravity="center"
                     android:layout_marginHorizontal="64dp"
-                    android:foreground="?android:attr/selectableItemBackground"
                     android:ellipsize="end"
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:maxLines="1"
                     android:textColor="#fff"
                     android:textSize="@dimen/title"
@@ -94,7 +94,7 @@
                     android:layout_centerVertical="true"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:padding="12dp"
-                    android:src="@drawable/ic_previous" />
+                    android:src="@drawable/ic_back_24" />
 
                 <androidx.appcompat.widget.SearchView
                     android:id="@+id/svSearchExpanded"

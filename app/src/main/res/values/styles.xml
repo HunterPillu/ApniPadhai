@@ -8,7 +8,7 @@
      </style>-->
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -16,7 +16,7 @@
         <item name="android:windowBackground">@color/lightGray</item>
     </style>
 
-    <style name="AppTheme.DarkActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme.DarkActionBar" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -25,9 +25,9 @@
     </style>
 
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 
     <style name="PlayerTheme" parent="android:Theme.Holo">
         <item name="android:windowNoTitle">true</item>
@@ -54,7 +54,7 @@
         <item name="android:textColor">@android:color/black</item>
     </style>
 
-    <style name="SplashScreen" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="SplashScreen" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_screen_background</item>
     </style>
 
@@ -86,6 +86,29 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>
         <item name="android:padding">12dp</item>
+    </style>
+
+    <!-- Theme for OnBoardingActivity (applying some transition) -->
+    <style name="AppTheme.OnBoarding">
+        <item name="android:windowSharedElementsUseOverlay">false</item>
+        <item name="android:windowContentTransitions">true</item>
+
+        <item name="android:windowExitTransition">@transition/activity_main_exit</item>
+        <item name="android:windowReenterTransition">@transition/activity_main_reenter</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+    <!--Styling TextInputLayout colors-->
+    <style name="EditText.Login" parent="Widget.AppCompat.EditText">
+        <item name="colorControlNormal">@color/colorGrey</item>
+        <item name="colorControlActivated">@color/colorGrey</item>
+    </style>
+
+    <style name="Widget.MaterialComponents.Button.TextButton.OnBoardTextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorPurple</item>
     </style>
 
 

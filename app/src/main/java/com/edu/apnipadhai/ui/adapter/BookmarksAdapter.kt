@@ -29,8 +29,16 @@ class BookmarksAdapter(
     private val horizontal: Boolean
     private val isAdmin: Boolean = true
     fun updateList(list: ArrayList<VideoModel>) {
+
         this.list = list
         notifyDataSetChanged()
+       // notifyItemRangeInserted(0, list.size)
+    }
+
+    fun addList(list: ArrayList<VideoModel>) {
+        val size = this.list.size
+        this.list.addAll(list)
+        notifyItemRangeInserted(size, list.size)
     }
 
     fun setList(
@@ -39,7 +47,7 @@ class BookmarksAdapter(
         rvRecords: RecyclerView
     ) {
         updateList(list)
-        if (list.size <= 0) {
+        if (this.list.size <= 0) {
             textView.visibility = View.VISIBLE
             rvRecords.visibility = View.GONE
         } else {

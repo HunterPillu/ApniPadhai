@@ -62,5 +62,10 @@
     -->
     <color name="bottom_divider_4">@color/colorPrimary</color>
 
+    <color name="colorPurple">@color/colorPrimary</color>
+    <color name="colorIndigo">#303F9F</color>
+    <color name="colorBlueMidnight">#003366</color>
+    <color name="colorGrey">#C9C9C9</color>
+
 
 </resources>

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import com.edu.apnipadhai.R
+import com.edu.apnipadhai.ui.onboardingscreen.feature.onboarding.OnBoardingActivity
 import com.edu.apnipadhai.utils.Const.SHOW_INTRO_ALWAYS
 import com.google.firebase.auth.FirebaseAuth
 
@@ -30,7 +31,7 @@ class SplashActivity : AppCompatActivity() {
                     intent = Intent(this@SplashActivity, MainActivity::class.java)
                 }
                 else if (SHOW_INTRO_ALWAYS) {
-                    intent = Intent(this@SplashActivity, IntroActivity::class.java)
+                    intent = Intent(this@SplashActivity, OnBoardingActivity::class.java)
                 }
                 else {
                     intent = Intent(this@SplashActivity, LoginActivity::class.java)
