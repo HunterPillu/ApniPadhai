@@ -21,7 +21,9 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            //signingConfig signingConfigs.release
         }
     }
 
@@ -43,7 +45,7 @@ dependencies {
    // implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.6'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     //implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-rc1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0'
     //viewPager2 library
     implementation 'androidx.viewpager2:viewpager2:1.1.0-alpha01'
 
@@ -54,7 +56,7 @@ dependencies {
 
 
     //firebase
-    implementation 'com.google.firebase:firebase-analytics:17.4.4'
+    implementation 'com.google.firebase:firebase-analytics:17.5.0'
     implementation "com.google.firebase:firebase-auth-ktx:19.3.2"
     implementation 'com.google.firebase:firebase-messaging:20.2.4'
     implementation 'com.google.firebase:firebase-storage:19.1.1'

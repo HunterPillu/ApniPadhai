@@ -6,15 +6,16 @@
         android:icon="@drawable/ic_home_24"
         android:title="@string/home" />
 
-   <!-- <item
-        android:id="@+id/news"
-        android:icon="@drawable/news"
-        android:title="@string/news" />-->
 
     <item
         android:id="@+id/current"
         android:icon="@drawable/ic_whatshot_24"
         android:title="@string/current_affairs" />
+
+    <item
+        android:id="@+id/bookmark"
+        android:icon="@drawable/ic_bookmarks_24"
+        android:title="@string/bookmarks" />
 
     <item
         android:id="@+id/setting"

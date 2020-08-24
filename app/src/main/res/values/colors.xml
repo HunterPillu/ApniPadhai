@@ -5,7 +5,7 @@
     <color name="colorPrimaryDark">#1E88E5</color>
     <color name="colorAccent">#448AFF</color>
 
-    <color name="colorPrimaryAlpha">#12FF9800</color>
+    <color name="colorPrimaryAlpha">#121E88E5</color>
 
     <color name="card_color_category">@color/white</color>
 
@@ -38,6 +38,7 @@
     <color name="custom_slide_background">#3F51B5</color>
     <color name="custom_slide_buttons">#1A237E</color>
     <color name="white">#ffffff</color>
+    <color name="white_20">#ddffffff</color>
 
 
     <color name="gray">#A9A9A9</color>

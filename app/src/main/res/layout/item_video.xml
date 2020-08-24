@@ -112,15 +112,7 @@
                 android:src="@drawable/ic_bookmarks_24"
                 android:tint="@color/text_secondary" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/ivDelete"
-                android:layout_width="@dimen/size_video_menu"
-                android:layout_height="@dimen/size_video_menu"
-                android:layout_gravity="end"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:padding="6dp"
-                android:src="@drawable/ic_delete_24"
-                android:tint="@color/text_secondary" />
+
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/vMain"
     style="@style/MatchWidth"
     android:layout_margin="@dimen/margin_half"
-    android:foreground="?android:attr/selectableItemBackground"
     android:clipChildren="false"
     android:clipToPadding="false"
     android:divider="@android:color/transparent"
-    android:dividerHeight="0.0px"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="@dimen/margin_quarter"
     app:cardElevation="@dimen/setting_item_elevation"
@@ -27,7 +25,7 @@
             android:layout_width="@dimen/setting_item_icon_size"
             android:layout_height="@dimen/setting_item_icon_size"
             app:tint="@color/colorPrimary"
-            tools:src="@drawable/news" />
+            tools:src="@drawable/ic_edit_24" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="wrap_content"
@@ -50,4 +48,4 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </RelativeLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

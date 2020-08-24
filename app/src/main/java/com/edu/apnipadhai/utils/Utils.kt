@@ -18,9 +18,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import com.edu.apnipadhai.BuildConfig
 import com.edu.apnipadhai.R
-import com.edu.apnipadhai.model.Bookmark
 import com.edu.apnipadhai.model.Video
-import com.edu.apnipadhai.model.VideoModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
@@ -117,7 +115,7 @@ object Utils {
         val emailIntent: Intent = Intent(Intent.ACTION_SEND);
         val data = Uri.parse(
             "mailto:"
-                    + "meripadhai80@gmail.com"
+                    + Const.EMAIL_OFFICIAL
                     + "?subject=" + "Feedback from user[${FirebaseAuth.getInstance().currentUser?.uid}]"
                     + "&body=" + ""
         )
@@ -125,8 +123,22 @@ object Utils {
         context.startActivity(emailIntent);
     }
 
+    fun callFromDailer(mContext: Context, number: String) {
+        try {
+            val callIntent = Intent(Intent.ACTION_DIAL)
+            callIntent.data = Uri.parse("tel:$number")
+            mContext.startActivity(callIntent)
+        } catch (e: Exception) {
+            showToast(mContext, R.string.cannot_call)
+        }
+    }
+
     fun showToast(context: Context?, message: String?) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+
+    fun showToast(context: Context, message: Int) {
+        Toast.makeText(context, context.getString(message), Toast.LENGTH_SHORT).show()
     }
 
     fun getMillis(dateString: String?): Long {
@@ -224,9 +236,10 @@ object Utils {
     }
 
     @JvmStatic
-    fun bookmarkVideo(context : Context,fKey : String) {
+    fun bookmarkVideo(context: Context, fKey: String) {
         val videoList = FirebaseFirestore.getInstance().collection(Const.TABLE_BOOKMARK)
-            .document(FirebaseAuth.getInstance().currentUser?.uid!!).collection(Const.SUB_BOOKMARK_VIDEOS)
+            .document(FirebaseAuth.getInstance().currentUser?.uid!!)
+            .collection(Const.SUB_BOOKMARK_VIDEOS)
         videoList.add(Video(fKey)).addOnCompleteListener {
             Utils.showToast(
                 context,

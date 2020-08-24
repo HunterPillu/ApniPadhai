@@ -151,7 +151,7 @@ class VideoFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>,
     private fun fetchData() {
         if (!Connectivity.isConnected(context!!)) {
             swipeRefresh.isRefreshing = false
-            shortToast(getString(R.string.no_internet_connection))
+            shortToast(context!!,getString(R.string.no_internet_connection))
             return
         }
         isSearching = false

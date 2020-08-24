@@ -76,8 +76,6 @@ class AffairAdapter(
         }
         glide.load(vo.thumbnailUrl).placeholder(R.drawable.placeholder).into(holder.ivThumbnail)
 
-
-        holder.ivDelete?.visibility = View.GONE
         holder.ivBookmark?.visibility = View.GONE
         /*
          holder.ivBookmark?.setOnClickListener {
@@ -119,7 +117,6 @@ class AffairAdapter(
         val ivThumbnail: AppCompatImageView = itemView.findViewById(R.id.ivThumbnail)
         val cvMain: View = itemView.findViewById(R.id.cvMain)
         val ivBookmark: AppCompatImageView? = itemView.findViewById(R.id.ivBookmark)
-        val ivDelete: View? = itemView.findViewById(R.id.ivDelete)
 
     }
 

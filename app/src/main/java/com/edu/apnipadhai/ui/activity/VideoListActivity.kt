@@ -2,7 +2,6 @@ package com.edu.apnipadhai.ui.activity
 
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.model.Category

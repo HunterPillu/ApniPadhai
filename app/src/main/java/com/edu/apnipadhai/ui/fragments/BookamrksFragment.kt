@@ -6,11 +6,12 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewStub
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.airbnb.lottie.LottieAnimationView
 import com.covidbeads.app.assesment.util.shortToast
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.callbacks.ListItemClickListener
@@ -27,14 +28,11 @@ import com.google.gson.Gson
 
 
 class BookamrksFragment : BaseFragment(), ListItemClickListener<Int, VideoModel> {
-    //private lateinit var item: Category
     private lateinit var adapter: BookmarksAdapter
     private lateinit var swipeRefresh: SwipeRefreshLayout
-
-    private lateinit var tvNoData: AppCompatTextView
-
     private lateinit var ivSearch: AppCompatImageView
     private lateinit var rvRecords: RecyclerView
+    private var canUpdateTitle = true
 
     val videoIdsList = ArrayList<String>()
 
@@ -54,8 +52,10 @@ class BookamrksFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>
     }
 
     private fun init() {
+        if (canUpdateTitle) {
+            updateToolbarTitle(getString(R.string.bookmarks))
+        }
         rvRecords = layoutView!!.findViewById(R.id.rvSuppliers)
-        tvNoData = layoutView!!.findViewById(R.id.tvNoData)
 
         ivSearch = layoutView!!.findViewById(R.id.ivSearch)
         ivSearch.visibility = View.GONE
@@ -74,7 +74,7 @@ class BookamrksFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>
     private fun fetchData() {
         if (!Connectivity.isConnected(context!!)) {
             swipeRefresh.isRefreshing = false
-            shortToast(getString(R.string.no_internet_connection))
+            shortToast(context!!, getString(R.string.no_internet_connection))
             return
         }
 
@@ -92,6 +92,8 @@ class BookamrksFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>
                         videoIdsList.add(model.videoId.toString())
                     }
                     loadVideos(0, 10)
+                } else {
+                    showHideEmptyState(false)
                 }
             }
             .addOnFailureListener { exception ->
@@ -119,15 +121,32 @@ class BookamrksFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>
                         list1.add(model)
                     }
                     if (startPos == 0) {
-                        adapter.setList(list1, tvNoData, rvRecords)
+                        adapter.updateList(list1)
                     } else {
                         adapter.addList(list1)
                     }
                 }
             }
-            .addOnFailureListener { exception ->
-                CustomLog.e(TAG, "Error getting documents: ${exception.localizedMessage}")
+
+    }
+
+    private var viewStub: ViewStub? = null
+    private fun showHideEmptyState(dataExits: Boolean) {
+        if (dataExits) {
+            if (null != viewStub) {
+                rvRecords.visibility = View.VISIBLE
+                viewStub?.visibility = View.GONE
+                //viewStub?.findViewById<LottieAnimationView>(R.id.img)?.pauseAnimation()
             }
+        } else {
+            if (null == viewStub) {
+                viewStub = layoutView?.findViewById(R.id.viewStub)!!
+                val view = viewStub?.inflate()
+                view?.findViewById<LottieAnimationView>(R.id.img)?.playAnimation()
+            }
+            rvRecords.visibility = View.GONE
+            viewStub?.visibility = View.VISIBLE
+        }
     }
 
 
@@ -148,17 +167,11 @@ class BookamrksFragment : BaseFragment(), ListItemClickListener<Int, VideoModel>
     }
 
 
-    override fun onResume() {
-        super.onResume()
-        // tvTitle.text = getString(R.string.current_affairs)
-        updateToolbarTitle(getString(R.string.bookmarks))
-    }
-
     companion object {
         val TAG = BookamrksFragment::class.java.simpleName
-        fun newInstance(): BookamrksFragment {
+        fun newInstance(canUpdateTitle: Boolean): BookamrksFragment {
             val fragment = BookamrksFragment()
-            // fragment.item = item
+            fragment.canUpdateTitle = canUpdateTitle
             return fragment
         }
     }

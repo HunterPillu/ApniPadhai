@@ -11,7 +11,7 @@ class LoginActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_toolbar_container)
-        openFragment(UserFragment())
+        openFragment(UserFragment.newInstance(false))
         handleNavigation(ivBack)
 
     }

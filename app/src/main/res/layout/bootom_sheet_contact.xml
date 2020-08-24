@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/margin_full">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/margin_super"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_full"
+                android:text="@string/contact"
+                android:textColor="@color/white"
+                android:textSize="@dimen/header"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_duper"
+                android:layout_marginTop="@dimen/margin_quarter"
+                android:gravity="center_horizontal"
+                android:text="@string/contact_dialog_desc"
+                android:textColor="@color/white_20"
+                android:textSize="@dimen/body_primary" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/grid_item_divider"
+                android:layout_marginHorizontal="@dimen/margin_duper"
+                android:layout_marginVertical="@dimen/margin_medium"
+                android:background="@color/white_20" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/dialog_icon_size"
+                android:layout_height="@dimen/dialog_icon_size"
+                android:layout_marginStart="@dimen/margin_full"
+                android:background="@drawable/round_grey"
+                android:padding="@dimen/margin_half"
+                app:srcCompat="@drawable/ic_email_24"
+                app:tint="@color/colorPrimary" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_full"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/body_secondary"
+                tools:text="@string/email_us" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/grid_item_divider"
+            android:layout_marginStart="56dp"
+            android:background="@color/divider" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/dialog_icon_size"
+                android:layout_height="@dimen/dialog_icon_size"
+                android:layout_marginStart="@dimen/margin_full"
+                android:background="@drawable/round_grey"
+                android:padding="@dimen/margin_half"
+                app:srcCompat="@drawable/ic_call_24"
+                app:tint="@color/colorPrimary" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_full"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/body_secondary"
+                tools:text="Call Abhay Sir (9845234523)" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/grid_item_divider"
+            android:layout_marginStart="56dp"
+            android:background="@color/divider" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/dialog_icon_size"
+                android:layout_height="@dimen/dialog_icon_size"
+                android:layout_marginStart="@dimen/margin_full"
+                android:background="@drawable/round_grey"
+                android:padding="@dimen/margin_half"
+                app:srcCompat="@drawable/ic_call_24"
+                app:tint="@color/colorPrimary" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_full"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/body_secondary"
+                tools:text="Call Ajit Sir (9845234523)" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <!-- <View
+             android:layout_width="match_parent"
+             android:layout_height="@dimen/grid_item_divider"
+             android:layout_marginStart="56dp"
+             android:background="@color/divider" />-->
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</com.google.android.material.card.MaterialCardView>

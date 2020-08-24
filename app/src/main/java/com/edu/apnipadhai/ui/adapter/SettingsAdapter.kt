@@ -90,8 +90,8 @@ class SettingsAdapter(
                 FirebaseStorage.getInstance()
                     .getReference("userPhoto/" + list[position].url)
             )
-            .error(R.drawable.placeholder)
-            .placeholder(R.drawable.placeholder)
+            .error(R.drawable.ic_user_24)
+            .placeholder(R.drawable.ic_user_24)
             .into(headerRow.civProfile)
     }
 

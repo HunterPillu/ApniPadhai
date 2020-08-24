@@ -27,14 +27,14 @@ class CommonActivity : BaseActivity() {
                 openFragment(UserListFragment())
             }
             Const.SCREEN_USER -> {
-                openFragment(UserFragment())
+                openFragment(UserFragment.newInstance(true))
             }
             Const.SCREEN_COURSE -> {
                 val isUpdate = intent.getBooleanExtra("is_update", false)
                 openFragment(CourseFragment.newInstance(isUpdate))
             }
             Const.SCREEN_BOOKMARK -> {
-                openFragment(BookamrksFragment())
+                openFragment(BookamrksFragment.newInstance(true))
             }
             else -> {
             }

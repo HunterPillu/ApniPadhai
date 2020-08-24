@@ -11,7 +11,7 @@ import java.io.IOException
 
 object YouTubeDataEndpoint {
     private const val APP_NAME = "MeriPadhai"
-    private const val YOUTUBE_DATA_API_KEY = "AIzaSyAVeTsyAjfpfBBbUQq4E7jooWwtV2D_tjE"
+    private const val YOUTUBE_DATA_API_KEY = "AIzaSyCiovAkuzy9wWRAeZqRt_ZP03H0HUfeciM"
     @JvmStatic
     fun getVideoInfoFromYouTubeDataAPIs(videoId: String): Single<VideoModel> {
         val onSubscribe =

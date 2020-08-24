@@ -41,21 +41,6 @@ class BookmarksAdapter(
         notifyItemRangeInserted(size, list.size)
     }
 
-    fun setList(
-        list: ArrayList<VideoModel>,
-        textView: AppCompatTextView,
-        rvRecords: RecyclerView
-    ) {
-        updateList(list)
-        if (this.list.size <= 0) {
-            textView.visibility = View.VISIBLE
-            rvRecords.visibility = View.GONE
-        } else {
-            textView.visibility = View.GONE
-            rvRecords.visibility = View.VISIBLE
-        }
-    }
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -85,7 +70,6 @@ class BookmarksAdapter(
         glide.load(vo.thumbnailUrl).placeholder(R.drawable.placeholder).into(holder.ivThumbnail)
 
 
-        holder.ivDelete?.visibility = View.GONE
         holder.ivBookmark?.visibility = View.GONE
         /*
          holder.ivBookmark?.setOnClickListener {
@@ -127,7 +111,6 @@ class BookmarksAdapter(
         val ivThumbnail: AppCompatImageView = itemView.findViewById(R.id.ivThumbnail)
         val cvMain: View = itemView.findViewById(R.id.cvMain)
         val ivBookmark: AppCompatImageView? = itemView.findViewById(R.id.ivBookmark)
-        val ivDelete: View? = itemView.findViewById(R.id.ivDelete)
 
     }
 

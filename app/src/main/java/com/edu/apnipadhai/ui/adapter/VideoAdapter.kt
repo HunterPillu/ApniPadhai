@@ -27,14 +27,12 @@ class VideoAdapter(
     private var list: ArrayList<VideoModel>
     private val glide: GlideRequests
     private val layoutType: Int
-    private val isAdmin: Boolean = true
     var pagingEnabled = false
 
     fun updateList(list: ArrayList<VideoModel>) {
         this.list = list
         notifyDataSetChanged()
     }
-
 
 
     fun setList(list: ArrayList<VideoModel>) {
@@ -95,11 +93,6 @@ class VideoAdapter(
         holder.ivBookmark?.setOnClickListener {
             listener.onItemClick(Const.TYPE_BOOKMARK, list[holder.adapterPosition])
         }
-        holder.ivDelete?.visibility = if (isAdmin) View.VISIBLE else View.GONE
-        holder.ivDelete?.setOnClickListener {
-            showDeleteDialog(holder.adapterPosition)
-            //listener.onItemClick(Const.TYPE_DELETE, list[position])
-        }
     }
 
     /* private fun popupMenus(view: View, position: Int) {
@@ -132,7 +125,6 @@ class VideoAdapter(
         val ivThumbnail: AppCompatImageView = itemView.findViewById(R.id.ivThumbnail)
         val cvMain: View = itemView.findViewById(R.id.cvMain)
         val ivBookmark: AppCompatImageView? = itemView.findViewById(R.id.ivBookmark)
-        val ivDelete: View? = itemView.findViewById(R.id.ivDelete)
 
     }
 
@@ -167,7 +159,5 @@ class VideoAdapter(
         val alertDialog: AlertDialog = builder.create()
         alertDialog.setCancelable(false)
         alertDialog.show()
-
-
     }
 }

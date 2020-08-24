@@ -3,6 +3,9 @@ package com.edu.apnipadhai.utils
 object Const {
 
 
+    const val EMAIL_OFFICIAL ="meripadhai80@gmail.com"
+    const val PHONE_AJIT ="+918318224804"
+    const val PHONE_ABHAY ="+917275397055"
     const val VIDEO_THRESHOLD = 5
     const val SCREEN_USER_INVITE = 203
     const val SCREEN_COURSE = 202

@@ -79,7 +79,7 @@ public class YouTubeActivity extends AppCompatActivity implements ListItemClickL
         setRecyclerView();
         fetchData();
 
-        youTubePlayerView.setOnLongClickListener(new View.OnLongClickListener() {
+       /* youTubePlayerView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
 
@@ -89,7 +89,7 @@ public class YouTubeActivity extends AppCompatActivity implements ListItemClickL
 
                 return false;
             }
-        });
+        });*/
     }
 
     private void init() {
@@ -161,7 +161,7 @@ public class YouTubeActivity extends AppCompatActivity implements ListItemClickL
     }
 
 
-    ActionMode.Callback callback = new ActionMode.Callback() {
+   /* ActionMode.Callback callback = new ActionMode.Callback() {
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 
@@ -191,7 +191,7 @@ public class YouTubeActivity extends AppCompatActivity implements ListItemClickL
         public void onDestroyActionMode(ActionMode mode) {
 
         }
-    };
+    };*/
 
     @Override
     public void onConfigurationChanged(@NotNull Configuration newConfiguration) {

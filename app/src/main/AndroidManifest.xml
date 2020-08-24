@@ -35,9 +35,7 @@
         <activity
             android:name=".ui.activity.CommonActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.activity.AdminActivity"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name=".ui.activity.VideoListActivity"
             android:screenOrientation="portrait" />

@@ -12,14 +12,11 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
-import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
-import com.edu.apnipadhai.BuildConfig
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.model.User
 import com.edu.apnipadhai.ui.activity.CommonActivity
@@ -30,6 +27,7 @@ import com.edu.apnipadhai.utils.Utils.showToast
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.ErrorCodes
 import com.firebase.ui.auth.IdpResponse
+import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -39,6 +37,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class UserFragment : BaseFragment() {
+    private var isLoggedIn: Boolean = false
     private var isUpdating: Boolean = false
     private val RC_SIGN_IN = 123
     private var userPhoto: CircleImageView? = null
@@ -48,6 +47,7 @@ class UserFragment : BaseFragment() {
     private var mobile: AppCompatTextView? = null
     private var userModel: User? = null
     private var userPhotoUri: Uri? = null
+    private var bSignIn: MaterialButton? = null
 
 
     override fun onCreateView(
@@ -61,12 +61,19 @@ class UserFragment : BaseFragment() {
         mobile = layoutView?.findViewById(R.id.mobile)
         userPhoto = layoutView?.findViewById(R.id.user_photo)
         userPhoto?.setOnClickListener(userPhotoIVClickListener)
-
-        layoutView?.findViewById<AppCompatButton>(R.id.saveBtn)
-            ?.setOnClickListener { login() }
+        bSignIn = layoutView?.findViewById(R.id.saveBtn)
+        bSignIn?.setOnClickListener { login() }
         tvDob?.setOnClickListener(dobClickListener)
         layoutView?.findViewById<View>(R.id.ivBack)?.setOnClickListener { onBackPressed() }
         userInfoFromServer
+        if (isLoggedIn) {
+            updateToolbarTitle(getString(R.string.profile))
+            bSignIn?.setText(R.string.update)
+        } else {
+            updateToolbarTitle(getString(R.string.signin))
+            bSignIn?.setText(R.string.signin)
+        }
+
 
         return layoutView
     }
@@ -76,7 +83,7 @@ class UserFragment : BaseFragment() {
             AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setLogo(R.drawable.logo)
-                .setIsSmartLockEnabled(!BuildConfig.DEBUG /* credentials */, true /* hints */)
+                .setIsSmartLockEnabled(false /* credentials */, true /* hints */)
                 .setAvailableProviders(
                     Arrays.asList(
                         AuthUI.IdpConfig.PhoneBuilder().build()
@@ -117,8 +124,8 @@ class UserFragment : BaseFragment() {
                             FirebaseStorage.getInstance()
                                 .getReference("userPhoto/" + userModel!!.photoUrl)
                         )
-                        .placeholder(R.drawable.user)
-                        .error(R.drawable.user)
+                        .placeholder(R.drawable.ic_user_200)
+                        .error(R.drawable.ic_user_200)
                         .into(userPhoto!!)
                 }
             }
@@ -293,6 +300,12 @@ class UserFragment : BaseFragment() {
     }
 
     companion object {
+        fun newInstance(isLoggedIn: Boolean): UserFragment {
+            return UserFragment().apply {
+                this.isLoggedIn = isLoggedIn
+            }
+        }
+
         private const val PICK_FROM_ALBUM = 1
     }
 }

@@ -13,8 +13,10 @@ import com.edu.apnipadhai.model.Setting
 import com.edu.apnipadhai.model.User
 import com.edu.apnipadhai.ui.activity.CommonActivity
 import com.edu.apnipadhai.ui.adapter.SettingsAdapter
+import com.edu.apnipadhai.ui.dialog.ContactDialog
 import com.edu.apnipadhai.utils.Const
 import com.edu.apnipadhai.utils.Utils
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -83,7 +85,7 @@ class SettingsFrag : BaseFragment(), ListItemClickListener<Int, Setting> {
 
     override fun onItemClick(type: Int, item: Setting) {
         when (item.id) {
-            R.drawable.ic_bookmarks_24->
+            R.drawable.ic_bookmarks_24 ->
                 openScreen(Const.SCREEN_BOOKMARK)
             R.drawable.ic_notifications_24,
             R.drawable.ic_file_24 ->
@@ -97,7 +99,7 @@ class SettingsFrag : BaseFragment(), ListItemClickListener<Int, Setting> {
                 openCourse()
             }
             R.drawable.ic_contacts_24 ->
-                Utils.openMail(context!!)
+                showContactDialog()
             R.drawable.ic_subscription_24 ->
                 Utils.openYouTube(context!!)
             0 ->
@@ -147,5 +149,10 @@ class SettingsFrag : BaseFragment(), ListItemClickListener<Int, Setting> {
             putExtra(Const.EXTRA_TYPE, Const.SCREEN_COURSE)
             putExtra("is_update", true)
         })
+    }
+
+    private fun showContactDialog() {
+        val bottomSheetFragment = ContactDialog()
+        bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
     }
 }
