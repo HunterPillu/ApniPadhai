@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.edu.apnipadhai">
+    package="com.meripadhai">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -17,10 +17,10 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".ui.activity.LoginActivity"
+            android:name="com.meripadhai.ui.activity.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activity.SplashActivity"
+            android:name="com.meripadhai.ui.activity.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashScreen">
             <intent-filter>
@@ -30,23 +30,23 @@
         </activity>
 
         <activity
-            android:name=".ui.activity.MainActivity"
+            android:name="com.meripadhai.ui.activity.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activity.CommonActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".ui.activity.VideoListActivity"
+            android:name="com.meripadhai.ui.activity.CommonActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.onboardingscreen.feature.onboarding.OnBoardingActivity"
+            android:name="com.meripadhai.ui.activity.VideoListActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.meripadhai.ui.onboardingscreen.feature.onboarding.OnBoardingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.OnBoarding" />
 
         <activity
-            android:name=".ui.activity.YouTubeActivity"
+            android:name="com.meripadhai.ui.activity.YouTubeActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:hardwareAccelerated="true" />
 

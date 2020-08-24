@@ -11,11 +11,11 @@
                 />
         </targets>
         <transition
-                class="com.edu.apnipadhai.ui.onboardingscreen.core.PopTransition"
+                class="com.meripadhai.ui.onboardingscreen.core.PopTransition"
                 app:startScale="0.95"
                 app:endScale="1.0"/>
         <transition
-                class="com.edu.apnipadhai.ui.onboardingscreen.core.FadeTransition"
+                class="com.meripadhai.ui.onboardingscreen.core.FadeTransition"
                 app:startAlpha="0.3"
                 app:endAlpha="1.0"/>
     </transitionSet>

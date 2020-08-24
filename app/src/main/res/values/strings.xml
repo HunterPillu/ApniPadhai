@@ -70,7 +70,7 @@
     <string name="update_video_count">Sync Video Count</string>
     <string name="no_data">No data available</string>
     <string name="recent_upload">Recently Uploaded</string>
-    <string name="share_app_text">Hey check out my awesome app at:</string>
+    <string name="share_app_text">Hey check out this awesome app at:</string>
     <string name="user_offline">%s is offline</string>
     <string name="offline">Offline</string>
     <string name="online">Online</string>

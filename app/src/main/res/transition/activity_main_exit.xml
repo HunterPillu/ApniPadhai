@@ -10,11 +10,11 @@
             <target android:targetId="@id/container" />
         </targets>
         <transition
-                class="com.edu.apnipadhai.ui.onboardingscreen.core.PopTransition"
+                class="com.meripadhai.ui.onboardingscreen.core.PopTransition"
                 app:startScale="1.0"
                 app:endScale="0.95"/>
         <transition
-                class="com.edu.apnipadhai.ui.onboardingscreen.core.FadeTransition"
+                class="com.meripadhai.ui.onboardingscreen.core.FadeTransition"
                 app:startAlpha="1.0"
                 app:endAlpha="0.3"/>
     </transitionSet>
