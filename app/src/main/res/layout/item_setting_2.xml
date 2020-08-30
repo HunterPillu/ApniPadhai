@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     style="@style/MatchWidth"
+    android:id="@+id/vMain"
+    android:foreground="?android:attr/selectableItemBackground"
     android:layout_marginHorizontal="@dimen/margin_half"
     android:layout_marginVertical="@dimen/margin_quarter">
 
@@ -17,7 +20,7 @@
             android:layout_width="@dimen/setting_item_icon_size"
             android:layout_height="@dimen/setting_item_icon_size"
             android:layout_centerVertical="true"
-            app:srcCompat="@drawable/document" />
+            tools:srcCompat="@drawable/ic_call_24" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvName"

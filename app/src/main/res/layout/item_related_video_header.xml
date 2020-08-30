@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llPlayer_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/youtube_player_view"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/margin_full"
+        android:paddingTop="@dimen/margin_medium"
+        android:textColor="@color/text_primary"
+        tools:text="title video " />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvOther"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/margin_full"
+        android:paddingVertical="@dimen/margin_half"
+        android:textColor="@color/text_secondary"
+        android:textSize="@dimen/caption"
+        tools:text="others" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/grid_item_divider"
+        android:background="@color/grey_transparent_20" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvBookmark"
+            android:layout_width="@dimen/size_video_menu"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/ic_bookmarks_24"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:paddingVertical="@dimen/margin_medium"
+            android:text="@string/bookmrk"
+            android:textColor="@color/text_secondary"
+            android:textSize="@dimen/caption"
+            app:drawableTint="@color/text_secondary" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvShare"
+            android:layout_width="@dimen/size_video_menu"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/ic_share_24"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:paddingVertical="@dimen/margin_medium"
+            android:text="@string/share"
+            android:textColor="@color/text_secondary"
+            android:textSize="@dimen/caption"
+            app:drawableTint="@color/text_secondary" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/grid_item_divider"
+        android:background="@color/grey_transparent_20" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/margin_full"
+        android:paddingVertical="@dimen/margin_medium"
+        android:text="@string/related_video"
+        android:textColor="@color/text_primary" />
+</androidx.appcompat.widget.LinearLayoutCompat>

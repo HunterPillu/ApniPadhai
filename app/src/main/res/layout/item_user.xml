@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:paddingHorizontal="@dimen/margin_full"
+    android:paddingTop="@dimen/margin_medium">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivUser"
+        android:layout_width="@dimen/size_user_item_img"
+        android:layout_height="@dimen/size_user_item_img"
+        android:src="@drawable/placeholder"
+        app:civ_border_color="@color/divider"
+        app:civ_border_width="0dp" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivStatus"
+        android:layout_width="@dimen/size_online_status"
+        android:layout_height="@dimen/size_online_status"
+        android:layout_below="@+id/ivUser"
+        android:layout_marginStart="-12dp"
+        android:layout_marginTop="-12dp"
+        android:layout_toEndOf="@+id/ivUser"
+        android:visibility="gone"
+        app:srcCompat="@drawable/round_red" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:layout_toStartOf="@+id/tvTime"
+        android:layout_toEndOf="@+id/ivUser"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/text_primary"
+        android:textSize="@dimen/body_primary"
+        tools:text="User's Name" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvLastMsg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvName"
+        android:layout_marginHorizontal="8dp"
+        android:layout_toEndOf="@+id/ivUser"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="@dimen/body_secondary"
+        tools:text="Last Msg" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:textColor="@color/text_secondary"
+        android:textSize="@dimen/caption"
+        android:visibility="gone"
+        tools:text="12:56 PM"
+        tools:visibility="visible" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/grid_item_divider"
+        android:layout_below="@+id/ivStatus"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_toEndOf="@+id/ivUser"
+        android:background="@color/divider" />
+
+
+</RelativeLayout>

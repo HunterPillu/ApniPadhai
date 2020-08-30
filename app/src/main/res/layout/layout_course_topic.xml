@@ -16,19 +16,15 @@
     android:id="@+id/llCourseTopic"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/margin_half"
-    android:background="@color/card_color_category"
-    android:orientation="vertical"
-    android:padding="@dimen/margin_half"
-    android:visibility="gone"
-    tools:visibility="visible">
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvHeader"
         style="@style/home_list_header"
         android:text="@string/header_course_topic" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvSuppliers"
+        android:id="@+id/rvList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipChildren="false"

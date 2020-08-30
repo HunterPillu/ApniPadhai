@@ -8,13 +8,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rlUserProfile"
+    android:id="@+id/vMain"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/margin_half"
     android:layout_marginTop="@dimen/margin_full"
     android:layout_marginBottom="@dimen/margin_quarter"
-
+    android:foreground="?android:attr/selectableItemBackground"
     android:gravity="center_vertical"
     android:minHeight="@dimen/height_min_item_2"
     android:paddingHorizontal="@dimen/margin_half">
@@ -24,7 +24,7 @@
         android:layout_width="@dimen/size_profile_img_2"
         android:layout_height="@dimen/size_profile_img_2"
         android:layout_gravity="center_vertical"
-        app:civ_border_color="@color/white"
+        app:civ_border_color="@color/colorPrimary"
         app:civ_border_width="@dimen/min_border_width"
         tools:src="@drawable/logo" />
 

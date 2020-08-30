@@ -35,11 +35,10 @@
     <string name="next">Next</string>
     <string name="home">Home</string>
     <string name="news">News</string>
-    <string name="current_affairs">Current Affairs</string>
+    <string name="current_affairs">Current Affairs &amp; News</string>
+    <string name="bookmarks">Bookmarks</string>
     <string name="profile">Profile</string>
     <string name="setting">Settings</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="error_select_course">Please select a course</string>
     <string name="demo_text_series">Demo Test Series</string>
     <string name="multiplayer_test_series">Multiplayer Test Series</string>
@@ -55,19 +54,54 @@
     <string name="load_preview">Load Preview</string>
     <string name="submit">Submit</string>
     <string name="invalid_video">Can\'t retrieve video title, are you connected to the internet?</string>
-    <string name="video_uploaded">VIdeo successfully uploaded</string>
-    <string name="work_in_progress">Work in progress</string>
+    <string name="video_uploaded">Video successfully uploaded</string>
+    <string name="work_in_progress">This feature will available soon.</string>
     <string name="text_course_2">Click item to edit the category or simply add a new category by tapping on \'Add Category\'</string>
     <string name="add_Category">Manage Category</string>
     <string name="text_admin_1">"Admin Panel : Here you can Add/Edit the Videos and Categories "</string>
     <string name="title_admin">Admin panel</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
+    <string name="msg_delete">Are you sure you want to delete this video?</string>
+    <string name="msg_delete_title">Delete Video</string>
     <string name="active">Active</string>
     <string name="update_category">Update Category</string>
     <string name="search">Search</string>
     <string name="update_video_count">Sync Video Count</string>
     <string name="no_data">No data available</string>
+    <string name="recent_upload">Recently Uploaded</string>
+    <string name="share_app_text">Hey check out this awesome app at:</string>
+    <string name="user_offline">%s is offline</string>
+    <string name="offline">Offline</string>
+    <string name="online">Online</string>
+    <string name="title_invite">Invite User</string>
+    <string name="text_invite_1">Select student to send him invite</string>
+    <string name="title_manage_current_affairs">Manage Current Affairs</string>
+    <string name="text_add_affairs">Add videos to current affairs</string>
+    <string name="msg_delete_success">Video deleted successfully.</string>
+    <string name="msg_bookmark_success">Video saved to your favorite list successfully.</string>
+    <string name="no_related_video">No related video found</string>
+    <string name="related_video">Related Videos</string>
+    <string name="share">Share</string>
+    <string name="intro_text_1">A better learning future start here</string>
+    <string name="intro_text_11">You are on the right track now</string>
+    <string name="intro_text_2">Learning together to be the best we can be.</string>
+    <string name="intro_text_22">I teach, therefore I learn</string>
+    <string name="intro_text_3">A modern, global app for a modern, global academic experience.</string>
+    <string name="intro_text_33">Education is the most powerful weapon</string>
+    <string name="intro_text_4">Not every classroom has four walls.</string>
+    <string name="intro_text_44">Continue to join us…</string>
+    <string name="empty">""</string>
+    <string name="skip">Skip</string>
+    <string name="get_started">Get Started</string>
 
+
+    <string name="welcome">Welcome !!</string>
+    <string name="see_all">More</string>
+    <string name="no_data_for_course">No data available for this course. Please select another course.</string>
+    <string name="email_us">Email us at (%1$s)</string>
+    <string name="cannot_call">Cannot call this number. Please try again</string>
+    <string name="call">Call %1$s sir (%2$s) </string>
+    <string name="contact_dialog_desc">Provide your feedback or contact us for any enquiry.</string>
 
 </resources>

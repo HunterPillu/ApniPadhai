@@ -15,11 +15,80 @@
       },
       "oauth_client": [
         {
+          "client_id": "402810945313-3655o39rh2fsm65cujc95etoi2eil52d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.edu.apnipadhai",
+            "certificate_hash": "680db20ba349e57e87fca5f7b30a2da477d191f2"
+          }
+        },
+        {
+          "client_id": "402810945313-5o81pqrct3i3i6gsikbk2gla1gmnaq99.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.edu.apnipadhai",
+            "certificate_hash": "43e56bde6f03d3d38057293d91f6dd7b458106c0"
+          }
+        },
+        {
           "client_id": "402810945313-jqam4d44sfv30q3fsrvkkia2og246kvk.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.edu.apnipadhai",
             "certificate_hash": "5abda0ea0fdcc745e0ecfd90f2194c3579c8b98e"
+          }
+        },
+        {
+          "client_id": "402810945313-heejnvis2ukln0en36ooh2sm416j8mos.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQjye7b-6dF7lSkmsYnlSD_MprJOuMEaU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "402810945313-heejnvis2ukln0en36ooh2sm416j8mos.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:402810945313:android:1366311a7f9adfe1918860",
+        "android_client_info": {
+          "package_name": "com.meripadhai"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "402810945313-lc1eb86sf4q1i0r1drm11bn5bmpd3mik.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.meripadhai",
+            "certificate_hash": "43e56bde6f03d3d38057293d91f6dd7b458106c0"
+          }
+        },
+        {
+          "client_id": "402810945313-100io137sfal36fdjkbkbmba69svh3kf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.meripadhai",
+            "certificate_hash": "5abda0ea0fdcc745e0ecfd90f2194c3579c8b98e"
+          }
+        },
+        {
+          "client_id": "402810945313-gp2qq336ekjb8v4c3d5knahip77nrgff.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.meripadhai",
+            "certificate_hash": "680db20ba349e57e87fca5f7b30a2da477d191f2"
           }
         },
         {

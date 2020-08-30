@@ -1,17 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
         android:orientation="vertical">
 
-        <include layout="@layout/layout_course_topic" />
+        <include
+            android:id="@+id/ll1"
+            layout="@layout/layout_course_topic"
+            android:visibility="gone"
+            tools:visibility="visible" />
 
-        <!--<include layout="@layout/layout_quiz" />
+        <include
+            android:id="@+id/ll2"
+            layout="@layout/layout_course_topic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_medium"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <!--<include layout="@layout/layout_quiz" /> -->
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cvMD"
@@ -19,6 +34,8 @@
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_marginHorizontal="@dimen/margin_full"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:visibility="gone"
             app:cardBackgroundColor="@color/colorPrimary"
             app:cardCornerRadius="@dimen/margin_quarter">
 
@@ -43,7 +60,7 @@
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-        </androidx.cardview.widget.CardView>-->
+        </androidx.cardview.widget.CardView>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </ScrollView>

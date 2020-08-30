@@ -29,50 +29,54 @@
                 android:layout_height="match_parent"
                 android:visibility="visible">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/ivBack"
-                android:layout_width="@dimen/size_toolbar_icon"
-                android:layout_height="@dimen/size_toolbar_icon"
-                android:layout_centerVertical="true"
-                android:padding="12dp"
-                android:src="@drawable/ic_previous" />
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivBack"
+                    android:layout_width="@dimen/size_toolbar_icon"
+                    android:layout_height="@dimen/size_toolbar_icon"
+                    android:layout_centerVertical="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_back_24" />
 
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="64dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textColor="#fff"
-                android:textSize="@dimen/title"
-                android:textStyle="bold"
-                tools:text="@string/title_select_course"
-                android:visibility="visible"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="64dp"
+                    android:ellipsize="end"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:maxLines="1"
+                    android:textColor="#fff"
+                    android:textSize="@dimen/title"
+                    android:textStyle="bold"
+                    android:visibility="visible"
+                    tools:text="@string/title_select_course" />
 
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/ivOption"
-                android:layout_width="@dimen/size_toolbar_icon"
-                android:layout_height="@dimen/size_toolbar_icon"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:padding="12dp"
-                android:src="@drawable/ic_settings_24dp"
-                android:visibility="gone"
-                app:tint="@color/white" />
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivOption"
+                    android:layout_width="@dimen/size_toolbar_icon"
+                    android:layout_height="@dimen/size_toolbar_icon"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_settings_24dp"
+                    android:visibility="gone"
+                    app:tint="@color/white" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivSearch"
                     android:layout_width="@dimen/size_toolbar_icon"
                     android:layout_height="@dimen/size_toolbar_icon"
-                    android:src="@drawable/search"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:padding="12dp"
+                    android:src="@drawable/search"
                     android:visibility="gone" />
 
             </RelativeLayout>
@@ -88,8 +92,9 @@
                     android:layout_width="@dimen/size_toolbar_icon"
                     android:layout_height="@dimen/size_toolbar_icon"
                     android:layout_centerVertical="true"
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:padding="12dp"
-                    android:src="@drawable/ic_previous" />
+                    android:src="@drawable/ic_back_24" />
 
                 <androidx.appcompat.widget.SearchView
                     android:id="@+id/svSearchExpanded"
@@ -97,17 +102,14 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:iconifiedByDefault="true"
                     android:padding="12dp"
                     android:visibility="visible"
-                    app:tint="@color/white"
                     app:queryHint="@string/search"
-                    android:iconifiedByDefault="true" />
+                    app:tint="@color/white" />
 
             </RelativeLayout>
-
-
-
-
 
         </RelativeLayout>
 

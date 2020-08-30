@@ -5,6 +5,7 @@
     android:id="@+id/cvMain"
     style="@style/MatchWidth"
     android:layout_margin="@dimen/margin_quarter"
+    android:foreground="?android:attr/selectableItemBackground"
     app:cardElevation="@dimen/home_item_elevation">
 
     <RelativeLayout style="@style/MatchWidth">
@@ -33,7 +34,7 @@
                 style="@style/Textview_body3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_quarter"
+                android:layout_marginVertical="@dimen/margin_quarter"
                 android:drawablePadding="2dp"
                 android:gravity="center_vertical"
                 app:drawableStartCompat="@drawable/ic_video_10"

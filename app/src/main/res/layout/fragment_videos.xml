@@ -15,32 +15,47 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/appbar">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_below="@+id/appbar">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvSuppliers"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/dp2"
-                android:visibility="gone"
+                android:clipToPadding="false"
+                android:paddingBottom="@dimen/height_min_item"
+                android:visibility="visible"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:spanCount="2"
                 tools:listitem="@layout/item_video" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <!--<androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvNoData"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="@string/no_data"
                 android:textColor="@color/text_secondary"
-                android:visibility="gone"
-                tools:visibility="visible" />
+                android:visibility="gone" />-->
 
-        </LinearLayout>
+            <ViewStub
+                android:id="@+id/viewStub"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout="@layout/layout_empty_state" />
+
+            <ProgressBar
+                android:id="@+id/pb_progress"
+                android:layout_width="@dimen/size_loader"
+                android:layout_height="@dimen/size_loader"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:visibility="gone" />
+
+
+        </RelativeLayout>
+
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </RelativeLayout>

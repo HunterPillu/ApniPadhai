@@ -11,10 +11,12 @@
     <dimen name="margin_super">24dp</dimen>
     <dimen name="margin_duper">32dp</dimen>
 
-    <dimen name="size_profile_img">124dp</dimen>
-    <dimen name="size_profile_img_2">56dp</dimen>
+    <dimen name="size_profile_img">200dp</dimen>
+    <dimen name="size_profile_img_2">64dp</dimen>
     <dimen name="height_edittext">48dp</dimen>
     <dimen name="height_video_item">140dp</dimen>
+    <dimen name="width_video_item_horizontal">300dp</dimen>
+    <dimen name="height_video_item_horizontal">180dp</dimen>
 
     <dimen name="size_toolbar_icon">48dp</dimen>
     <dimen name="row_button_height">48dp</dimen>
@@ -43,6 +45,7 @@
     <dimen name="layout_corner_radius2dp">2dp</dimen>
     <dimen name="height_min_item">56dp</dimen>
     <dimen name="height_min_item_2">@dimen/height_min_item</dimen>
+    <dimen name="height_related_video_item_">90dp</dimen>
     <dimen name="home_header_elevation">0dp</dimen>
     <dimen name="home_item_elevation">2dp</dimen>
     <dimen name="setting_item_icon_size">@dimen/normal_drawable_size</dimen>
@@ -52,6 +55,12 @@
     <dimen name="height_item_bottom_divider">3dp</dimen>
     <dimen name="size_edittext_drawable">@dimen/normal_drawable_size</dimen>
     <dimen name="size_play_icon">@dimen/normal_drawable_size</dimen>
+    <dimen name="grid_item_divider">1dp</dimen>
+    <dimen name="size_online_status">12dp</dimen>
+    <dimen name="size_user_item_img">48dp</dimen>
+    <dimen name="size_loader">36dp</dimen>
+    <dimen name="size_video_menu">32dp</dimen>
+    <dimen name="dialog_icon_size">36dp</dimen>
 
     <!--<dimen name="design_bottom_navigation_item_max_width" tools:override="true">600dp</dimen>
     <dimen name="design_bottom_navigation_active_item_max_width" tools:override="true">600dp</dimen>-->
