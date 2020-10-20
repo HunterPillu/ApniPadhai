@@ -11,7 +11,7 @@
 
     <color name="palette_red">#FB1F05</color>
     <color name="palette_green">#657725</color>
-
+    <color name="app_bg">@color/white</color>
     <color name="grey_transparent_20">#20606060</color>
     <color name="black_transparent_20">#20000000</color>
     <color name="grey_transparent_10">#20999999</color>

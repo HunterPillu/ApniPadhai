@@ -1,28 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.activity.SplashActivity">
 
-   <!-- <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/imageView"
-        android:layout_width="205dp"
-        android:layout_height="305dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:visibility="gone"
-        app:srcCompat="@drawable/logo" />-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvVersion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:padding="@dimen/margin_half"
-        android:textColor="@color/white_20"
-        android:textSize="@dimen/body_secondary"
-        tools:text="v1.0" />
+        <!-- <androidx.appcompat.widget.AppCompatImageView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center"
+             android:layout_marginTop="16dp"
+             app:srcCompat="@drawable/logo" />-->
 
-</FrameLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvVersion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:padding="@dimen/margin_half"
+            android:textColor="@color/white_20"
+            android:textSize="@dimen/body_secondary"
+            tools:text="v1.0" />
+
+    </FrameLayout>
+
+    <!--    <include layout="@layout/bootom_sheet_upgrade" />-->
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

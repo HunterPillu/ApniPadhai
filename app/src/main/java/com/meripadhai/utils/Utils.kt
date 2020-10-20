@@ -16,11 +16,11 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.meripadhai.BuildConfig
 import com.meripadhai.R
 import com.meripadhai.model.Video
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -63,6 +63,21 @@ object Utils {
         sendIntent.type = "text/plain"
         context.startActivity(sendIntent)
     }
+
+    fun openAppInPlayStore(context: Context) {
+        val appId = BuildConfig.APPLICATION_ID
+        try {
+            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$appId")))
+        } catch (anfe: ActivityNotFoundException) {
+            context.startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://play.google.com/store/apps/details?id=$appId")
+                )
+            )
+        }
+    }
+
 
     fun shareVideoLink(context: Context, videoLink: String) {
         val sendIntent = Intent()

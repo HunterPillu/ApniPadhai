@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_sheet"
+    style="@style/Widget.MaterialComponents.CardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/margin_full">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/app_bg"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/margin_full"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_full"
+                android:textColor="@color/white"
+                android:textSize="@dimen/header"
+                android:textStyle="bold"
+                tools:text="Update Available" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/grid_item_divider"
+                android:layout_marginHorizontal="@dimen/margin_duper"
+                android:layout_marginVertical="@dimen/margin_medium"
+                android:background="@color/white_20" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_duper"
+            android:layout_marginTop="@dimen/margin_full"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/body_primary"
+            tools:text="new update (v1.0.2) is available for this app." />
+
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/b1"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_full"
+                android:layout_marginTop="@dimen/margin_super"
+                android:text="@string/not_now"
+                android:textAllCaps="false"
+                android:textColor="@color/text_secondary"
+                android:textSize="@dimen/body_secondary" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/b2"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_half"
+                android:layout_marginTop="@dimen/margin_super"
+                android:text="@string/update"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/body_secondary"
+                app:strokeColor="@color/colorPrimary" />
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        <!-- <View
+             android:layout_width="match_parent"
+             android:layout_height="@dimen/grid_item_divider"
+             android:layout_marginStart="56dp"
+             android:background="@color/divider" />-->
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</com.google.android.material.card.MaterialCardView>
