@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Meri Padhai</string>
+    <string name="app_name">Admin-MeriPadhai</string>
 
     <!-- Auth UI -->
     <string name="unknown_response">Unexpected onActivityResult response code</string>
@@ -51,6 +51,7 @@
     <string name="mera_doubt">Mera Doubt</string>
     <string name="text_add_video">Select category then add video link from YouTube to upload the video.</string>
     <string name="title_add_video">Manage Videos</string>
+    <string name="add_videos">Add Videos</string>
     <string name="video_link">Video Link</string>
     <string name="admin_no_subcategory">No sub category found. please create one first from \'Add Category Screen\'</string>
     <string name="load_preview">Load Preview</string>
@@ -114,5 +115,9 @@
     <string name="welcome">Welcome !</string>
     <string name="see_all">More</string>
     <string name="no_data_for_course">No data available for this course. Please select another course.</string>
+    <string name="edit_video">Edit Video</string>
+    <string name="show_video">Show Videos</string>
+    <string name="delete_videos">Delete Videos</string>
+    <string name="use_latest_version">Please use latest admin app</string>
 
 </resources>

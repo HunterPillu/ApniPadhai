@@ -36,6 +36,7 @@ class AdminFragment : BaseFragment() {
         bAddVideos.setOnClickListener { openFragment(AddVideoFragment.newInstance()) }
         bSyncCount.setOnClickListener { updateVideoCount() /*updateUserUid()*/ }
         bAddAffairs.setOnClickListener { openFragment(AddAffairFragment.newInstance()) }
+        bDeleteVideos.setOnClickListener { openFragment(ManageVideoFragment.newInstance()) }
     }
 
     override fun onResume() {
@@ -59,7 +60,7 @@ class AdminFragment : BaseFragment() {
         //val parentID = PrefUtil.getCourseId(context!!)
 
         if (!Connectivity.isConnected(context!!)) {
-            shortToast(getString(R.string.no_internet_connection))
+            shortToast(context!!,getString(R.string.no_internet_connection))
             return
         }
 

@@ -73,41 +73,41 @@
              android:visibility="gone"
              tools:listitem="@layout/support_simple_spinner_dropdown_item" />-->
 
-
-        <RelativeLayout
-            android:id="@+id/rlVideo"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/row_button_height"
-            android:layout_marginHorizontal="@dimen/margin_full"
-            android:layout_marginTop="@dimen/margin_full"
-            android:background="@drawable/rounded_edittext"
-            android:gravity="center_vertical"
-            android:paddingLeft="@dimen/margin_half"
-            android:paddingRight="@dimen/margin_half"
-            android:visibility="gone"
-            tools:visibility="visible">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/img1"
-                android:layout_width="@dimen/size_edittext_drawable"
-                android:layout_height="@dimen/size_edittext_drawable"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                app:srcCompat="@drawable/ic_video_24"
-                app:tint="@color/colorPrimary" />
-
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/etVideoLink"
+            <RelativeLayout
+                android:id="@+id/rlVideo"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/row_button_height"
-                android:layout_marginStart="@dimen/margin_medium"
-                android:layout_toEndOf="@id/img1"
-                android:background="@null"
-                android:hint="@string/video_link"
-                android:textSize="@dimen/sub_title" />
+                android:layout_marginStart="@dimen/margin_half"
+                android:layout_marginTop="@dimen/margin_full"
+                android:layout_marginEnd="@dimen/margin_full"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_edittext"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/margin_half"
+                android:paddingRight="@dimen/margin_half"
+                android:visibility="gone"
+                tools:visibility="visible">
 
-        </RelativeLayout>
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/img1"
+                    android:layout_width="@dimen/size_edittext_drawable"
+                    android:layout_height="@dimen/size_edittext_drawable"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    app:srcCompat="@drawable/ic_video_24"
+                    app:tint="@color/colorPrimary" />
 
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/etVideoLink"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/row_button_height"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:layout_toEndOf="@id/img1"
+                    android:background="@null"
+                    android:hint="@string/video_link"
+                    android:textSize="@dimen/sub_title" />
+
+            </RelativeLayout>
 
         <include
             android:id="@+id/rlItemVideo"

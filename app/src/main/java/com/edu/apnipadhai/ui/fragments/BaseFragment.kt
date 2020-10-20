@@ -1,14 +1,10 @@
 package com.edu.apnipadhai.ui.fragments
 
 import android.content.Context
-import android.content.Intent
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.edu.apnipadhai.callbacks.FragmentEventListener
-import com.edu.apnipadhai.model.User
-import com.edu.apnipadhai.ui.activity.CommonActivity
-import com.edu.apnipadhai.utils.Const
 
 open class BaseFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     private var TAG = "BaseFragment"
@@ -45,16 +41,6 @@ open class BaseFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
     fun updateToolbarTitle(title: String) {
         listener?.updateToolbarTitle(title)
-    }
-
-    fun openScreen(type: Int) {
-        startActivity(Intent(context!!, CommonActivity::class.java).apply {
-            putExtra(Const.EXTRA_TYPE, type)
-        })
-    }
-
-    fun sendGameInvite(item: User) {
-        listener?.onInviteOpponent(item)
     }
 
     open fun initViews() {

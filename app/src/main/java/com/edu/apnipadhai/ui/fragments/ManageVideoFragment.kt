@@ -1,31 +1,26 @@
 package com.edu.apnipadhai.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import com.bumptech.glide.Glide
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.model.Category
 import com.edu.apnipadhai.model.Course
 import com.edu.apnipadhai.model.VideoModel
+import com.edu.apnipadhai.ui.activity.VideoListActivity
 import com.edu.apnipadhai.ui.adapter.SpinnerAdapter
-import com.edu.apnipadhai.utils.Const
 import com.edu.apnipadhai.utils.CustomLog
 import com.edu.apnipadhai.utils.Utils
-import com.edu.apnipadhai.utils.YouTubeDataEndpoint
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_add_video.*
-import kotlinx.android.synthetic.main.fragment_add_video.rlVideo
-import kotlinx.android.synthetic.main.item_video.*
+import kotlinx.android.synthetic.main.fragment_manage_video.*
 
-class AddVideoFragment : BaseFragment() {
+class ManageVideoFragment : BaseFragment() {
 
+    private var selectedItemVo: Category? = null
     private var list0: ArrayList<Course> = ArrayList()
     private var list1: ArrayList<Course> = ArrayList()
     private var list2: ArrayList<Course> = ArrayList()
@@ -44,7 +39,7 @@ class AddVideoFragment : BaseFragment() {
             return layoutView
         }
 
-        layoutView = inflater.inflate(R.layout.fragment_add_video, container, false)
+        layoutView = inflater.inflate(R.layout.fragment_manage_video, container, false)
         //saveCategories()
         //fetchData(0)
         layoutView?.findViewById<View>(R.id.bNext)?.setOnClickListener { }
@@ -56,8 +51,12 @@ class AddVideoFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        bPreview.setOnClickListener { v -> getVideoTitle(etVideoLink.text.toString()) }
-        bSubmit.setOnClickListener { saveVideo() }
+        bEdit.setOnClickListener {
+            val intent = Intent(context!!, VideoListActivity::class.java).apply {
+                putExtra("item", Gson().toJson(selectedItemVo))
+            }
+            startActivity(intent)
+        }
     }
 
     fun getCategory(type: Int, parentID: Int?) {
@@ -219,9 +218,9 @@ class AddVideoFragment : BaseFragment() {
                     return
                 }
                 selectItem2 = list2[position].id
+                selectedItemVo = list2[position]
 
-                rlVideo.visibility = View.VISIBLE
-                bPreview.visibility = View.VISIBLE
+                bEdit.visibility = View.VISIBLE
 
             }
 
@@ -233,93 +232,25 @@ class AddVideoFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        updateToolbarTitle(getString(R.string.title_add_video))
+        updateToolbarTitle(getString(R.string.delete_videos))
     }
 
-    fun saveVideo() {
-        if (null == videoInfo) {
-            CustomLog.d(TAG, "error : videoInfo is null")
-            Utils.showToast(
-                context!!,
-                getString(R.string.invalid_video)
-            )
-            return
-        }
-        videoInfo?.courseId = selectItem1
-        val videoList = FirebaseFirestore.getInstance().collection(Const.TABLE_VIDEOS)
-        videoList.add(videoInfo!!).addOnCompleteListener {
-            videoInfo = null
-            hideLowerContent()
-            Utils.showToast(
-                context!!,
-                getString(R.string.video_uploaded)
-            )
-        }
-    }
-
-    fun isValid(videoId: String): Boolean {
-        return videoId.isEmpty()
-    }
-
-    private fun getVideoTitle(videoId: String) {
-
-        if (isValid(videoId)) {
-            CustomLog.e(TAG, "Empty video title")
-            return
-        }
-
-        val observable: Single<VideoModel> =
-            YouTubeDataEndpoint.getVideoInfoFromYouTubeDataAPIs(videoId);
-
-        observable
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                { video ->
-                    CustomLog.d(TAG, "VIDEO_INFO " + Gson().toJson(video))
-                    videoInfo = video
-                    showVideoView()
-                },
-                { throwable ->
-                    throwable.printStackTrace()
-                    Utils.showToast(context!!, getString(R.string.invalid_video))
-                    CustomLog.e(
-                        TAG,
-                        "Can't retrieve video title, are you connected to the internet?"
-                    )
-                })
-
-    }
-
-    fun showVideoView() {
-        bPreview.visibility = View.GONE
-        bSubmit.visibility = View.VISIBLE
-        rlItemVideo.visibility = View.VISIBLE
-
-        videoInfo?.categoryId = "$selectItem2"
-        tvTitle.text = videoInfo?.name
-        tvOther.text = videoInfo?.channel
-        Glide.with(context!!).load(videoInfo?.thumbnailUrl).into(ivThumbnail)
-    }
 
     fun hideLowerContent() {
-        rlVideo.visibility = View.GONE
-        bPreview.visibility = View.GONE
-        bSubmit.visibility = View.GONE
-        rlItemVideo.visibility = View.GONE
+        bEdit.visibility = View.GONE
     }
 
 
     companion object {
-        internal val TAG = AddVideoFragment::class.java.simpleName
+        internal val TAG = ManageVideoFragment::class.java.simpleName
         /* fun newInstance(item: Category): CategoryFragment {
              val fragment = CategoryFragment()
              fragment.item = item
              return fragment
          }*/
 
-        fun newInstance(): AddVideoFragment {
-            return AddVideoFragment()
+        fun newInstance(): ManageVideoFragment {
+            return ManageVideoFragment()
         }
     }
 

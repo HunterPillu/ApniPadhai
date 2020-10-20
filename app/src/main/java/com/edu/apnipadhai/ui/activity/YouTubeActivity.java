@@ -28,7 +28,6 @@ import com.edu.apnipadhai.ui.adapter.VideoRelatedAdapter;
 import com.edu.apnipadhai.utils.Const;
 import com.edu.apnipadhai.utils.FullScreenHelper;
 import com.edu.apnipadhai.utils.Utils;
-import com.edu.apnipadhai.utils.YouTubeDataEndpoint;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -78,18 +77,6 @@ public class YouTubeActivity extends AppCompatActivity implements ListItemClickL
         init();
         setRecyclerView();
         fetchData();
-
-        youTubePlayerView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-
-                if (mode != null)
-                    return false;
-                mode = startSupportActionMode(callback);
-
-                return false;
-            }
-        });
     }
 
     private void init() {
@@ -114,7 +101,6 @@ public class YouTubeActivity extends AppCompatActivity implements ListItemClickL
                 shareVideoLink(videoModel.getVideoId());
                 break;
             case Const.TYPE_BOOKMARK:
-                Utils.bookmarkVideo(YouTubeActivity.this, videoModel.getFKey());
                 break;
             default:
                 Intent intent = new Intent(this, YouTubeActivity.class);
@@ -159,39 +145,6 @@ public class YouTubeActivity extends AppCompatActivity implements ListItemClickL
         sendIntent.setType("text/plain");
         startActivity(sendIntent);
     }
-
-
-    ActionMode.Callback callback = new ActionMode.Callback() {
-        @Override
-        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-
-            MenuInflater inflater = mode.getMenuInflater();
-            inflater.inflate(R.menu.search_menu, menu);
-
-            return false;
-        }
-
-        @Override
-        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-            return false;
-        }
-
-        @Override
-        public boolean onActionItemClicked(ActionMode mode, android.view.MenuItem item) {
-
-            switch (item.getItemId()) {
-                case R.id.one11:
-                    Toast.makeText(YouTubeActivity.this, "hello", Toast.LENGTH_SHORT).show();
-            }
-
-            return false;
-        }
-
-        @Override
-        public void onDestroyActionMode(ActionMode mode) {
-
-        }
-    };
 
     @Override
     public void onConfigurationChanged(@NotNull Configuration newConfiguration) {
@@ -286,47 +239,5 @@ public class YouTubeActivity extends AppCompatActivity implements ListItemClickL
     private void removeCustomActionsFromPlayer() {
         youTubePlayerView.getPlayerUiController().showCustomAction1(false);
         youTubePlayerView.getPlayerUiController().showCustomAction2(false);
-    }
-
-    /**
-     * Set a click listener on the "Play next video" button
-     */
-    /*private void setPlayNextVideoButtonClickListener(final YouTubePlayer youTubePlayer) {
-        Button playNextVideoButton = findViewById(R.id.next_video_button);
-
-        playNextVideoButton.setOnClickListener(view ->
-                YouTubePlayerUtils.loadOrCueVideo(
-                        youTubePlayer, getLifecycle(),
-                        VideoIdsProvider.getNextVideoId(),0f
-                ));
-    }*/
-
-    /**
-     * This method is here just for reference, it is not being used because the IFrame player already shows the title of the video.
-     * <p>
-     * This method is called every time a new video is being loaded/cued.
-     * It uses the YouTube Data APIs to fetch the video title from the video ID.
-     * The YouTube Data APIs are nothing more then a wrapper over the YouTube REST API.
-     * You can learn more at the following urls:
-     * https://developers.google.com/youtube/v3/docs/videos/list
-     * https://developers.google.com/apis-explorer/#p/youtube/v3/youtube.videos.list?part=snippet&id=6JYIGclVQdw&fields=items(snippet(title))&_h=9&
-     * <p>
-     * This method does network operations, therefore it cannot be executed on the main thread.
-     * For simplicity I have used RxJava to implement the asynchronous logic. You can use whatever you want: Threads, AsyncTask ecc.
-     */
-    @SuppressLint("CheckResult")
-    private void setVideoTitle(PlayerUiController playerUiController, String videoId) {
-
-        Single<VideoModel> observable = YouTubeDataEndpoint.getVideoInfoFromYouTubeDataAPIs(videoId);
-
-        observable
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        videoInfo -> playerUiController.setVideoTitle(videoInfo.getName()),
-                        error -> {
-                            Log.e(getClass().getSimpleName(), "Can't retrieve video title, are you connected to the internet?");
-                        }
-                );
     }
 }

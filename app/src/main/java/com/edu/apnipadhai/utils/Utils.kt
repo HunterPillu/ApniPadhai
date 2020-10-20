@@ -18,9 +18,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import com.edu.apnipadhai.BuildConfig
 import com.edu.apnipadhai.R
-import com.edu.apnipadhai.model.Bookmark
 import com.edu.apnipadhai.model.Video
-import com.edu.apnipadhai.model.VideoModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
@@ -140,22 +138,6 @@ object Utils {
         }
     }
 
-    fun getSizeInMB(size: Long): String {
-        //5848639
-        var size = size
-        size = size / 100000
-        val result = size / 10.toFloat()
-        return result.toString() + "MB"
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    fun getBatteryOptimizerExemptionIntent(packageName: String): Intent {
-        val intent =
-            Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
-        intent.data = Uri.parse("package:$packageName")
-        return intent
-    }
-
     fun canHandleIntent(
         batteryExemptionIntent: Intent,
         packageManager: PackageManager?
@@ -172,66 +154,5 @@ object Utils {
             view = View(activity)
         }
         imm.hideSoftInputFromWindow(view.windowToken, 0)
-    }
-
-    fun getUniqueValue(): String? {
-        val ft = SimpleDateFormat("yyyyMMddhhmmssSSS")
-        return ft.format(Date()) + (Math.random() * 10).toInt()
-    }
-
-    fun size2String(filesize: Long): String? {
-        val unit = 1024
-        if (filesize < unit) {
-            return String.format("%d bytes", filesize)
-        }
-        val exp =
-            (Math.log(filesize.toDouble()) / Math.log(unit.toDouble())).toInt()
-        return String.format(
-            "%.0f %sbytes",
-            filesize / Math.pow(unit.toDouble(), exp.toDouble()),
-            "KMGTPE"[exp - 1]
-        )
-    }
-
-    fun getRootPath(): String? {
-        val sdPath: String
-        val ext1 = Environment.getExternalStorageState()
-        sdPath = if (ext1 == Environment.MEDIA_MOUNTED) {
-            Environment.getExternalStorageDirectory().absolutePath
-        } else {
-            Environment.MEDIA_UNMOUNTED
-        }
-        return sdPath
-    }
-
-    fun isPermissionGranted(
-        activity: Activity,
-        permission: String
-    ): Boolean {
-        return if (Build.VERSION.SDK_INT >= 23) {
-            if (activity.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED) {
-                Log.v("DirectTalk9", "Permission is granted")
-                true
-            } else {
-                Log.v("DirectTalk9", "Permission is revoked")
-                ActivityCompat.requestPermissions(activity, arrayOf(permission), 1)
-                false
-            }
-        } else { //permission is automatically granted on sdk<23 upon installation
-            Log.v("DirectTalk9", "Permission is granted")
-            true
-        }
-    }
-
-    @JvmStatic
-    fun bookmarkVideo(context : Context,fKey : String) {
-        val videoList = FirebaseFirestore.getInstance().collection(Const.TABLE_BOOKMARK)
-            .document(FirebaseAuth.getInstance().currentUser?.uid!!).collection(Const.SUB_BOOKMARK_VIDEOS)
-        videoList.add(Video(fKey)).addOnCompleteListener {
-            Utils.showToast(
-                context,
-                context.getString(R.string.msg_bookmark_success)
-            )
-        }
     }
 }

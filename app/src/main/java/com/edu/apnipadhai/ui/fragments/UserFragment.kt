@@ -15,14 +15,13 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
-import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.edu.apnipadhai.BuildConfig
 import com.edu.apnipadhai.R
 import com.edu.apnipadhai.model.User
-import com.edu.apnipadhai.ui.activity.CommonActivity
+import com.edu.apnipadhai.ui.activity.AdminActivity
 import com.edu.apnipadhai.utils.Const
 import com.edu.apnipadhai.utils.GlideApp
 import com.edu.apnipadhai.utils.Utils.hideKeyboard
@@ -252,17 +251,14 @@ class UserFragment : BaseFragment() {
     }
 
     private fun moveNext() {
-
         if (isUpdating) {
             onBackPressed()
         } else {
-            startActivity(Intent(activity, CommonActivity::class.java).apply {
-                putExtra(Const.EXTRA_TYPE, Const.SCREEN_COURSE)
+            startActivity(Intent(activity, AdminActivity::class.java).apply {
+                //putExtra(Const.EXTRA_TYPE, Const.SCREEN_COURSE)
                 setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
             })
         }
-
-
     }
 
     private fun validateForm(): Boolean {

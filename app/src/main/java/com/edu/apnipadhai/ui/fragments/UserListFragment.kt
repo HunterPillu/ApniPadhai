@@ -80,7 +80,7 @@ class UserListFragment : BaseFragment(), ListItemClickListener<Int, User> {
     }
 
     override fun onItemClick(type: Int, item: User) {
-        super.sendGameInvite(item)
+
     }
 
 }

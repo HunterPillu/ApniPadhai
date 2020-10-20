@@ -3,16 +3,7 @@ package com.edu.apnipadhai.utils
 object Const {
 
 
-    const val VIDEO_THRESHOLD = 5
-    const val SCREEN_USER_INVITE = 203
-    const val SCREEN_COURSE = 202
-    const val SCREEN_USER = 201
-    const val SCREEN_BOOKMARK = 204
-    const val EXTRA_TYPE: String = "extra_type"
 
-
-    const val ITEM_3 = 3
-    const val SETTING_USER: Int = 2
     const val COURSE_HEADER: Int = 1
     const val COURSE_ITEM: Int = 0
     const val VIDEO_ID: String = "videoId"
@@ -20,7 +11,6 @@ object Const {
     const val COURSE_SELECT = "course_selected"
     const val VIDEO_MODEL = "video_model"
     const val INTRO_ENABLE = true
-    const val SHOW_INTRO_ALWAYS = true && INTRO_ENABLE
 
 
     //EVENT TYPE
@@ -55,11 +45,4 @@ object Const {
     const val FIELD_CATEGORY_ID = "categoryId"
     const val FIELD_VIDEOID = "videoId"
     const val FIELD_FKEY = "fkey"
-
-    //Game status
-    const val STATUS_IN_GAME = 3
-    const val STATUS_IDLE = 0
-    const val STATUS_REJECT = 1
-
-    const val CAN_REQUEST_IF_OFFLINE = true
 }
