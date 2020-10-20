@@ -1,12 +1,10 @@
 package com.meripadhai.ui.activity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,6 +16,12 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.gson.Gson;
 import com.meripadhai.R;
 import com.meripadhai.callbacks.ListItemClickListener;
 import com.meripadhai.model.VideoModel;
@@ -25,28 +29,16 @@ import com.meripadhai.ui.adapter.VideoRelatedAdapter;
 import com.meripadhai.utils.Const;
 import com.meripadhai.utils.FullScreenHelper;
 import com.meripadhai.utils.Utils;
-import com.meripadhai.utils.YouTubeDataEndpoint;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.gson.Gson;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTubePlayerUtils;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.PlayerUiController;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.menu.MenuItem;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-
-import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 
 public class YouTubeActivity extends AppCompatActivity implements ListItemClickListener<Integer, VideoModel> {
@@ -283,47 +275,5 @@ public class YouTubeActivity extends AppCompatActivity implements ListItemClickL
     private void removeCustomActionsFromPlayer() {
         youTubePlayerView.getPlayerUiController().showCustomAction1(false);
         youTubePlayerView.getPlayerUiController().showCustomAction2(false);
-    }
-
-    /**
-     * Set a click listener on the "Play next video" button
-     */
-    /*private void setPlayNextVideoButtonClickListener(final YouTubePlayer youTubePlayer) {
-        Button playNextVideoButton = findViewById(R.id.next_video_button);
-
-        playNextVideoButton.setOnClickListener(view ->
-                YouTubePlayerUtils.loadOrCueVideo(
-                        youTubePlayer, getLifecycle(),
-                        VideoIdsProvider.getNextVideoId(),0f
-                ));
-    }*/
-
-    /**
-     * This method is here just for reference, it is not being used because the IFrame player already shows the title of the video.
-     * <p>
-     * This method is called every time a new video is being loaded/cued.
-     * It uses the YouTube Data APIs to fetch the video title from the video ID.
-     * The YouTube Data APIs are nothing more then a wrapper over the YouTube REST API.
-     * You can learn more at the following urls:
-     * https://developers.google.com/youtube/v3/docs/videos/list
-     * https://developers.google.com/apis-explorer/#p/youtube/v3/youtube.videos.list?part=snippet&id=6JYIGclVQdw&fields=items(snippet(title))&_h=9&
-     * <p>
-     * This method does network operations, therefore it cannot be executed on the main thread.
-     * For simplicity I have used RxJava to implement the asynchronous logic. You can use whatever you want: Threads, AsyncTask ecc.
-     */
-    @SuppressLint("CheckResult")
-    private void setVideoTitle(PlayerUiController playerUiController, String videoId) {
-
-        Single<VideoModel> observable = YouTubeDataEndpoint.getVideoInfoFromYouTubeDataAPIs(videoId);
-
-        observable
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        videoInfo -> playerUiController.setVideoTitle(videoInfo.getName()),
-                        error -> {
-                            Log.e(getClass().getSimpleName(), "Can't retrieve video title, are you connected to the internet?");
-                        }
-                );
     }
 }
