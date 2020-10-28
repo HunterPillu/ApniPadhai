@@ -62,28 +62,29 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/b1"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_full"
                 android:layout_marginTop="@dimen/margin_super"
                 android:text="@string/not_now"
                 android:textAllCaps="false"
-                android:textColor="@color/text_secondary"
+                android:textColor="@color/colorPrimary"
+                app:strokeColor="@color/colorPrimary"
                 android:textSize="@dimen/body_secondary" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/b2"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_half"
                 android:layout_marginTop="@dimen/margin_super"
                 android:text="@string/update"
+                android:background="@color/colorPrimary"
                 android:textAllCaps="false"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/white"
                 android:textSize="@dimen/body_secondary"
-                app:strokeColor="@color/colorPrimary" />
+                />
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>

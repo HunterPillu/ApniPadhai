@@ -61,12 +61,65 @@
     },
     {
       "client_info": {
+        "mobilesdk_app_id": "1:402810945313:android:627548c83be5a4e3918860",
+        "android_client_info": {
+          "package_name": "com.merionlinepadhai"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "402810945313-tddacr1rpre985fqmqqd7vpkpcevdjln.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.merionlinepadhai",
+            "certificate_hash": "43e56bde6f03d3d38057293d91f6dd7b458106c0"
+          }
+        },
+        {
+          "client_id": "402810945313-mgq3scmhpvif3ldc4h5u05f4n75vkamp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.merionlinepadhai",
+            "certificate_hash": "5abda0ea0fdcc745e0ecfd90f2194c3579c8b98e"
+          }
+        },
+        {
+          "client_id": "402810945313-heejnvis2ukln0en36ooh2sm416j8mos.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQjye7b-6dF7lSkmsYnlSD_MprJOuMEaU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "402810945313-heejnvis2ukln0en36ooh2sm416j8mos.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:402810945313:android:1366311a7f9adfe1918860",
         "android_client_info": {
           "package_name": "com.meripadhai"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "402810945313-53eh7anone5rl23j90a4n72cjc9fd69q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.meripadhai",
+            "certificate_hash": "334cb53ec414229df6b67035f26617a7a8ed4bf9"
+          }
+        },
         {
           "client_id": "402810945313-lc1eb86sf4q1i0r1drm11bn5bmpd3mik.apps.googleusercontent.com",
           "client_type": 1,
